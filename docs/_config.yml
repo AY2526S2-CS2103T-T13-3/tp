@@ -15,4 +15,5 @@ plugins:
   - jemoji
 
 baseurl: "/tp"
+
 url: "https://ay2526s2-cs2103t-t13-3.github.io"
