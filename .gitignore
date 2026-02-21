@@ -24,4 +24,5 @@ docs/_site/
 
 # Local bundler files
 .bundle/
+
 vendor/
