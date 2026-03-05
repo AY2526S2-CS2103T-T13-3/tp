@@ -9,12 +9,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Brenda Tan 
+### Damithch
 
-<img src="images/brenda77777.png" width="200px">
+<img src="images/johndoe.png" width="200px">
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch=)]
-[[github](https://github.com/brenda77777)]
+[[github](https://github.com/damithch)]
 [[portfolio](team/johndoe.md)]
 
 
@@ -26,15 +26,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Brenda Tan Kai Xin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/brenda77777.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/brenda77777)]
 
 * Role: Team Lead
-* Responsibilities: UI
+* Responsibilities: Backend development
 
 ### Johnny Doe
 
