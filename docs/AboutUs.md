@@ -21,13 +21,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Jane Doe
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/Xingchen722.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/Xingchen722]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Tech Lead
+* Responsibilities: software development
 
 ### Johnny Doe
 
