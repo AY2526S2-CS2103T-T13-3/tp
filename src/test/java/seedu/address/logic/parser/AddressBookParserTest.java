@@ -28,6 +28,10 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.person.Remark;
+
 
 public class AddressBookParserTest {
 
@@ -97,5 +101,11 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_remark() throws Exception {
+        RemarkCommand command = (RemarkCommand) parser.parseCommand("remark 1 r/test");
+        assertEquals(new RemarkCommand(Index.fromOneBased(1), new Remark("test")), command);
     }
 }
