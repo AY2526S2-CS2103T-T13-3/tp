@@ -38,9 +38,9 @@ Manage the project repository and branching strategy to integrate individual mod
 * Role: Team Leader
 * Responsibilities: software development
 
-### Xingchen
+### Guo Xingchen
 
-<img src="images/Xingchen722.png" width="200px">
+<img src="images/xingchen722.png" width="200px">
 
 [[github](https://github.com/Xingchen722)]
 
