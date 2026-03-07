@@ -11,13 +11,12 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
-import seedu.address.logic.Messages;
-
 
 public class RemarkCommandTest {
 
@@ -25,14 +24,6 @@ public class RemarkCommandTest {
     public static final String VALID_REMARK_BOB = "Favourite pastime: Eating";
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-//    @Test
-//    public void execute() {
-//        final Remark remark = new Remark("Some remark");
-//
-//        assertCommandFailure(new RemarkCommand(INDEX_FIRST_PERSON, remark), model,
-//                String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), remark));
-//    }
 
     @Test
     public void equals() {
