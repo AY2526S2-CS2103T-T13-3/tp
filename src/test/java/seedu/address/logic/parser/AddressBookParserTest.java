@@ -127,4 +127,22 @@ public class AddressBookParserTest {
         assertThrows(ParseException.class, () ->
                 parser.parseCommand("remark r/test"));
     }
+
+    @Test
+    public void parseCommand_invalidArgs() {
+        assertThrows(ParseException.class, () ->
+                parser.parseCommand("remark"));
+    }
+
+    @Test
+    public void parseCommand_invalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () ->
+                parser.parseCommand("remark 0 r/test"));
+    }
+
+    @Test
+    public void parseCommand_missingRemark_throwsParseException() {
+        assertThrows(ParseException.class, () ->
+                parser.parseCommand("remark 1"));
+    }
 }
