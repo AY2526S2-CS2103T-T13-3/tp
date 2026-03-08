@@ -101,7 +101,6 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && remark.equals(otherPerson.remark)
                 && tags.equals(otherPerson.tags);
     }
 
@@ -118,7 +117,6 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("remark", remark)
                 .add("tags", tags)
                 .toString();
     }
