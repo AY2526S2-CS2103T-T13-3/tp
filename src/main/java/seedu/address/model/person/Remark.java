@@ -35,9 +35,4 @@ public class Remark {
         return value.hashCode();
     }
 
-    public static boolean isValidRemark(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
-
 }
