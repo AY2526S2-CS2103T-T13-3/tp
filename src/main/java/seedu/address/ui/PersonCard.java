@@ -27,8 +27,6 @@ public class PersonCard extends UiPart<Region> {
     public final Person person;
 
     @FXML
-    private Label remark;
-    @FXML
     private HBox cardPane;
     @FXML
     private Label name;
@@ -40,6 +38,8 @@ public class PersonCard extends UiPart<Region> {
     private Label address;
     @FXML
     private Label email;
+    @FXML
+    private Label remark;
     @FXML
     private FlowPane tags;
 
