@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class NameContainsKeywordsPredicateTest {
+public class RoleContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {

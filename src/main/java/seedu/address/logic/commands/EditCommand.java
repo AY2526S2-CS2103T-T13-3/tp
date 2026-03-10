@@ -21,11 +21,11 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.application.Address;
+import seedu.address.model.application.HrEmail;
+import seedu.address.model.application.Person;
+import seedu.address.model.application.Phone;
+import seedu.address.model.application.Role;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -95,13 +95,13 @@ public class EditCommand extends Command {
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+        Role updatedRole = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        HrEmail updatedHrEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedRole, updatedPhone, updatedHrEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -133,9 +133,9 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
-        private Name name;
+        private Role role;
         private Phone phone;
-        private Email email;
+        private HrEmail hrEmail;
         private Address address;
         private Set<Tag> tags;
 
@@ -146,9 +146,9 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
+            setName(toCopy.role);
             setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+            setEmail(toCopy.hrEmail);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -157,15 +157,15 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(role, phone, hrEmail, address, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setName(Role role) {
+            this.role = role;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Role> getName() {
+            return Optional.ofNullable(role);
         }
 
         public void setPhone(Phone phone) {
@@ -176,12 +176,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setEmail(HrEmail hrEmail) {
+            this.hrEmail = hrEmail;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<HrEmail> getEmail() {
+            return Optional.ofNullable(hrEmail);
         }
 
         public void setAddress(Address address) {
@@ -221,9 +221,9 @@ public class EditCommand extends Command {
             }
 
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
-            return Objects.equals(name, otherEditPersonDescriptor.name)
+            return Objects.equals(role, otherEditPersonDescriptor.role)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
+                    && Objects.equals(hrEmail, otherEditPersonDescriptor.hrEmail)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
@@ -231,9 +231,9 @@ public class EditCommand extends Command {
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("name", name)
+                    .add("name", role)
                     .add("phone", phone)
-                    .add("email", email)
+                    .add("email", hrEmail)
                     .add("address", address)
                     .add("tags", tags)
                     .toString();

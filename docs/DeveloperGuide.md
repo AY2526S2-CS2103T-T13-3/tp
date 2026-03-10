@@ -57,7 +57,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 
 Each of the four main components (also shown in the diagram above),
 
-* defines its *API* in an `interface` with the same name as the Component.
+* defines its *API* in an `interface` with the same role as the Component.
 * implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
@@ -111,7 +111,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command role e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -284,14 +284,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a … | I want to … | So that I can… |
 | --- | --- | --- | --- |
 | `* * *` | student applying for internships | add a new application record | keep track of the companies and roles I applied to |
-| `* * *` | student applying for internships | record the HR representative’s name | follow up professionally with companies |
+| `* * *` | student applying for internships | record the HR representative’s role | follow up professionally with companies |
 | `* * *` | student applying for internships | record internship roles offered | remember the positions available |
 | `* * *` | student applying for internships | record application deadlines | avoid missing submission dates |
 | `* * *` | student applying for internships | update the status of an application | track whether my application is pending, interviewing, rejected, or offered |
 | `* * *` | student applying for internships | view all my application records | get an overview of my internship applications |
 | `* * *` | student applying for internships | sort applications by deadline | handle urgent applications first |
 | `* * *` | student applying for internships | delete an application record | remove incorrect or outdated entries |
-| `* *` | student applying for internships | search by company name or role | quickly find a specific application |
+| `* *` | student applying for internships | search by company role or role | quickly find a specific application |
 | `* *` | student applying for internships | categorize companies by industry | organize applications more clearly |
 | `* *` | student applying for internships | tag companies by interest level | prioritize which opportunities to focus on |
 | `* *` | student applying for internships | record interview dates and format | prepare appropriately for interviews |
@@ -316,7 +316,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. Student requests to add a new internship application.
-2. System requests for application details: company, HR name, role, deadline.
+2. System requests for application details: company, HR role, role, deadline.
 3. Student provides the required details.
 4. System validates the input.
 5. System saves the application and assigns a unique ID.
