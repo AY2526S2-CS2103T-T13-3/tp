@@ -79,7 +79,7 @@ public class EditCommand extends Command {
         Application applicationToEdit = lastShownList.get(index.getZeroBased());
         Application editedApplication = createEditedPerson(applicationToEdit, editPersonDescriptor);
 
-        if (!applicationToEdit.isSamePerson(editedApplication) && model.hasPerson(editedApplication)) {
+        if (!applicationToEdit.isSameApplication(editedApplication) && model.hasPerson(editedApplication)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

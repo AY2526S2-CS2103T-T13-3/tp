@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.application.exceptions.DuplicatePersonException;
-import seedu.address.model.application.exceptions.PersonNotFoundException;
+import seedu.address.model.application.exceptions.DuplicateApplicationException;
+import seedu.address.model.application.exceptions.ApplicationNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueApplicationListTest {
@@ -55,7 +55,7 @@ public class UniqueApplicationListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniqueApplicationList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueApplicationList.add(ALICE));
+        assertThrows(DuplicateApplicationException.class, () -> uniqueApplicationList.add(ALICE));
     }
 
     @Test
@@ -70,11 +70,11 @@ public class UniqueApplicationListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueApplicationList.setPerson(ALICE, ALICE));
+        assertThrows(ApplicationNotFoundException.class, () -> uniqueApplicationList.setPerson(ALICE, ALICE));
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setPerson_editedPersonIsSameApplication_success() {
         uniqueApplicationList.add(ALICE);
         uniqueApplicationList.setPerson(ALICE, ALICE);
         UniqueApplicationList expectedUniqueApplicationList = new UniqueApplicationList();
@@ -106,7 +106,7 @@ public class UniqueApplicationListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueApplicationList.add(ALICE);
         uniqueApplicationList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniqueApplicationList.setPerson(ALICE, BOB));
+        assertThrows(DuplicateApplicationException.class, () -> uniqueApplicationList.setPerson(ALICE, BOB));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class UniqueApplicationListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueApplicationList.remove(ALICE));
+        assertThrows(ApplicationNotFoundException.class, () -> uniqueApplicationList.remove(ALICE));
     }
 
     @Test
@@ -159,7 +159,7 @@ public class UniqueApplicationListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Application> listWithDuplicateApplications = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueApplicationList.setPersons(listWithDuplicateApplications));
+        assertThrows(DuplicateApplicationException.class, () -> uniqueApplicationList.setPersons(listWithDuplicateApplications));
     }
 
     @Test

@@ -8,19 +8,19 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.application.exceptions.DuplicatePersonException;
-import seedu.address.model.application.exceptions.PersonNotFoundException;
+import seedu.address.model.application.exceptions.DuplicateApplicationException;
+import seedu.address.model.application.exceptions.ApplicationNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of applications that enforces uniqueness between its elements and does not allow nulls.
+ * An application is considered unique by comparing using {@code Application#isSameApplication(Application)}. As such, adding and updating of
+ * applications uses Application#isSameApplication(Application) for equality so as to ensure that the application being added or updated is
+ * unique in terms of identity in the UniqueApplicationList. However, the removal of an application uses Application#equals(Object) so
+ * as to ensure that the application with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Application#isSamePerson(Application)
+ * @see Application#isSameApplication(Application)
  */
 public class UniqueApplicationList implements Iterable<Application> {
 
@@ -29,69 +29,69 @@ public class UniqueApplicationList implements Iterable<Application> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent application as the given argument.
      */
     public boolean contains(Application toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameApplication);
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds an application to the list.
+     * The application must not already exist in the list.
      */
     public void add(Application toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateApplicationException();
         }
         internalList.add(toAdd);
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the application {@code target} in the list with {@code editedApplication}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The application identity of {@code editedApplication} must not be the same as another existing application in the list.
      */
-    public void setPerson(Application target, Application editedApplication) {
+    public void setApplication(Application target, Application editedApplication) {
         requireAllNonNull(target, editedApplication);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new ApplicationNotFoundException();
         }
 
-        if (!target.isSamePerson(editedApplication) && contains(editedApplication)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameApplication(editedApplication) && contains(editedApplication)) {
+            throw new DuplicateApplicationException();
         }
 
         internalList.set(index, editedApplication);
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent application from the list.
+     * The application must exist in the list.
      */
     public void remove(Application toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new ApplicationNotFoundException();
         }
     }
 
-    public void setPersons(UniqueApplicationList replacement) {
+    public void setApplications(UniqueApplicationList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code applications}.
+     * {@code applications} must not contain duplicate applications.
      */
-    public void setPersons(List<Application> applications) {
+    public void setApplications(List<Application> applications) {
         requireAllNonNull(applications);
-        if (!personsAreUnique(applications)) {
-            throw new DuplicatePersonException();
+        if (!applicationsAreUnique(applications)) {
+            throw new DuplicateApplicationException();
         }
 
         internalList.setAll(applications);
@@ -135,12 +135,12 @@ public class UniqueApplicationList implements Iterable<Application> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code applications} contains only unique applications.
      */
-    private boolean personsAreUnique(List<Application> applications) {
+    private boolean applicationsAreUnique(List<Application> applications) {
         for (int i = 0; i < applications.size() - 1; i++) {
             for (int j = i + 1; j < applications.size(); j++) {
-                if (applications.get(i).isSamePerson(applications.get(j))) {
+                if (applications.get(i).isSameApplication(applications.get(j))) {
                     return false;
                 }
             }
