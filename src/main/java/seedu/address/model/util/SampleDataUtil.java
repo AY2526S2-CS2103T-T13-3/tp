@@ -19,23 +19,23 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Application[] getSampleApplications() {
         return new Application[] {
-                new Application(new Role("Software Engineer"), new Phone("87438807"), new HrEmail("hr@google.com"),
-                        new Company("Google"),
+                new Application(new Role("Software Engineer"), new Phone("87438807"),
+                        new HrEmail("hr@google.com"), new Company("Google"),
                         getTagSet("interview", "priority")),
-                new Application(new Role("Data Analyst"), new Phone("99272758"), new HrEmail("recruitment@meta.com"),
-                        new Company("Meta"),
+                new Application(new Role("Data Analyst"), new Phone("99272758"),
+                        new HrEmail("recruitment@meta.com"), new Company("Meta"),
                         getTagSet("applied", "pending")),
-                new Application(new Role("Quantitative Researcher"), new Phone("93210283"), new HrEmail("careers@janestreet.com"),
-                        new Company("Jane Street"),
+                new Application(new Role("Quantitative Researcher"), new Phone("93210283"),
+                        new HrEmail("careers@janestreet.com"), new Company("Jane Street"),
                         getTagSet("rejected")),
-                new Application(new Role("Frontend Developer"), new Phone("91031282"), new HrEmail("jobs@shopee.com"),
-                        new Company("Shopee"),
+                new Application(new Role("Frontend Developer"), new Phone("91031282"),
+                        new HrEmail("jobs@shopee.com"), new Company("Shopee"),
                         getTagSet("offer")),
-                new Application(new Role("Backend Engineer"), new Phone("92492021"), new HrEmail("hr@tiktok.com"),
-                        new Company("TikTok"),
+                new Application(new Role("Backend Engineer"), new Phone("92492021"),
+                        new HrEmail("hr@tiktok.com"), new Company("TikTok"),
                         getTagSet("interview")),
-                new Application(new Role("Product Manager"), new Phone("92624417"), new HrEmail("talent@grab.com"),
-                        new Company("Grab"),
+                new Application(new Role("Product Manager"), new Phone("92624417"),
+                        new HrEmail("talent@grab.com"), new Company("Grab"),
                         getTagSet("applied"))
         };
     }

@@ -72,7 +72,8 @@ public interface Model {
     /**
      * Replaces the given application {@code target} with {@code editedApplication}.
      * {@code target} must exist in the address book.
-     * The application identity of {@code editedApplication} must not be the same as another existing application in the address book.
+     * The application identity of {@code editedApplication} must not be the same as
+     * another existing application in the address book.
      */
     void setApplication(Application target, Application editedApplication);
 

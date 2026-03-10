@@ -92,7 +92,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Application} with the details of {@code applicationToEdit}
      * edited with {@code editApplicationDescriptor}.
      */
-    private static Application createEditedApplication(Application applicationToEdit, EditApplicationDescriptor editApplicationDescriptor) {
+    private static Application createEditedApplication(Application applicationToEdit,
+                                                       EditApplicationDescriptor editApplicationDescriptor) {
         assert applicationToEdit != null;
 
         Role updatedRole = editApplicationDescriptor.getRole().orElse(applicationToEdit.getRole());
