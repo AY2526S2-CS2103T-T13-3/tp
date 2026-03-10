@@ -1,15 +1,15 @@
-package seedu.address.testutil;
+package seedu.company.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.application.Application;
-import seedu.address.model.application.Company;
-import seedu.address.model.application.HrEmail;
-import seedu.address.model.application.Phone;
-import seedu.address.model.application.Role;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.company.model.application.Application;
+import seedu.company.model.application.Company;
+import seedu.company.model.application.HrEmail;
+import seedu.company.model.application.Phone;
+import seedu.company.model.application.Role;
+import seedu.company.model.tag.Tag;
+import seedu.company.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -19,7 +19,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_COMPANY = "123, Jurong West Ave 6, #08-111";
 
     private Role role;
     private Phone phone;
@@ -34,7 +34,7 @@ public class PersonBuilder {
         role = new Role(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         hrEmail = new HrEmail(DEFAULT_EMAIL);
-        company = new Company(DEFAULT_ADDRESS);
+        company = new Company(DEFAULT_COMPANY);
         tags = new HashSet<>();
     }
 
@@ -45,7 +45,7 @@ public class PersonBuilder {
         role = applicationToCopy.getName();
         phone = applicationToCopy.getPhone();
         hrEmail = applicationToCopy.getEmail();
-        company = applicationToCopy.getAddress();
+        company = applicationToCopy.getCompany();
         tags = new HashSet<>(applicationToCopy.getTags());
     }
 
@@ -66,10 +66,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Company} of the {@code Person} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
-        this.company = new Company(address);
+    public PersonBuilder withCompany(String company) {
+        this.company = new Company(company);
         return this;
     }
 

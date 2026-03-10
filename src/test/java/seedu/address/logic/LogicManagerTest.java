@@ -1,14 +1,14 @@
-package seedu.address.logic;
+package seedu.company.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.company.logic.Messages.MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX;
+import static seedu.company.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.company.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
+import static seedu.company.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.company.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.company.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.company.testutil.Assert.assertThrows;
+import static seedu.company.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
@@ -18,20 +18,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.application.Application;
-import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.company.logic.commands.AddCommand;
+import seedu.company.logic.commands.CommandResult;
+import seedu.company.logic.commands.ListCommand;
+import seedu.company.logic.commands.exceptions.CommandException;
+import seedu.company.logic.parser.exceptions.ParseException;
+import seedu.company.model.Model;
+import seedu.company.model.ModelManager;
+import seedu.company.model.ReadOnlyCompanyBook;
+import seedu.company.model.UserPrefs;
+import seedu.company.model.application.Application;
+import seedu.company.storage.JsonCompanyBookStorage;
+import seedu.company.storage.JsonUserPrefsStorage;
+import seedu.company.storage.StorageManager;
+import seedu.company.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -45,10 +45,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonCompanyBookStorage companyBookStorage =
+                new JsonCompanyBookStorage(temporaryFolder.resolve("companyBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(companyBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -61,7 +61,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX);
     }
 
     @Test
@@ -123,7 +123,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getCompanyBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -149,10 +149,10 @@ public class LogicManagerTest {
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
         Path prefPath = temporaryFolder.resolve("ExceptionUserPrefs.json");
 
-        // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(prefPath) {
+        // Inject LogicManager with an CompanyBookStorage that throws the IOException e when saving
+        JsonCompanyBookStorage companyBookStorage = new JsonCompanyBookStorage(prefPath) {
             @Override
-            public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath)
+            public void saveCompanyBook(ReadOnlyCompanyBook companyBook, Path filePath)
                     throws IOException {
                 throw e;
             }
@@ -160,13 +160,13 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(companyBookStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 
-        // Triggers the saveAddressBook method by executing an add command
+        // Triggers the saveCompanyBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+                + EMAIL_DESC_AMY + COMPANY_DESC_AMY;
         Application expectedApplication = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedApplication);

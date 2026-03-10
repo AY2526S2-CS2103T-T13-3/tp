@@ -1,12 +1,12 @@
-package seedu.address.model.application;
+package seedu.company.model.application;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.company.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class AddressTest {
+public class CompanyTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -14,32 +14,32 @@ public class AddressTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Company(invalidAddress));
+    public void constructor_invalidCompany_throwsIllegalArgumentException() {
+        String invalidCompany = "";
+        assertThrows(IllegalArgumentException.class, () -> new Company(invalidCompany));
     }
 
     @Test
-    public void isValidAddress() {
-        // null address
-        assertThrows(NullPointerException.class, () -> Company.isValidAddress(null));
+    public void isValidCompany() {
+        // null company
+        assertThrows(NullPointerException.class, () -> Company.isValidCompany(null));
 
-        // invalid addresses
-        assertFalse(Company.isValidAddress("")); // empty string
-        assertFalse(Company.isValidAddress(" ")); // spaces only
+        // invalid companyes
+        assertFalse(Company.isValidCompany("")); // empty string
+        assertFalse(Company.isValidCompany(" ")); // spaces only
 
-        // valid addresses
-        assertTrue(Company.isValidAddress("Blk 456, Den Road, #01-355"));
-        assertTrue(Company.isValidAddress("-")); // one character
-        assertTrue(Company.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        // valid companyes
+        assertTrue(Company.isValidCompany("Blk 456, Den Road, #01-355"));
+        assertTrue(Company.isValidCompany("-")); // one character
+        assertTrue(Company.isValidCompany("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long company
     }
 
     @Test
     public void equals() {
-        Company company = new Company("Valid Address");
+        Company company = new Company("Valid Company");
 
         // same values -> returns true
-        assertTrue(company.equals(new Company("Valid Address")));
+        assertTrue(company.equals(new Company("Valid Company")));
 
         // same object -> returns true
         assertTrue(company.equals(company));
@@ -51,6 +51,6 @@ public class AddressTest {
         assertFalse(company.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(company.equals(new Company("Other Valid Address")));
+        assertFalse(company.equals(new Company("Other Valid Company")));
     }
 }

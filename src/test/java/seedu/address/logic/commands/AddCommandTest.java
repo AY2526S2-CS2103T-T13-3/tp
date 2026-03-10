@@ -1,11 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.company.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.company.testutil.Assert.assertThrows;
+import static seedu.company.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,15 +15,15 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.application.Application;
-import seedu.address.testutil.PersonBuilder;
+import seedu.company.commons.core.GuiSettings;
+import seedu.company.logic.Messages;
+import seedu.company.logic.commands.exceptions.CommandException;
+import seedu.company.model.CompanyBook;
+import seedu.company.model.Model;
+import seedu.company.model.ReadOnlyCompanyBook;
+import seedu.company.model.ReadOnlyUserPrefs;
+import seedu.company.model.application.Application;
+import seedu.company.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
@@ -50,7 +50,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validApplication);
         ModelStub modelStub = new ModelStubWithPerson(validApplication);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_APPLICATION, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -109,12 +109,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getCompanyBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setCompanyBookFilePath(Path companyBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,12 +124,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setCompanyBook(ReadOnlyCompanyBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyCompanyBook getCompanyBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,8 +196,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyCompanyBook getCompanyBook() {
+            return new CompanyBook();
         }
     }
 

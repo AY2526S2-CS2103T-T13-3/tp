@@ -1,16 +1,16 @@
-package seedu.address.testutil;
+package seedu.company.testutil;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.application.Company;
-import seedu.address.model.application.HrEmail;
-import seedu.address.model.application.Application;
-import seedu.address.model.application.Phone;
-import seedu.address.model.application.Role;
-import seedu.address.model.tag.Tag;
+import seedu.company.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.company.model.application.Company;
+import seedu.company.model.application.HrEmail;
+import seedu.company.model.application.Application;
+import seedu.company.model.application.Phone;
+import seedu.company.model.application.Role;
+import seedu.company.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -35,7 +35,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setName(application.getName());
         descriptor.setPhone(application.getPhone());
         descriptor.setEmail(application.getEmail());
-        descriptor.setAddress(application.getAddress());
+        descriptor.setCompany(application.getCompany());
         descriptor.setTags(application.getTags());
     }
 
@@ -64,10 +64,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Company} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Company(address));
+    public EditPersonDescriptorBuilder withCompany(String company) {
+        descriptor.setCompany(new Company(company));
         return this;
     }
 

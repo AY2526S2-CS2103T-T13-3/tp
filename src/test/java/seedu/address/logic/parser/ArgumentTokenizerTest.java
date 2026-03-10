@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.company.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

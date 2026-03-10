@@ -1,13 +1,13 @@
-package seedu.address.model.application;
+package seedu.company.model.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.company.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.company.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.company.testutil.Assert.assertThrows;
+import static seedu.company.testutil.TypicalPersons.ALICE;
+import static seedu.company.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,9 +15,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.application.exceptions.DuplicateApplicationException;
-import seedu.address.model.application.exceptions.ApplicationNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.company.model.application.exceptions.DuplicateApplicationException;
+import seedu.company.model.application.exceptions.ApplicationNotFoundException;
+import seedu.company.testutil.PersonBuilder;
 
 public class UniqueApplicationListTest {
 
@@ -42,7 +42,7 @@ public class UniqueApplicationListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueApplicationList.add(ALICE);
-        Application editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Application editedAlice = new PersonBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueApplicationList.contains(editedAlice));
     }
@@ -85,7 +85,7 @@ public class UniqueApplicationListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueApplicationList.add(ALICE);
-        Application editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Application editedAlice = new PersonBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueApplicationList.setPerson(ALICE, editedAlice);
         UniqueApplicationList expectedUniqueApplicationList = new UniqueApplicationList();

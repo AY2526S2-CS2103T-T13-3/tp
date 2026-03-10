@@ -1,13 +1,13 @@
-package seedu.address.model;
+package seedu.company.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.company.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.company.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.company.testutil.Assert.assertThrows;
+import static seedu.company.testutil.TypicalPersons.ALICE;
+import static seedu.company.testutil.TypicalPersons.getTypicalCompanyBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,84 +18,84 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.application.Application;
-import seedu.address.model.application.exceptions.DuplicateApplicationException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.company.model.application.Application;
+import seedu.company.model.application.exceptions.DuplicateApplicationException;
+import seedu.company.testutil.PersonBuilder;
 
-public class AddressBookTest {
+public class CompanyBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final CompanyBook companyBook = new CompanyBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), companyBook.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> companyBook.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyCompanyBook_replacesData() {
+        CompanyBook newData = getTypicalCompanyBook();
+        companyBook.resetData(newData);
+        assertEquals(newData, companyBook);
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Application editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Application editedAlice = new PersonBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Application> newApplications = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newApplications);
+        CompanyBookStub newData = new CompanyBookStub(newApplications);
 
-        assertThrows(DuplicateApplicationException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateApplicationException.class, () -> companyBook.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> companyBook.hasPerson(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasPerson_personNotInCompanyBook_returnsFalse() {
+        assertFalse(companyBook.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasPerson_personInCompanyBook_returnsTrue() {
+        companyBook.addPerson(ALICE);
+        assertTrue(companyBook.hasPerson(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Application editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void hasPerson_personWithSameIdentityFieldsInCompanyBook_returnsTrue() {
+        companyBook.addPerson(ALICE);
+        Application editedAlice = new PersonBuilder(ALICE).withCompany(VALID_COMPANY_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(companyBook.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> companyBook.getPersonList().remove(0));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
-        assertEquals(expected, addressBook.toString());
+        String expected = CompanyBook.class.getCanonicalName() + "{persons=" + companyBook.getPersonList() + "}";
+        assertEquals(expected, companyBook.toString());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyCompanyBook whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class CompanyBookStub implements ReadOnlyCompanyBook {
         private final ObservableList<Application> applications = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Application> applications) {
+        CompanyBookStub(Collection<Application> applications) {
             this.applications.setAll(applications);
         }
 

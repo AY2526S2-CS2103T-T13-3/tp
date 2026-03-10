@@ -1,8 +1,8 @@
-package seedu.address.storage;
+package seedu.company.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.company.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,9 +12,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.model.UserPrefs;
+import seedu.company.commons.core.GuiSettings;
+import seedu.company.commons.exceptions.DataLoadingException;
+import seedu.company.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 
@@ -73,7 +73,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
+        userPrefs.setCompanyBookFilePath(Paths.get("companybook.json"));
         return userPrefs;
     }
 
