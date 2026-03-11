@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.application;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,46 +11,46 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents an Application record in Hired!.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Application {
 
     // Identity fields
-    private final Name name;
+    private final Role role;
     private final Phone phone;
-    private final Email email;
+    private final HrEmail hrEmail;
 
     // Data fields
-    private final Address address;
+    private final Company company;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
+    public Application(Role role, Phone phone, HrEmail hrEmail, Company company, Set<Tag> tags) {
+        requireAllNonNull(role, phone, hrEmail, company, tags);
+        this.role = role;
         this.phone = phone;
-        this.email = email;
-        this.address = address;
+        this.hrEmail = hrEmail;
+        this.company = company;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Role getRole() {
+        return role;
     }
 
     public Phone getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
-        return email;
+    public HrEmail getHrEmail() {
+        return hrEmail;
     }
 
-    public Address getAddress() {
-        return address;
+    public Company getCompany() {
+        return company;
     }
 
     /**
@@ -62,16 +62,17 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both persons have the same role and company.
+     * This defines a weaker notion of equality between two persons/applications.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameApplication(Application otherApplication) {
+        if (otherApplication == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherApplication != null
+                && otherApplication.getRole().equals(getRole())
+                && otherApplication.getCompany().equals(getCompany());
     }
 
     /**
@@ -85,33 +86,32 @@ public class Person {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Application)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+        Application otherApplication = (Application) other;
+        return role.equals(otherApplication.role)
+                && phone.equals(otherApplication.phone)
+                && hrEmail.equals(otherApplication.hrEmail)
+                && company.equals(otherApplication.company)
+                && tags.equals(otherApplication.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(role, phone, hrEmail, company, tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
+                .add("role", role)
                 .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
+                .add("hrEmail", hrEmail)
+                .add("company", company)
                 .add("tags", tags)
                 .toString();
     }
-
 }

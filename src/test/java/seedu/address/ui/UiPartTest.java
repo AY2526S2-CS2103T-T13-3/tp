@@ -58,19 +58,19 @@ public class UiPartTest {
     }
 
     @Test
-    public void constructor_nullFileName_throwsNullPointerException() {
+    public void constructor_nullFileRole_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null));
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null, new Object()));
     }
 
     @Test
-    public void constructor_missingFileName_throwsNullPointerException() {
+    public void constructor_missingFileRole_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH));
         assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH, new Object()));
     }
 
     @Test
-    public void constructor_invalidFileName_throwsAssertionError() {
+    public void constructor_invalidFileRole_throwsAssertionError() {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH));
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
     }
@@ -95,8 +95,8 @@ public class UiPartTest {
             super(fxmlFileUrl, root);
         }
 
-        TestUiPart(String fxmlFileName, T root) {
-            super(fxmlFileName, root);
+        TestUiPart(String fxmlFileRole, T root) {
+            super(fxmlFileRole, root);
         }
 
         TestUiPart(URL fxmlFileUrl) {
@@ -104,8 +104,8 @@ public class UiPartTest {
             assertEquals(VALID_FILE_ROOT, validFileRoot);
         }
 
-        TestUiPart(String fxmlFileName) {
-            super(fxmlFileName);
+        TestUiPart(String fxmlFileRole) {
+            super(fxmlFileRole);
             assertEquals(VALID_FILE_ROOT, validFileRoot);
         }
 

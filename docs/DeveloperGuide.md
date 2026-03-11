@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -229,13 +229,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -273,9 +273,9 @@ Our target users:
 * are reasonably comfortable using CLI applications
 * want a structured way to track internship applications, deadlines, and follow-ups
 
-**Value proposition**: Hired! helps university students manage internship applications, company contacts, deadlines, 
-                       and interview records faster and more systematically than scattered notes or spreadsheet-based
-                       tracking.
+**Value proposition**: Hired! helps university students manage internship applications, company contacts, deadlines,
+and interview records faster and more systematically than scattered notes or spreadsheet-based
+tracking.
 
 ### User stories
 
@@ -320,38 +320,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. Student provides the required details.
 4. System validates the input.
 5. System saves the application and assigns a unique ID.
-6. System displays the newly added application.  
+6. System displays the newly added application.
 
    Use case ends.
 
 **Extension**
 
-* 3a. Student leaves some fields unknown. 
-  * 3a1. Student marks fields as NA. 
-  
-    Use case resumes at step 4.
+* 3a. Student leaves some fields unknown.
+    * 3a1. Student marks fields as NA.
+
+      Use case resumes at step 4.
 
 * 4a. System detects invalid input (empty company, wrong date format).
-  * 4a1. System shows an error message.
-  * 4a2. Student re‑enters valid data. 
-  
-    Use case resumes at step 4.
+    * 4a1. System shows an error message.
+    * 4a2. Student re‑enters valid data.
+
+      Use case resumes at step 4.
 
 * 4b. System detects a duplicate application.
-  * 4b1. System informs the student. 
-  
-    Use case ends.
+    * 4b1. System informs the student.
+
+      Use case ends.
 
 * *a. Student cancels the add operation at any time.
-  * *a1. System aborts the operation. 
-  
-    Use case ends.
+    * *a1. System aborts the operation.
+
+      Use case ends.
 
 
 
 ### **UC02 – Update Application Status**
 
-**Precondition** 
+**Precondition**
 
 * System is running
 * Student is authorized
@@ -371,31 +371,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 3a. Application ID/index does not exist.
-  * 3a1. System shows an error. 
-    
-    Use case ends.
+    * 3a1. System shows an error.
+
+      Use case ends.
 
 * 5a. Status value is invalid.
-  * 5a1. System shows valid options.
-  * 5a2. Student enters a valid status. 
-    
-    Use case resumes at step 5.
+    * 5a1. System shows valid options.
+    * 5a2. Student enters a valid status.
+
+      Use case resumes at step 5.
 
 * 6a. Status is a terminal state (e.g., Rejected/Offered).
-  * 6a1. System shows a warning and requests confirmation.
-  * 6a2. Student confirms. 
-  
-    Use case resumes at step 6.
+    * 6a1. System shows a warning and requests confirmation.
+    * 6a2. Student confirms.
+
+      Use case resumes at step 6.
 
 * *a. Student cancels at any time.
-  * *a1. System cancels the update. 
-  
-    Use case ends.
+    * *a1. System cancels the update.
+
+      Use case ends.
 
 
 ### **UC03 – List and Sort Applications**
 
-**Precondition** 
+**Precondition**
 
 * System is running.
 
@@ -410,19 +410,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. There are no applications.
-  * 2a1. System informs the student. 
-  * Use case ends.
+    * 2a1. System informs the student.
+    * Use case ends.
 
 * 3a. Student requests sorting by deadline.
-  *  3a1. System sorts applications by deadline.
-  * 3a2. System displays the sorted list. 
-  * Use case ends.
+    *  3a1. System sorts applications by deadline.
+    * 3a2. System displays the sorted list.
+    * Use case ends.
 
 * 3b. Student requests filtering by status.
-  * 3b1. System filters applications.
-  * 3b2. System displays filtered results. 
-  
-    Use case ends.
+    * 3b1. System filters applications.
+    * 3b2. System displays filtered results.
+
+      Use case ends.
 
 ### **UC04: Delete an application**
 
@@ -444,9 +444,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. The list is empty.
-  * 1a1. Hired! informs user the list is empty
+    * 1a1. Hired! informs user the list is empty
 
-    Use case ends.
+      Use case ends.
 
 * 3a. The given index is invalid.
 
@@ -512,15 +512,15 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
@@ -529,16 +529,16 @@ testers are expected to do more *exploratory* testing.
 
 1. Deleting a person while all persons are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete 0`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
@@ -546,6 +546,6 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_

@@ -12,14 +12,14 @@ public class TagTest {
     }
 
     @Test
-    public void constructor_invalidTagName_throwsIllegalArgumentException() {
-        String invalidTagName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Tag(invalidTagName));
+    public void constructor_invalidTagRole_throwsIllegalArgumentException() {
+        String invalidTagRole = "";
+        assertThrows(IllegalArgumentException.class, () -> new Tag(invalidTagRole));
     }
 
     @Test
-    public void isValidTagName() {
-        // null tag name
+    public void isValidTagRole() {
+        // null tag role
         assertThrows(NullPointerException.class, () -> Tag.isValidTagName(null));
     }
 

@@ -1,13 +1,13 @@
-package seedu.address.model.person;
+package seedu.address.model.application;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's email in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Represents HR's email in Hired!.
+ * Guarantees: immutable; is valid as declared in {@link #isValidHrEmail(String)}
  */
-public class Email {
+public class HrEmail {
 
     private static final String SPECIAL_CHARACTERS = "+_.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -34,20 +34,20 @@ public class Email {
     public final String value;
 
     /**
-     * Constructs an {@code Email}.
+     * Constructs an {@code HrEmail}.
      *
-     * @param email A valid email address.
+     * @param hrEmail A valid HR email address.
      */
-    public Email(String email) {
-        requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
-        value = email;
+    public HrEmail(String hrEmail) {
+        requireNonNull(hrEmail);
+        checkArgument(isValidHrEmail(hrEmail), MESSAGE_CONSTRAINTS);
+        value = hrEmail;
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns true if a given string is a valid HR email.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidHrEmail(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -63,12 +63,12 @@ public class Email {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Email)) {
+        if (!(other instanceof HrEmail)) {
             return false;
         }
 
-        Email otherEmail = (Email) other;
-        return value.equals(otherEmail.value);
+        HrEmail otherHrEmail = (HrEmail) other;
+        return value.equals(otherHrEmail.value);
     }
 
     @Override

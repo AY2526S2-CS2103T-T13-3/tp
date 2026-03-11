@@ -34,7 +34,7 @@ public class JsonUtilTest {
         SerializableTestClass serializableTestClass = JsonUtil
                 .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);
 
-        assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
+        assertEquals(serializableTestClass.getRole(), SerializableTestClass.getRoleTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());
         assertEquals(serializableTestClass.getMapOfIntegerToString(), SerializableTestClass.getHashMapTestValues());
     }

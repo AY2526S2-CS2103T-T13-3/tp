@@ -32,7 +32,7 @@ Instead of managing internship applications through messy notes or spreadsheets,
 ## Features
 ### MVP
 ### Add Application Record (`add`)
-Allows users to add a new internship application including company name, HR contact, internship role, and application deadline.
+Allows users to add a new internship application including company role, HR contact, internship role, and application deadline.
 
 ### Update Application Status (`status`)
 Users can update the progress of an application with statuses such as **applied, interviewing, offered, rejected, or withdrawn**.
