@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -40,6 +41,7 @@ public class MainWindowTest {
     public void fillInnerParts_initializesListPanel() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         AtomicReference<MainWindow> mainWindowRef = new AtomicReference<>();
+        AtomicReference<Throwable> errorRef = new AtomicReference<>();
 
         Platform.runLater(() -> {
             try {
@@ -47,12 +49,15 @@ public class MainWindowTest {
                 MainWindow mainWindow = new MainWindow(new Stage(), logicStub);
                 mainWindow.fillInnerParts();
                 mainWindowRef.set(mainWindow);
+            } catch (Throwable t) {
+                errorRef.set(t);
             } finally {
                 latch.countDown();
             }
         });
 
         assertTrue(latch.await(5, TimeUnit.SECONDS));
+        assertNull(errorRef.get());
         assertNotNull(mainWindowRef.get());
         assertNotNull(mainWindowRef.get().getPersonListPanel());
     }
