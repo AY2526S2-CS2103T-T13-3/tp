@@ -67,7 +67,8 @@ public class EditApplicationDescriptorTest {
                 + editApplicationDescriptor.getPhone().orElse(null) + ", hrEmail="
                 + editApplicationDescriptor.getHrEmail().orElse(null) + ", company="
                 + editApplicationDescriptor.getCompany().orElse(null) + ", tags="
-                + editApplicationDescriptor.getTags().orElse(null) + "}";
+                + editApplicationDescriptor.getTags().orElse(null) + ", status="
+                + editApplicationDescriptor.getStatus().orElse(null) + "}";
         assertEquals(expected, editApplicationDescriptor.toString());
     }
 }

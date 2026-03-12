@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -17,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditApplicationDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.application.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,7 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL, PREFIX_COMPANY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL, PREFIX_COMPANY, PREFIX_TAG,
+                        PREFIX_STATUS);
 
         Index index;
 
@@ -62,6 +65,15 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (!editApplicationDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            try {
+                Status status = Status.valueOf(argMultimap.getValue(PREFIX_STATUS).get().toUpperCase());
+                editApplicationDescriptor.setStatus(status);
+            } catch (IllegalArgumentException e) {
+                throw new ParseException("Invalid status. Valid values: APPLIED, INTERVIEWING, OFFERED, REJECTED, WITHDRAWN");
+            }
         }
 
         return new EditCommand(index, editApplicationDescriptor);

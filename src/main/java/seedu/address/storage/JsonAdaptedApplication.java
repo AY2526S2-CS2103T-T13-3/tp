@@ -15,6 +15,7 @@ import seedu.address.model.application.Company;
 import seedu.address.model.application.HrEmail;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
+import seedu.address.model.application.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,6 +30,8 @@ class JsonAdaptedApplication {
     private final String hrEmail;
     private final String company;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    @JsonProperty("status")
+    private final String status;
 
     /**
      * Constructs a {@code JsonAdaptedApplication} with the given application details.
@@ -36,7 +39,8 @@ class JsonAdaptedApplication {
     @JsonCreator
     public JsonAdaptedApplication(@JsonProperty("role") String role, @JsonProperty("phone") String phone,
                                   @JsonProperty("hrEmail") String hrEmail, @JsonProperty("company") String company,
-                                  @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                                  @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                                  @JsonProperty("status") String status) {
         this.role = role;
         this.phone = phone;
         this.hrEmail = hrEmail;
@@ -44,6 +48,7 @@ class JsonAdaptedApplication {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.status = status;
     }
 
     /**
@@ -57,6 +62,7 @@ class JsonAdaptedApplication {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        this.status = source.getStatus().name();
     }
 
     /**
@@ -103,6 +109,14 @@ class JsonAdaptedApplication {
         final Company modelCompany = new Company(company);
 
         final Set<Tag> modelTags = new HashSet<>(applicationTags);
-        return new Application(modelRole, modelPhone, modelHrEmail, modelCompany, modelTags);
+
+        Status modelStatus;
+        try {
+            modelStatus = Status.valueOf(status != null ? status : "APPLIED");
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException("Invalid status: " + status);
+        }
+
+        return new Application(modelRole, modelPhone, modelHrEmail, modelCompany, modelTags, modelStatus);
     }
 }

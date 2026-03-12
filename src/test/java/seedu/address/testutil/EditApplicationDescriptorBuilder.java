@@ -10,6 +10,7 @@ import seedu.address.model.application.Company;
 import seedu.address.model.application.HrEmail;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
+import seedu.address.model.application.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,6 +38,7 @@ public class EditApplicationDescriptorBuilder {
         descriptor.setHrEmail(application.getHrEmail());
         descriptor.setCompany(application.getCompany());
         descriptor.setTags(application.getTags());
+        descriptor.setStatus(application.getStatus());
     }
 
     /**
@@ -78,6 +80,15 @@ public class EditApplicationDescriptorBuilder {
     public EditApplicationDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+
+    /**
+     * Sets the {@code status} of the {@code EditApplicationDescriptor} that we are building.
+     */
+    public EditApplicationDescriptorBuilder withStatus(Status status) {
+        descriptor.setStatus(status);
         return this;
     }
 

@@ -246,7 +246,8 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditApplicationDescriptor.phone)
                     && Objects.equals(hrEmail, otherEditApplicationDescriptor.hrEmail)
                     && Objects.equals(company, otherEditApplicationDescriptor.company)
-                    && Objects.equals(tags, otherEditApplicationDescriptor.tags);
+                    && Objects.equals(tags, otherEditApplicationDescriptor.tags)
+                    && Objects.equals(status, otherEditApplicationDescriptor.status);
         }
 
         @Override
@@ -257,6 +258,7 @@ public class EditCommand extends Command {
                     .add("hrEmail", hrEmail)
                     .add("company", company)
                     .add("tags", tags)
+                    .add("status", status)
                     .toString();
         }
     }
