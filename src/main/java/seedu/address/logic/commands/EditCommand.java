@@ -221,6 +221,12 @@ public class EditCommand extends Command {
             this.status = status;
         }
 
+        /**
+         * Returns the status of the application to be edited, if specified.
+         *
+         * @return an {@code Optional} containing the {@code Status} if set,
+         *         or {@code Optional.empty()} if no status was provided.
+         */
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
         }
