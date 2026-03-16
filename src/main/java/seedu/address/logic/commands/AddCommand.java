@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
@@ -25,13 +26,15 @@ public class AddCommand extends Command {
             + PREFIX_ROLE + "ROLE "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_HREMAIL + "EMAIL "
-            + PREFIX_COMPANY + "COMPANY "
+            + PREFIX_COMPANY_NAME + "COMPANY_NAME "
+            + "[" + PREFIX_COMPANY_LOCATION + "COMPANY_LOCATION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ROLE + "Software Engineer "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_HREMAIL + "hr@google.com "
-            + PREFIX_COMPANY + "Google "
+            + PREFIX_COMPANY_NAME + "Google "
+            + PREFIX_COMPANY_LOCATION + "Singapore "
             + PREFIX_TAG + "interview "
             + PREFIX_TAG + "priority";
 

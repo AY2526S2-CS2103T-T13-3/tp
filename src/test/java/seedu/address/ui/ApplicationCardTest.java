@@ -44,10 +44,12 @@ public class ApplicationCardTest {
 
         assertEquals(application, applicationCard.application);
         assertEquals("1. ", getLabelText(applicationCard, "id"));
-        assertEquals("Google", getLabelText(applicationCard, "company"));
+        assertEquals("Google", getLabelText(applicationCard, "companyName"));
         assertEquals("Intern", getLabelText(applicationCard, "role"));
         assertEquals("91234567", getLabelText(applicationCard, "phone"));
         assertEquals("hr@google.com", getLabelText(applicationCard, "hrEmail"));
+        assertEquals("Status: APPLIED", getLabelText(applicationCard, "status"));
+        // companyLocation is hidden when empty; its text is not guaranteed.
     }
 
     private String getLabelText(ApplicationCard card, String fieldName) throws Exception {

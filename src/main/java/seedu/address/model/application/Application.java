@@ -26,7 +26,7 @@ public class Application {
     private final Set<Tag> tags = new HashSet<>();
 
     //Status field
-    private Status status;
+    private final Status status;
 
     /**
      * Every field must be present and not null.
@@ -97,7 +97,8 @@ public class Application {
         }
 
         return otherApplication != null
-                && otherApplication.getRole().equals(getRole());
+                && otherApplication.getRole().equals(getRole())
+                && otherApplication.getCompany().companyName.equalsIgnoreCase(getCompany().companyName);
     }
 
     /**

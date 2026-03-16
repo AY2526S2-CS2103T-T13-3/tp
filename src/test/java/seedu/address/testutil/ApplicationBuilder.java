@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.application.Application;
-import seedu.address.model.application.Company;
 import seedu.address.model.application.HrEmail;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
@@ -20,12 +19,15 @@ public class ApplicationBuilder {
     public static final String DEFAULT_ROLE = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_HREMAIL = "amy@gmail.com";
-    public static final String DEFAULT_COMPANY = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_COMPANY_NAME = "Google";
+    public static final String DEFAULT_COMPANY_LOCATION = "Singapore";
+    public static final Status DEFAULT_STATUS = Status.APPLIED;
 
     private Role role;
     private Phone phone;
     private HrEmail hrEmail;
-    private Company company;
+    private String companyName;
+    private String companyLocation;
     private Set<Tag> tags;
     private Status status;
 
@@ -36,9 +38,10 @@ public class ApplicationBuilder {
         role = new Role(DEFAULT_ROLE);
         phone = new Phone(DEFAULT_PHONE);
         hrEmail = new HrEmail(DEFAULT_HREMAIL);
-        company = new Company(DEFAULT_COMPANY);
+        companyName = DEFAULT_COMPANY_NAME;
+        companyLocation = DEFAULT_COMPANY_LOCATION;
         tags = new HashSet<>();
-        status = Status.APPLIED;
+        status = DEFAULT_STATUS;
     }
 
     /**
@@ -48,7 +51,8 @@ public class ApplicationBuilder {
         role = applicationToCopy.getRole();
         phone = applicationToCopy.getPhone();
         hrEmail = applicationToCopy.getHrEmail();
-        company = applicationToCopy.getCompany();
+        companyName = applicationToCopy.getCompany().companyName;
+        companyLocation = applicationToCopy.getCompany().companyLocation;
         tags = new HashSet<>(applicationToCopy.getTags());
         status = applicationToCopy.getStatus();
     }
@@ -70,10 +74,28 @@ public class ApplicationBuilder {
     }
 
     /**
-     * Sets the {@code Company} of the {@code Application} that we are building.
+     * Sets the {@code CompanyName} of the {@code Application} that we are building.
      */
-    public ApplicationBuilder withCompany(String company) {
-        this.company = new Company(company);
+    public ApplicationBuilder withCompanyName(String companyName) {
+        this.companyName = companyName;
+        return this;
+    }
+
+    /**
+     * Sets the {@code CompanyLocation} of the {@code Application} that we are building.
+     */
+    public ApplicationBuilder withCompanyLocation(String companyLocation) {
+        this.companyLocation = companyLocation;
+        return this;
+    }
+
+    /**
+     * Backward-compatible convenience method for older tests.
+     * Sets company name and clears location.
+     */
+    public ApplicationBuilder withCompany(String companyName) {
+        this.companyName = companyName;
+        this.companyLocation = "";
         return this;
     }
 
@@ -101,7 +123,12 @@ public class ApplicationBuilder {
         return this;
     }
 
+    /**
+     * Builds an {@code Application} instance.
+     */
     public Application build() {
+        seedu.address.model.application.Company company =
+                new seedu.address.model.application.Company(companyName, companyLocation);
         return new Application(role, phone, hrEmail, company, tags, status);
     }
 

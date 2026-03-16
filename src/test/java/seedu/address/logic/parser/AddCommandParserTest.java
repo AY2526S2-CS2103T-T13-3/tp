@@ -24,7 +24,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
@@ -50,7 +50,10 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Application expectedApplication = new ApplicationBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Application expectedApplication = new ApplicationBuilder(BOB)
+                .withCompanyLocation("")
+                .withTags(VALID_TAG_FRIEND)
+                .build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + ROLE_DESC_BOB + PHONE_DESC_BOB + HREMAIL_DESC_BOB
@@ -59,6 +62,7 @@ public class AddCommandParserTest {
 
         // multiple tags - all accepted
         Application expectedApplicationMultipleTags = new ApplicationBuilder(BOB)
+                .withCompanyLocation("")
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser,
@@ -86,13 +90,13 @@ public class AddCommandParserTest {
 
         // multiple companyes
         assertParseFailure(parser, COMPANY_DESC_AMY + validExpectedApplicationString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY_NAME));
 
         // multiple fields repeated
         assertParseFailure(parser,
                 validExpectedApplicationString + PHONE_DESC_AMY + HREMAIL_DESC_AMY + ROLE_DESC_AMY + COMPANY_DESC_AMY
                         + validExpectedApplicationString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROLE, PREFIX_COMPANY, PREFIX_HREMAIL,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROLE, PREFIX_COMPANY_NAME, PREFIX_HREMAIL,
                         PREFIX_PHONE));
 
         // invalid value followed by valid value
@@ -111,7 +115,7 @@ public class AddCommandParserTest {
 
         // invalid company
         assertParseFailure(parser, INVALID_COMPANY_DESC + validExpectedApplicationString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY_NAME));
 
         // valid value followed by invalid value
 
@@ -129,13 +133,16 @@ public class AddCommandParserTest {
 
         // invalid company
         assertParseFailure(parser, validExpectedApplicationString + INVALID_COMPANY_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY_NAME));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Application expectedApplication = new ApplicationBuilder(AMY).withTags().build();
+        Application expectedApplication = new ApplicationBuilder(AMY)
+                .withCompanyLocation("")
+                .withTags()
+                .build();
         assertParseSuccess(parser, ROLE_DESC_AMY + PHONE_DESC_AMY + HREMAIL_DESC_AMY + COMPANY_DESC_AMY,
                 new AddCommand(expectedApplication));
     }
@@ -181,7 +188,7 @@ public class AddCommandParserTest {
 
         // invalid company
         assertParseFailure(parser, ROLE_DESC_BOB + PHONE_DESC_BOB + HREMAIL_DESC_BOB + INVALID_COMPANY_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Company.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Company.MESSAGE_CONSTRAINTS_NAME);
 
         // invalid tag
         assertParseFailure(parser, ROLE_DESC_BOB + PHONE_DESC_BOB + HREMAIL_DESC_BOB + COMPANY_DESC_BOB

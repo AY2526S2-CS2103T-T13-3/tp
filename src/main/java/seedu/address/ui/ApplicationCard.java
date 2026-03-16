@@ -14,7 +14,7 @@ import seedu.address.model.application.Application;
  */
 public class ApplicationCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ApplicationListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -35,7 +35,11 @@ public class ApplicationCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label company;
+    private Label companyName;
+    @FXML
+    private Label companyLocation;
+    @FXML
+    private Label status;
     @FXML
     private Label hrEmail;
     @FXML
@@ -50,8 +54,18 @@ public class ApplicationCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         role.setText(application.getRole().roleName);
         phone.setText(application.getPhone().value);
-        company.setText(application.getCompany().companyName);
         hrEmail.setText(application.getHrEmail().value);
+        companyName.setText(application.getCompany().companyName);
+        String loc = application.getCompany().companyLocation;
+        if (loc.isEmpty()) {
+            companyLocation.setVisible(false);
+            companyLocation.setManaged(false);
+        } else {
+            companyLocation.setText(loc);
+        }
+
+        status.setText("Status: " + application.getStatus().toString());
+
         application.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

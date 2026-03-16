@@ -71,13 +71,25 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Company parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Company.isValidCompanyName(trimmedAddress)) {
-            throw new ParseException(Company.MESSAGE_CONSTRAINTS);
+    public static String parseCompanyName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Company.isValidCompanyName(trimmedName)) {
+            throw new ParseException(Company.MESSAGE_CONSTRAINTS_NAME);
         }
-        return new Company(trimmedAddress);
+        return trimmedName;
+    }
+
+    /**
+     * Parses a {@code String location} into a {@code String}.
+     */
+    public static String parseCompanyLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        if (!Company.isValidCompanyLocation(trimmedLocation)) {
+            throw new ParseException(Company.MESSAGE_CONSTRAINTS_LOCATION);
+        }
+        return trimmedLocation;
     }
 
     /**

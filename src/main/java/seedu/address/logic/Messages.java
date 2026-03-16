@@ -43,6 +43,8 @@ public class Messages {
                 .append(application.getHrEmail())
                 .append("; Company: ")
                 .append(application.getCompany())
+                .append("; Status: ")
+                .append(application.getStatus())
                 .append("; Tags: ");
         application.getTags().forEach(builder::append);
         return builder.toString();

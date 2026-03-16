@@ -32,8 +32,10 @@ public class JsonSerializableAddressBookTest {
     public void toModelType_invalidApplication_throwsIllegalValueException() {
         // Application with invalid role (empty string)
         JsonAdaptedApplication invalidApplication = new JsonAdaptedApplication("",
-                "94351253", "alice@example.com", "Some Company", Collections.emptyList(),
-                "Some status");
+                "94351253", "alice@example.com",
+                "Some Company", "",
+                Collections.emptyList(),
+                "APPLIED");
         JsonSerializableAddressBook serializable =
                 new JsonSerializableAddressBook(Collections.singletonList(invalidApplication));
         assertThrows(IllegalValueException.class, serializable::toModelType);

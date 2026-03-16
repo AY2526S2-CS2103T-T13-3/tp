@@ -56,8 +56,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Application alice = new ApplicationBuilder().withRole("Alice").build();
-        Application bob = new ApplicationBuilder().withRole("Bob").build();
+        Application alice = new ApplicationBuilder().withRole("Software Engineer").withCompanyName("Google").build();
+        Application bob = new ApplicationBuilder().withRole("Software Engineer").withCompanyName("Meta").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 

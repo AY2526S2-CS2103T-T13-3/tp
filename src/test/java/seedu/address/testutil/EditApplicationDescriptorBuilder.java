@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditApplicationDescriptor;
 import seedu.address.model.application.Application;
-import seedu.address.model.application.Company;
 import seedu.address.model.application.HrEmail;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
@@ -36,7 +35,8 @@ public class EditApplicationDescriptorBuilder {
         descriptor.setRole(application.getRole());
         descriptor.setPhone(application.getPhone());
         descriptor.setHrEmail(application.getHrEmail());
-        descriptor.setCompany(application.getCompany());
+        descriptor.setCompanyName(application.getCompany().companyName);
+        descriptor.setCompanyLocation(application.getCompany().companyLocation);
         descriptor.setTags(application.getTags());
         descriptor.setStatus(application.getStatus());
     }
@@ -66,10 +66,18 @@ public class EditApplicationDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Company} of the {@code EditApplicationDescriptor} that we are building.
+     * Sets the {@code CompanyName} of the {@code EditApplicationDescriptor} that we are building.
      */
-    public EditApplicationDescriptorBuilder withCompany(String company) {
-        descriptor.setCompany(new Company(company));
+    public EditApplicationDescriptorBuilder withCompanyName(String companyName) {
+        descriptor.setCompanyName(companyName); // 确保调用的是你之前在 EditCommand 里写的 setter
+        return this;
+    }
+
+    /**
+     * Sets the {@code CompanyLocation} of the {@code EditApplicationDescriptor} that we are building.
+     */
+    public EditApplicationDescriptorBuilder withCompanyLocation(String companyLocation) {
+        descriptor.setCompanyLocation(companyLocation);
         return this;
     }
 
@@ -82,7 +90,6 @@ public class EditApplicationDescriptorBuilder {
         descriptor.setTags(tagSet);
         return this;
     }
-
 
     /**
      * Sets the {@code status} of the {@code EditApplicationDescriptor} that we are building.

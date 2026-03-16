@@ -60,7 +60,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delapp 9";
+        String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX);
     }
 
@@ -172,7 +172,10 @@ public class LogicManagerTest {
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + ROLE_DESC_AMY + PHONE_DESC_AMY
                 + HREMAIL_DESC_AMY + COMPANY_DESC_AMY;
-        Application expectedApplication = new ApplicationBuilder(AMY).withTags().build();
+        Application expectedApplication = new ApplicationBuilder(AMY)
+                .withCompanyLocation("")
+                .withTags()
+                .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addApplication(expectedApplication);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);

@@ -10,13 +10,14 @@ public class CompanyTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Company(null));
+        assertThrows(NullPointerException.class, () -> new Company(null, ""));
+        assertThrows(NullPointerException.class, () -> new Company("Valid Name", null));
     }
 
     @Test
     public void constructor_invalidCompany_throwsIllegalArgumentException() {
         String invalidCompany = "";
-        assertThrows(IllegalArgumentException.class, () -> new Company(invalidCompany));
+        assertThrows(IllegalArgumentException.class, () -> new Company(invalidCompany, ""));
     }
 
     @Test
@@ -37,10 +38,10 @@ public class CompanyTest {
 
     @Test
     public void equals() {
-        Company company = new Company("Valid Company");
+        Company company = new Company("Valid Company", "Singapore");
 
         // same values -> returns true
-        assertTrue(company.equals(new Company("Valid Company")));
+        assertTrue(company.equals(new Company("Valid Company", "Singapore")));
 
         // same object -> returns true
         assertTrue(company.equals(company));
@@ -52,6 +53,7 @@ public class CompanyTest {
         assertFalse(company.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(company.equals(new Company("Other Valid Company")));
+        assertFalse(company.equals(new Company("Other Valid Company", "Singapore")));
+        assertFalse(company.equals(new Company("Valid Company", "Other Location")));
     }
 }
