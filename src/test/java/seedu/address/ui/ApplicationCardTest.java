@@ -14,6 +14,7 @@ import org.junit.jupiter.api.condition.OS;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import seedu.address.model.application.Application;
 import seedu.address.testutil.ApplicationBuilder;
 
@@ -34,7 +35,8 @@ public class ApplicationCardTest {
     @Test
     public void constructor_setsDisplayedFieldsCorrectly() throws Exception {
         Application application = new ApplicationBuilder()
-                .withCompany("Google")
+                .withCompanyName("Google")
+                .withCompanyLocation("")
                 .withRole("Intern")
                 .withPhone("91234567")
                 .withHrEmail("hr@google.com")
@@ -44,10 +46,47 @@ public class ApplicationCardTest {
 
         assertEquals(application, applicationCard.application);
         assertEquals("1. ", getLabelText(applicationCard, "id"));
-        assertEquals("Google", getLabelText(applicationCard, "company"));
+        assertEquals("Google", getLabelText(applicationCard, "companyName"));
         assertEquals("Intern", getLabelText(applicationCard, "role"));
         assertEquals("91234567", getLabelText(applicationCard, "phone"));
         assertEquals("hr@google.com", getLabelText(applicationCard, "hrEmail"));
+        assertEquals("Status: APPLIED", getLabelText(applicationCard, "status"));
+        // companyLocation is hidden when empty; its text is not guaranteed.
+    }
+
+    @Test
+    public void constructor_withCompanyLocation_setsLocationVisibleAndText() throws Exception {
+        Application application = new ApplicationBuilder()
+                .withCompanyName("Google")
+                .withCompanyLocation("Singapore")
+                .withRole("Intern")
+                .withPhone("91234567")
+                .withHrEmail("hr@google.com")
+                .build();
+
+        ApplicationCard applicationCard = new ApplicationCard(application, 1);
+
+        assertEquals("Google", getLabelText(applicationCard, "companyName"));
+        assertEquals("Singapore", getLabelText(applicationCard, "companyLocation"));
+    }
+
+    @Test
+    public void constructor_withTags_displaysAllTagsSorted() throws Exception {
+        Application application = new ApplicationBuilder()
+                .withCompanyName("Google")
+                .withCompanyLocation("Singapore")
+                .withRole("Intern")
+                .withPhone("91234567")
+                .withHrEmail("hr@google.com")
+                .withTags("ztag", "atag")
+                .build();
+
+        ApplicationCard applicationCard = new ApplicationCard(application, 1);
+
+        FlowPane tagsPane = getTagsPane(applicationCard);
+        assertEquals(2, tagsPane.getChildren().size());
+        assertEquals("atag", ((Label) tagsPane.getChildren().get(0)).getText());
+        assertEquals("ztag", ((Label) tagsPane.getChildren().get(1)).getText());
     }
 
     private String getLabelText(ApplicationCard card, String fieldName) throws Exception {
@@ -55,5 +94,11 @@ public class ApplicationCardTest {
         field.setAccessible(true);
         Label label = (Label) field.get(card);
         return label.getText();
+    }
+
+    private FlowPane getTagsPane(ApplicationCard card) throws Exception {
+        Field field = ApplicationCard.class.getDeclaredField("tags");
+        field.setAccessible(true);
+        return (FlowPane) field.get(card);
     }
 }

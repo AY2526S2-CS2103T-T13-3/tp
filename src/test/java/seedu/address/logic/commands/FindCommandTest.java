@@ -67,7 +67,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleApplicationsFound() {
         String expectedMessage = String.format(MESSAGE_APPLICATIONS_LISTED_OVERVIEW, 3);
-        RoleContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        RoleContainsKeywordsPredicate predicate = preparePredicate("Developer Manager Architect");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredApplicationList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

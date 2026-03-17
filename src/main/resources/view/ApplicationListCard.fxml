@@ -28,8 +28,15 @@
         <Label fx:id="role" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
+
+      <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="company" styleClass="cell_small_label" text="\$company" />
+
+      <HBox spacing="5" alignment="CENTER_LEFT">
+        <Label fx:id="companyName" styleClass="cell_small_label" text="\$companyName" />
+        <Label fx:id="companyLocation" styleClass="cell_small_label" text="\$companyLocation" opacity="0.7" />
+      </HBox>
+
       <Label fx:id="hrEmail" styleClass="cell_small_label" text="\$hrEmail" />
     </VBox>
   </GridPane>

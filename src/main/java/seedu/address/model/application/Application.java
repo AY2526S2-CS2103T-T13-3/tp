@@ -26,7 +26,7 @@ public class Application {
     private final Set<Tag> tags = new HashSet<>();
 
     //Status field
-    private Status status;
+    private final Status status;
 
     /**
      * Every field must be present and not null.
@@ -97,12 +97,13 @@ public class Application {
         }
 
         return otherApplication != null
-                && otherApplication.getRole().equals(getRole());
+                && otherApplication.getRole().equals(getRole())
+                && otherApplication.getCompany().companyName.equalsIgnoreCase(getCompany().companyName);
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both applications have the same identity and data fields.
+     * This defines a stronger notion of equality between two applications.
      */
     @Override
     public boolean equals(Object other) {

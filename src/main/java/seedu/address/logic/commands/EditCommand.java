@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
@@ -43,7 +44,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ROLE + "ROLE] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_HREMAIL + "EMAIL] "
-            + "[" + PREFIX_COMPANY + "COMPANY] "
+            + "[" + PREFIX_COMPANY_NAME + "COMPANY_NAME] "
+            + "[" + PREFIX_COMPANY_LOCATION + "COMPANY_LOCATION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -100,7 +102,13 @@ public class EditCommand extends Command {
         Role updatedRole = editApplicationDescriptor.getRole().orElse(applicationToEdit.getRole());
         Phone updatedPhone = editApplicationDescriptor.getPhone().orElse(applicationToEdit.getPhone());
         HrEmail updatedHrEmail = editApplicationDescriptor.getHrEmail().orElse(applicationToEdit.getHrEmail());
-        Company updatedCompany = editApplicationDescriptor.getCompany().orElse(applicationToEdit.getCompany());
+
+        String updatedName = editApplicationDescriptor.getCompanyName()
+                .orElse(applicationToEdit.getCompany().companyName);
+        String updatedLocation = editApplicationDescriptor.getCompanyLocation()
+                .orElse(applicationToEdit.getCompany().companyLocation);
+        Company updatedCompany = new Company(updatedName, updatedLocation);
+
         Set<Tag> updatedTags = editApplicationDescriptor.getTags().orElse(applicationToEdit.getTags());
         Status updatedStatus = editApplicationDescriptor.getStatus().orElse(applicationToEdit.getStatus());
 
@@ -138,7 +146,8 @@ public class EditCommand extends Command {
         private Role role;
         private Phone phone;
         private HrEmail hrEmail;
-        private Company company;
+        private String companyName;
+        private String companyLocation;
         private Set<Tag> tags;
         private Status status;
 
@@ -152,7 +161,8 @@ public class EditCommand extends Command {
             setRole(toCopy.role);
             setPhone(toCopy.phone);
             setHrEmail(toCopy.hrEmail);
-            setCompany(toCopy.company);
+            setCompanyName(toCopy.companyName);
+            setCompanyLocation(toCopy.companyLocation);
             setTags(toCopy.tags);
             setStatus(toCopy.status);
         }
@@ -161,7 +171,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(role, phone, hrEmail, company, tags);
+            return CollectionUtil.isAnyNonNull(role, phone, hrEmail, companyName, companyLocation, tags);
         }
 
         public void setRole(Role role) {
@@ -188,12 +198,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(hrEmail);
         }
 
-        public void setCompany(Company company) {
-            this.company = company;
+        public void setCompanyName(String companyName) {
+            this.companyName = companyName;
         }
 
-        public Optional<Company> getCompany() {
-            return Optional.ofNullable(company);
+        public Optional<String> getCompanyName() {
+            return Optional.ofNullable(companyName);
+        }
+
+        public void setCompanyLocation(String companyLocation) {
+            this.companyLocation = companyLocation;
+        }
+
+        public Optional<String> getCompanyLocation() {
+            return Optional.ofNullable(companyLocation);
         }
 
         /**
@@ -245,7 +263,8 @@ public class EditCommand extends Command {
             return Objects.equals(role, otherEditApplicationDescriptor.role)
                     && Objects.equals(phone, otherEditApplicationDescriptor.phone)
                     && Objects.equals(hrEmail, otherEditApplicationDescriptor.hrEmail)
-                    && Objects.equals(company, otherEditApplicationDescriptor.company)
+                    && Objects.equals(companyName, otherEditApplicationDescriptor.companyName)
+                    && Objects.equals(companyLocation, otherEditApplicationDescriptor.companyLocation)
                     && Objects.equals(tags, otherEditApplicationDescriptor.tags)
                     && Objects.equals(status, otherEditApplicationDescriptor.status);
         }
@@ -256,7 +275,8 @@ public class EditCommand extends Command {
                     .add("role", role)
                     .add("phone", phone)
                     .add("hrEmail", hrEmail)
-                    .add("company", company)
+                    .add("companyName", companyName)
+                    .add("companyLocation", companyLocation)
                     .add("tags", tags)
                     .add("status", status)
                     .toString();

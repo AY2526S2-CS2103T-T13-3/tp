@@ -28,7 +28,8 @@ class JsonAdaptedApplication {
     private final String role;
     private final String phone;
     private final String hrEmail;
-    private final String company;
+    private final String companyName;
+    private final String companyLocation;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     @JsonProperty("status")
     private final String status;
@@ -37,14 +38,18 @@ class JsonAdaptedApplication {
      * Constructs a {@code JsonAdaptedApplication} with the given application details.
      */
     @JsonCreator
-    public JsonAdaptedApplication(@JsonProperty("role") String role, @JsonProperty("phone") String phone,
-                                  @JsonProperty("hrEmail") String hrEmail, @JsonProperty("company") String company,
+    public JsonAdaptedApplication(@JsonProperty("role") String role,
+                                  @JsonProperty("phone") String phone,
+                                  @JsonProperty("hrEmail") String hrEmail,
+                                  @JsonProperty("companyName") String companyName,
+                                  @JsonProperty("companyLocation") String companyLocation,
                                   @JsonProperty("tags") List<JsonAdaptedTag> tags,
                                   @JsonProperty("status") String status) {
         this.role = role;
         this.phone = phone;
         this.hrEmail = hrEmail;
-        this.company = company;
+        this.companyName = companyName;
+        this.companyLocation = companyLocation;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -58,7 +63,8 @@ class JsonAdaptedApplication {
         role = source.getRole().roleName;
         phone = source.getPhone().value;
         hrEmail = source.getHrEmail().value;
-        company = source.getCompany().companyName;
+        companyName = source.getCompany().companyName;
+        companyLocation = source.getCompany().companyLocation;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -100,13 +106,19 @@ class JsonAdaptedApplication {
         }
         final HrEmail modelHrEmail = new HrEmail(hrEmail);
 
-        if (company == null) {
+        if (companyName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName()));
         }
-        if (!Company.isValidCompanyName(company)) {
-            throw new IllegalValueException(Company.MESSAGE_CONSTRAINTS);
+        if (!Company.isValidCompanyName(companyName)) {
+            throw new IllegalValueException(Company.MESSAGE_CONSTRAINTS_NAME);
         }
-        final Company modelCompany = new Company(company);
+        if (companyLocation == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "companyLocation"));
+        }
+        if (!Company.isValidCompanyLocation(companyLocation)) {
+            throw new IllegalValueException(Company.MESSAGE_CONSTRAINTS_LOCATION);
+        }
+        final Company modelCompany = new Company(companyName, companyLocation);
 
         final Set<Tag> modelTags = new HashSet<>(applicationTags);
 

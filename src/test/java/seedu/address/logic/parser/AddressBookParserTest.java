@@ -37,7 +37,10 @@ public class AddressBookParserTest {
     public void parseCommand_add() throws Exception {
         Application application = new ApplicationBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(ApplicationUtil.getAddCommand(application));
-        assertEquals(new AddCommand(application), command);
+        Application expectedApplication = new ApplicationBuilder(application)
+                .withCompanyLocation("")
+                .build();
+        assertEquals(new AddCommand(expectedApplication), command);
     }
 
     @Test

@@ -2,7 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
@@ -34,8 +35,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL, PREFIX_COMPANY, PREFIX_TAG,
-                        PREFIX_STATUS);
+                ArgumentTokenizer.tokenize(args, PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL,
+                        PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION, PREFIX_TAG, PREFIX_STATUS);
 
         Index index;
 
@@ -45,7 +46,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL, PREFIX_COMPANY);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL,
+                PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION);
 
         EditApplicationDescriptor editApplicationDescriptor = new EditApplicationDescriptor();
 
@@ -58,8 +60,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_HREMAIL).isPresent()) {
             editApplicationDescriptor.setHrEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_HREMAIL).get()));
         }
-        if (argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
-            editApplicationDescriptor.setCompany(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_COMPANY).get()));
+        if (argMultimap.getValue(PREFIX_COMPANY_NAME).isPresent()) {
+            editApplicationDescriptor.setCompanyName(
+                    ParserUtil.parseCompanyName(argMultimap.getValue(PREFIX_COMPANY_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_COMPANY_LOCATION).isPresent()) {
+            editApplicationDescriptor.setCompanyLocation(
+                    ParserUtil.parseCompanyLocation(argMultimap.getValue(PREFIX_COMPANY_LOCATION).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editApplicationDescriptor::setTags);
 

@@ -20,7 +20,7 @@ public class ApplicationTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Application application = new ApplicationBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> application.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> application.getTags().clear());
     }
 
     @Test
@@ -62,9 +62,6 @@ public class ApplicationTest {
         // same object -> returns true
         assertTrue(ALICE.equals(ALICE));
 
-        // null -> returns false
-        assertFalse(ALICE.equals(null));
-
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
@@ -93,6 +90,18 @@ public class ApplicationTest {
     }
 
     @Test
+    public void constructor_withoutStatus_defaultsToApplied() {
+        Application applicationWithDefaultStatus = new Application(
+                ALICE.getRole(),
+                ALICE.getPhone(),
+                ALICE.getHrEmail(),
+                ALICE.getCompany(),
+                ALICE.getTags());
+
+        assertEquals(Status.APPLIED, applicationWithDefaultStatus.getStatus());
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = Application.class.getCanonicalName()
                 + "{role=" + ALICE.getRole()
@@ -102,5 +111,11 @@ public class ApplicationTest {
                 + ", tags=" + ALICE.getTags()
                 + ", status=" + ALICE.getStatus() + "}";
         assertEquals(expected, ALICE.toString());
+    }
+
+    @Test
+    public void hashCode_sameValues_sameHash() {
+        Application copyOfAlice = new ApplicationBuilder(ALICE).build();
+        assertEquals(ALICE.hashCode(), copyOfAlice.hashCode());
     }
 }

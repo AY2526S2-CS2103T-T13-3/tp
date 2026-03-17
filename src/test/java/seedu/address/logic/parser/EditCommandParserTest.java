@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.COMPANY_LOCATION_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.COMPANY_NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.HREMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.HREMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
@@ -15,14 +17,15 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_LOCATION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HREMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -86,7 +89,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_ROLE_DESC, Role.MESSAGE_CONSTRAINTS); // invalid role
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_HREMAIL_DESC, HrEmail.MESSAGE_CONSTRAINTS); // invalid hrEmail
-        assertParseFailure(parser, "1" + INVALID_COMPANY_DESC, Company.MESSAGE_CONSTRAINTS); // invalid company
+        assertParseFailure(parser, "1" + INVALID_COMPANY_DESC, Company.MESSAGE_CONSTRAINTS_NAME); // invalid company
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid hrEmail
@@ -99,7 +102,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_ROLE_DESC + INVALID_HREMAIL_DESC + VALID_COMPANY_AMY + VALID_PHONE_AMY,
+        assertParseFailure(parser, "1" + INVALID_ROLE_DESC + INVALID_HREMAIL_DESC + COMPANY_DESC_AMY + VALID_PHONE_AMY,
                 seedu.address.model.application.Role.MESSAGE_CONSTRAINTS);
     }
 
@@ -107,10 +110,12 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_APPLICATION;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
-                + HREMAIL_DESC_AMY + COMPANY_DESC_AMY + ROLE_DESC_AMY + TAG_DESC_FRIEND;
+                + HREMAIL_DESC_AMY + COMPANY_NAME_DESC_AMY + COMPANY_LOCATION_DESC_AMY + ROLE_DESC_AMY
+                + TAG_DESC_FRIEND;
 
         EditApplicationDescriptor descriptor = new EditApplicationDescriptorBuilder().withRole(VALID_ROLE_AMY)
-                .withPhone(VALID_PHONE_BOB).withHrEmail(VALID_HREMAIL_AMY).withCompany(VALID_COMPANY_AMY)
+                .withPhone(VALID_PHONE_BOB).withHrEmail(VALID_HREMAIL_AMY)
+                .withCompanyName(VALID_COMPANY_NAME_AMY).withCompanyLocation(VALID_COMPANY_LOCATION_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -152,7 +157,7 @@ public class EditCommandParserTest {
 
         // company
         userInput = targetIndex.getOneBased() + COMPANY_DESC_AMY;
-        descriptor = new EditApplicationDescriptorBuilder().withCompany(VALID_COMPANY_AMY).build();
+        descriptor = new EditApplicationDescriptorBuilder().withCompanyName(VALID_COMPANY_NAME_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -185,14 +190,14 @@ public class EditCommandParserTest {
                 + PHONE_DESC_BOB + COMPANY_DESC_BOB + HREMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_HREMAIL, PREFIX_COMPANY));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_HREMAIL, PREFIX_COMPANY_NAME));
 
         // multiple invalid values
         userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_COMPANY_DESC + INVALID_HREMAIL_DESC
                 + INVALID_PHONE_DESC + INVALID_COMPANY_DESC + INVALID_HREMAIL_DESC;
 
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_HREMAIL, PREFIX_COMPANY));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_HREMAIL, PREFIX_COMPANY_NAME));
     }
 
     @Test

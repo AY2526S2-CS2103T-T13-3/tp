@@ -29,7 +29,8 @@ public class ParserUtilTest {
 
     private static final String VALID_ROLE = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
-    private static final String VALID_COMPANY = "123 Main Street #0505";
+    private static final String VALID_COMPANY_NAME = "Google";
+    private static final String VALID_COMPANY_LOCATION = "Singapore";
     private static final String VALID_HREMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
@@ -104,25 +105,35 @@ public class ParserUtilTest {
 
     @Test
     public void parseCompany_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompanyName((String) null));
     }
 
     @Test
     public void parseCompany_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_COMPANY));
+        assertThrows(ParseException.class, () -> ParserUtil.parseCompanyName(INVALID_COMPANY));
+    }
+
+    @Test
+    public void parseCompanyLocation_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompanyLocation((String) null));
     }
 
     @Test
     public void parseCompany_validValueWithoutWhitespace_returnsCompany() throws Exception {
-        Company expectedCompany = new Company(VALID_COMPANY);
-        assertEquals(expectedCompany, ParserUtil.parseAddress(VALID_COMPANY));
+        Company expectedCompany = new Company(VALID_COMPANY_NAME, VALID_COMPANY_LOCATION);
+        String name = ParserUtil.parseCompanyName(VALID_COMPANY_NAME);
+        String location = ParserUtil.parseCompanyLocation(VALID_COMPANY_LOCATION);
+        assertEquals(expectedCompany, new Company(name, location));
     }
 
     @Test
     public void parseCompany_validValueWithWhitespace_returnsTrimmedCompany() throws Exception {
-        String companyWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
-        Company expectedCompany = new Company(VALID_COMPANY);
-        assertEquals(expectedCompany, ParserUtil.parseAddress(companyWithWhitespace));
+        String nameWithWhitespace = WHITESPACE + VALID_COMPANY_NAME + WHITESPACE;
+        String locationWithWhitespace = WHITESPACE + VALID_COMPANY_LOCATION + WHITESPACE;
+        Company expectedCompany = new Company(VALID_COMPANY_NAME, VALID_COMPANY_LOCATION);
+        String name = ParserUtil.parseCompanyName(nameWithWhitespace);
+        String location = ParserUtil.parseCompanyLocation(locationWithWhitespace);
+        assertEquals(expectedCompany, new Company(name, location));
     }
 
     @Test
