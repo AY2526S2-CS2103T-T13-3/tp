@@ -3,38 +3,34 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+Hired! is a **desktop app for managing internship applications, optimized for use via a Command Line Interface** (CLI) while still providing the benefits of a Graphical User Interface (GUI). If you can type fast, Hired! can help you manage your internship applications more efficiently than traditional GUI apps.
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have Java `17` or above installed on your computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from the [project release page](REPLACE_WITH_RELEASE_LINK).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for Hired!.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and run the application using `java -jar hired.jar`.<br>
+   A GUI similar to the one below should appear in a few seconds. Note that the app contains some sample application records.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. For example, typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
-
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
-
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-   * `clear` : Deletes all contacts.
-
-   * `exit` : Exits the app.
+    * `list` : Lists all application records.
+    * `add n/Software Engineer p/98765432 e/hr@google.com a/Google t/interview` : Adds an application record for a Software Engineer role at Google.
+    * `delete 3` : Deletes the 3rd application shown in the current list.
+    * `clear` : Deletes all application records.
+    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -46,22 +42,22 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 **:information_source: Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are parameters to be supplied by the user.<br>
+  e.g. in `add n/ROLE`, `ROLE` is a parameter which can be used as `add n/Software Engineer`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/ROLE [t/TAG]` can be used as `n/Software Engineer t/interview` or as `n/Software Engineer`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…` after them can be used multiple times including zero times.<br>
+  e.g. `[t/TAG]...` can be used as ` ` (i.e. 0 times), `t/interview`, `t/interview t/priority` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/ROLE p/PHONE`, `p/PHONE n/ROLE` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines, as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
 ### Viewing help : `help`
@@ -72,79 +68,83 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+### Adding an application: `add`
 
-### Adding a application: `add`
+Adds an application record to Hired!.
 
-Adds a application to the company book.
+Format: `add n/ROLE p/PHONE e/EMAIL a/COMPANY [t/TAG]...`
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+In Hired!, the prefix `n/` is used for the internship role, and `a/` is used for the company name.
+</div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A application can have any number of tags (including 0)
+An application can have any number of tags (including 0).
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Software Engineer p/98765432 e/hr@google.com a/Google`
+* `add n/Software Engineer p/98765432 e/hr@google.com a/Google t/interview t/priority`
 
 ### Listing all applications : `list`
 
-Shows a list of all applications in the company book.
+Shows a list of all application records in Hired!.
 
 Format: `list`
 
-### Editing a application : `edit`
+### Editing an application : `edit`
 
-Edits an existing application in the company book.
+Edits the details of an existing application in Hired!.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/ROLE] [p/PHONE] [e/EMAIL] [a/COMPANY] [t/TAG]...`
 
-* Edits the application at the specified `INDEX`. The index refers to the index number shown in the displayed application list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed application list.
+* The index **must be a positive integer** `1, 2, 3, ...`
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the application will be removed i.e adding of tags is not cumulative.
-* You can remove all the application’s tags by typing `t/` without
-    specifying any tags after it.
+* Existing values will be overwritten by the input values.
+* When editing tags, the existing tags of the application will be removed, i.e. tag editing is not cumulative.
+* You can remove all tags by typing `t/` without specifying any tag after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and hrEmail company of the 1st application to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the role of the 2nd application to be `Betsy Crower` and clears all existing tags.
+* `edit 1 p/91234567 e/hr@google.com` edits the phone number and email of the 1st application.
+* `edit 2 n/Backend Engineer a/Shopee` edits the role and company of the 2nd application.
+* `edit 3 t/urgent t/interview` replaces the tags of the 3rd application with `urgent` and `interview`.
+* `edit 4 t/` removes all tags from the 4th application.
 
 ### Locating applications by role: `find`
 
-Finds applications whose names contain any of the given keywords.
+Finds applications whose roles contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g. `engineer` will match `Engineer`
+* The order of the keywords does not matter.
 * Only the role is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only full words will be matched.
+* Applications matching at least one keyword will be returned (i.e. `OR` search).
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find engineer` returns applications with roles containing `engineer`
+* `find backend frontend` returns applications with roles containing `backend` or `frontend`
 
-### Deleting a application : `delete`
+### Deleting an application : `delete`
 
-Deletes the specified application from the company book.
+Deletes the specified application record from Hired!.
 
 Format: `delete INDEX`
 
 * Deletes the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** `1, 2, 3, ...`
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd application in the company book.
-* `find Betsy` followed by `delete 1` deletes the 1st application in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd application in the displayed list.
+* `find engineer` followed by `delete 1` deletes the 1st application in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the company book.
+Clears all application records from Hired!.
 
 Format: `clear`
 
@@ -156,15 +156,15 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Hired! data are saved automatically to the hard disk after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Hired! data are saved automatically as a JSON file at `[JAR file location]/data/addressbook.json`. Advanced users may update data directly by editing that file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file make its format invalid, Hired! may discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause Hired! to behave in unexpected ways (for example, if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
 ### Archiving data files `[coming in v2.0]`
@@ -175,8 +175,8 @@ _Details coming soon ..._
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**Q**: How do I transfer my data to another computer?<br>
+**A**: Install Hired! on the other computer and overwrite the empty data file it creates with the data file from your previous Hired! home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -191,10 +191,10 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/ROLE p/PHONE e/EMAIL a/COMPANY [t/TAG]...` <br> e.g. `add n/Software Engineer p/98765432 e/hr@google.com a/Google t/interview t/priority`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Delete** | `delete INDEX`<br> e.g. `delete 3`
+**Edit** | `edit INDEX [n/ROLE] [p/PHONE] [e/EMAIL] [a/COMPANY] [t/TAG]...`<br> e.g. `edit 2 n/Backend Engineer a/Shopee`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g. `find engineer backend`
 **List** | `list`
 **Help** | `help`
