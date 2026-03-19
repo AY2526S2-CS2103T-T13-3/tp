@@ -64,6 +64,7 @@ public class ApplicationCard extends UiPart<Region> {
             companyLocation.setText(loc);
         }
 
+        status.setText("Status: " + application.getStatus().toString());
         status.setVisible(false);
         status.setManaged(false);
 
