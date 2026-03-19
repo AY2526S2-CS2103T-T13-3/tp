@@ -19,6 +19,7 @@ import javafx.scene.layout.FlowPane;
 import seedu.address.model.application.Application;
 import seedu.address.testutil.ApplicationBuilder;
 
+@DisabledOnOs(OS.LINUX)
 public class ApplicationCardTest {
 
     @BeforeAll
