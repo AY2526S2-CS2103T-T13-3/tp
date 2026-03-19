@@ -27,7 +27,7 @@ Hired! is a **desktop app for managing internship applications, optimized for us
    Some example commands you can try:
 
     * `list` : Lists all application records.
-    * `add n/Software Engineer p/98765432 e/hr@google.com a/Google t/interview` : Adds an application record for a Software Engineer role at Google.
+    * `add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview` : Adds an application record for a Software Engineer role at Google.
     * `delete 3` : Deletes the 3rd application shown in the current list.
     * `clear` : Deletes all application records.
     * `exit` : Exits the app.
@@ -43,16 +43,16 @@ Hired! is a **desktop app for managing internship applications, optimized for us
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are parameters to be supplied by the user.<br>
-  e.g. in `add n/ROLE`, `ROLE` is a parameter which can be used as `add n/Software Engineer`.
+  e.g. in `add r/ROLE`, `ROLE` is a parameter which can be used as `add r/Software Engineer`.
 
 * Items in square brackets are optional.<br>
-  e.g. `n/ROLE [t/TAG]` can be used as `n/Software Engineer t/interview` or as `n/Software Engineer`.
+  e.g. `r/ROLE [t/TAG]` can be used as `r/Software Engineer t/interview` or as `r/Software Engineer`.
 
 * Items with `…` after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]...` can be used as ` ` (i.e. 0 times), `t/interview`, `t/interview t/priority` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/ROLE p/PHONE`, `p/PHONE n/ROLE` is also acceptable.
+  e.g. if the command specifies `r/ROLE p/PHONE`, `p/PHONE r/ROLE` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -72,10 +72,10 @@ Format: `help`
 
 Adds an application record to Hired!.
 
-Format: `add n/ROLE p/PHONE e/EMAIL a/COMPANY [t/TAG]...`
+Format: `r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]...`
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:**
-In Hired!, the prefix `n/` is used for the internship role, and `a/` is used for the company name.
+In Hired!, the prefix `r/` is used for the internship role, and `c/` is used for the company name.
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -83,8 +83,8 @@ An application can have any number of tags (including 0).
 </div>
 
 Examples:
-* `add n/Software Engineer p/98765432 e/hr@google.com a/Google`
-* `add n/Software Engineer p/98765432 e/hr@google.com a/Google t/interview t/priority`
+* `add r/Software Engineer p/98765432 e/hr@google.com l/Boon Lay c/Google`
+* `add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Singapore t/interview t/priority`
 
 ### Listing all applications : `list`
 
@@ -96,7 +96,7 @@ Format: `list`
 
 Edits the details of an existing application in Hired!.
 
-Format: `edit INDEX [n/ROLE] [p/PHONE] [e/EMAIL] [a/COMPANY] [t/TAG]...`
+Format: `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]...`
 
 * Edits the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
@@ -108,7 +108,7 @@ Format: `edit INDEX [n/ROLE] [p/PHONE] [e/EMAIL] [a/COMPANY] [t/TAG]...`
 
 Examples:
 * `edit 1 p/91234567 e/hr@google.com` edits the phone number and email of the 1st application.
-* `edit 2 n/Backend Engineer a/Shopee` edits the role and company of the 2nd application.
+* `edit 2 r/Backend Engineer c/Shopee` edits the role and company of the 2nd application.
 * `edit 3 t/urgent t/interview` replaces the tags of the 3rd application with `urgent` and `interview`.
 * `edit 4 t/` removes all tags from the 4th application.
 
@@ -191,10 +191,10 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/ROLE p/PHONE e/EMAIL a/COMPANY [t/TAG]...` <br> e.g. `add n/Software Engineer p/98765432 e/hr@google.com a/Google t/interview t/priority`
+**Add** | `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]...` <br> e.g. `add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview t/priority`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
-**Edit** | `edit INDEX [n/ROLE] [p/PHONE] [e/EMAIL] [a/COMPANY] [t/TAG]...`<br> e.g. `edit 2 n/Backend Engineer a/Shopee`
+**Edit** | `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]...`<br> e.g. `edit 2 r/Backend Engineer c/Shopee`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g. `find engineer backend`
 **List** | `list`
 **Help** | `help`
