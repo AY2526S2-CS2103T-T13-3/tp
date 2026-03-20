@@ -78,9 +78,10 @@ Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG].
 
 **Optional prefixes:** `l/` and `t/` are optional. If provided, they may appear in any order after the required fields.
 
-> **Note:** In Hired!, `r/` is used for the internship role, and `c/` is used for the company name.
+> **Note:** In Hired!, `r/` is used for the internship role, and `c/` is used for the company name. Applications 
+            with the same role and company name are considered duplicates and cannot be added.
+> **Tip:** An application can have any number of tags (including 0). 
 
-> **Tip:** An application can have any number of tags (including 0).
 
 Examples:
 * `add r/Software Engineer p/98765432 e/hr@google.com c/Google`
