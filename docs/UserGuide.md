@@ -72,19 +72,21 @@ Format: `help`
 
 Adds an application record to Hired!.
 
-Format: `r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]...`
+Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]...`
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:**
-In Hired!, the prefix `r/` is used for the internship role, and `c/` is used for the company name.
-</div>
+**Required prefixes:** `r/`, `p/`, `e/`, and `c/` must be provided for a valid `add` command.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-An application can have any number of tags (including 0).
-</div>
+**Optional prefixes:** `l/` and `t/` are optional. If provided, they may appear in any order after the required fields.
+
+> **Note:** In Hired!, `r/` is used for the internship role, and `c/` is used for the company name.
+
+> **Tip:** An application can have any number of tags (including 0).
 
 Examples:
-* `add r/Software Engineer p/98765432 e/hr@google.com l/Boon Lay c/Google`
-* `add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Singapore t/interview t/priority`
+* `add r/Software Engineer p/98765432 e/hr@google.com c/Google`
+* `add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Singapore`
+* `add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview t/priority`
+* `add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Boon Lay t/interview`
 
 ### Listing all applications : `list`
 

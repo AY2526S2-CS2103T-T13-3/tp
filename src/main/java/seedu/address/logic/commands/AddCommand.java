@@ -15,20 +15,24 @@ import seedu.address.model.Model;
 import seedu.address.model.application.Application;
 
 /**
- * Adds an application to the Hired!.
+ * Adds an application to Hired!.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an application to the Hired!. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an application to Hired!.\n"
+            + "Format: " + COMMAND_WORD + " "
             + PREFIX_ROLE + "ROLE "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_HREMAIL + "EMAIL "
             + PREFIX_COMPANY_NAME + "COMPANY_NAME "
             + "[" + PREFIX_COMPANY_LOCATION + "COMPANY_LOCATION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Required prefixes: " + PREFIX_ROLE + ", " + PREFIX_PHONE + ", "
+            + PREFIX_HREMAIL + ", and " + PREFIX_COMPANY_NAME + " must be provided.\n"
+            + "Optional prefixes: " + PREFIX_COMPANY_LOCATION + " and " + PREFIX_TAG
+            + " may be omitted. If provided, optional prefixes may appear in any order after the required fields.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ROLE + "Software Engineer "
             + PREFIX_PHONE + "98765432 "
@@ -69,7 +73,6 @@ public class AddCommand extends Command {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof AddCommand)) {
             return false;
         }
