@@ -257,6 +257,28 @@ public class ApplicationCardTest {
     }
 
     @Test
+    public void constructor_withUppercaseUrgentTag_stillSetsRedStyle() throws Exception {
+        Application application = new ApplicationBuilder()
+                .withTags("URGENT")
+                .build();
+
+        ApplicationCard applicationCard = new ApplicationCard(application, 1);
+        FlowPane tagsPane = getTagsPane(applicationCard);
+
+        Label urgentLabel = (Label) tagsPane.getChildren().stream()
+                .filter(node -> node instanceof Label)
+                .map(node -> (Label) node)
+                .filter(label -> label.getText().equals("URGENT"))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Uppercase urgent tag label not found"));
+
+        assertTrue(urgentLabel.getStyle().contains("#FF0000"));
+        assertTrue(tagsPane.getChildren().stream()
+                .map(node -> (Label) node)
+                .anyMatch(label -> label.getText().equals("applied")));
+    }
+
+    @Test
     public void constructor_afterRedoState_displaysUpdatedInfo() throws Exception {
         // 模拟 Redo 执行后，数据被恢复到之前的状态 (例如 Deadline 和 Status 发生了变化)
         Application redoStateApp = new ApplicationBuilder()

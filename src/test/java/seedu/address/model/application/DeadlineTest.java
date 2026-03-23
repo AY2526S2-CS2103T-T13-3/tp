@@ -79,6 +79,17 @@ public class DeadlineTest {
     }
 
     @Test
+    public void getLocalDate_invalidDateString_returnsNull() {
+        // Length >= 10 but not parseable as LocalDate -> falls into catch block.
+        assertNull(new Deadline("2026-99-99").getLocalDate());
+    }
+
+    @Test
+    public void isValidDeadline_placeholder_returnsTrue() {
+        assertTrue(Deadline.isValidDeadline("-"));
+    }
+
+    @Test
     public void hashCode_sameValue_sameHash() {
         Deadline first = new Deadline("2026-12-31");
         Deadline second = new Deadline("2026-12-31");
