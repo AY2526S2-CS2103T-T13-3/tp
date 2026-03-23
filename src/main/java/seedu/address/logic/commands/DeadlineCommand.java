@@ -50,6 +50,7 @@ public class DeadlineCommand extends Command {
                 appToEdit.getCompany(), appToEdit.getTags(), appToEdit.getStatus(), deadline);
 
         model.setApplication(appToEdit, editedApp);
+        model.commitAddressBook();
         return new CommandResult("Deadline updated for: " + editedApp.getCompany());
     }
 

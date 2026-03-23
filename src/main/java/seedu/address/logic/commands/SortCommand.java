@@ -45,6 +45,7 @@ public class SortCommand extends Command {
         }
 
         model.updateSortedApplicationList(comparator);
+        model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, criteria));
     }

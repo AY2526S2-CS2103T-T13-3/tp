@@ -69,6 +69,7 @@ public class StatusCommand extends Command {
         );
 
         model.setApplication(applicationToEdit, updatedApplication);
+        model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedApplication));
     }
