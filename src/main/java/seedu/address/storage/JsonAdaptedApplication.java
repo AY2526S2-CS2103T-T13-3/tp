@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.application.Application;
 import seedu.address.model.application.Company;
+import seedu.address.model.application.Deadline;
 import seedu.address.model.application.HrEmail;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
@@ -33,6 +34,7 @@ class JsonAdaptedApplication {
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     @JsonProperty("status")
     private final String status;
+    private final String deadline;
 
     /**
      * Constructs a {@code JsonAdaptedApplication} with the given application details.
@@ -44,7 +46,8 @@ class JsonAdaptedApplication {
                                   @JsonProperty("companyName") String companyName,
                                   @JsonProperty("companyLocation") String companyLocation,
                                   @JsonProperty("tags") List<JsonAdaptedTag> tags,
-                                  @JsonProperty("status") String status) {
+                                  @JsonProperty("status") String status,
+                                  @JsonProperty("deadline") String deadline) {
         this.role = role;
         this.phone = phone;
         this.hrEmail = hrEmail;
@@ -54,6 +57,7 @@ class JsonAdaptedApplication {
             this.tags.addAll(tags);
         }
         this.status = status;
+        this.deadline = deadline;
     }
 
     /**
@@ -69,6 +73,7 @@ class JsonAdaptedApplication {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         this.status = source.getStatus().name();
+        this.deadline = source.getDeadline().value;
     }
 
     /**
@@ -122,6 +127,10 @@ class JsonAdaptedApplication {
 
         final Set<Tag> modelTags = new HashSet<>(applicationTags);
 
+        final Deadline modelDeadline = (deadline != null)
+                ? new Deadline(deadline)
+                : Deadline.getEmptyDeadline();
+
         Status modelStatus;
         try {
             modelStatus = Status.valueOf(status != null ? status : "APPLIED");
@@ -129,6 +138,6 @@ class JsonAdaptedApplication {
             throw new IllegalValueException("Invalid status: " + status);
         }
 
-        return new Application(modelRole, modelPhone, modelHrEmail, modelCompany, modelTags, modelStatus);
+        return new Application(modelRole, modelPhone, modelHrEmail, modelCompany, modelTags, modelStatus, modelDeadline);
     }
 }

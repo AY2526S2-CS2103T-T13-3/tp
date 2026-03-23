@@ -38,6 +38,7 @@
       </HBox>
 
       <Label fx:id="hrEmail" styleClass="cell_small_label" text="\$hrEmail" />
+      <Label fx:id="deadline" styleClass="cell_small_label" text="\$deadline" />
     </VBox>
   </GridPane>
 </HBox>

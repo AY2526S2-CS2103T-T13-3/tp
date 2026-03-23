@@ -112,7 +112,8 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editApplicationDescriptor.getTags().orElse(applicationToEdit.getTags());
         Status updatedStatus = editApplicationDescriptor.getStatus().orElse(applicationToEdit.getStatus());
 
-        return new Application(updatedRole, updatedPhone, updatedHrEmail, updatedCompany, updatedTags, updatedStatus);
+        return new Application(updatedRole, updatedPhone, updatedHrEmail, updatedCompany
+                , updatedTags, updatedStatus, applicationToEdit.getDeadline());
     }
 
     @Override

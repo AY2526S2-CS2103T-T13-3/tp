@@ -44,6 +44,8 @@ public class ApplicationCard extends UiPart<Region> {
     private Label hrEmail;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label deadline;
 
     /**
      * Creates a {@code ApplicationCard} with the given {@code Application} and index to display.
@@ -56,12 +58,24 @@ public class ApplicationCard extends UiPart<Region> {
         phone.setText(application.getPhone().value);
         hrEmail.setText(application.getHrEmail().value);
         companyName.setText(application.getCompany().companyName);
+        deadline.setText("Deadline: " + application.getDeadline().value);
+
+        // company location
         String loc = application.getCompany().companyLocation;
         if (loc.isEmpty()) {
             companyLocation.setVisible(false);
             companyLocation.setManaged(false);
         } else {
             companyLocation.setText(loc);
+        }
+
+        // deadline
+        String deadlineValue = application.getDeadline().value;
+        if (application.getDeadline().isEmpty()) {
+            deadline.setVisible(false);
+            deadline.setManaged(false);
+        } else {
+            deadline.setText("Deadline: " + deadlineValue);
         }
 
         // status.setText("Status: " + application.getStatus().toString());

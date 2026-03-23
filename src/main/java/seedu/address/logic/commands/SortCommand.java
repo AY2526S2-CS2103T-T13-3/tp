@@ -35,9 +35,7 @@ public class SortCommand extends Command{
             comparator = (a1, a2) -> a1.getRole().roleName
                     .compareToIgnoreCase(a2.getRole().roleName);
         } else if (criteria.equalsIgnoreCase("time")) {
-            // TODO: Huiying实现了 Deadline 类后，将此处替换为 a2.getDeadline().compareTo(a1.getDeadline())
-            // 目前先抛出一个提示异常，或者做一个默认排序
-            throw new CommandException("Time sorting is under development (waiting for Deadline class).");
+            comparator = (a1, a2) -> a1.getDeadline().compareTo(a2.getDeadline());
         } else {
             throw new CommandException("Unknown criteria! Use 'time' or 'alphabet'.");
         }

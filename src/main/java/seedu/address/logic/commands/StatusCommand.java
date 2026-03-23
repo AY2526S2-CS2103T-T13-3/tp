@@ -64,7 +64,8 @@ public class StatusCommand extends Command {
                 applicationToEdit.getHrEmail(),
                 applicationToEdit.getCompany(),
                 applicationToEdit.getTags(),
-                status
+                status,
+                applicationToEdit.getDeadline()
         );
 
         model.setApplication(applicationToEdit, updatedApplication);
