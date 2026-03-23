@@ -59,6 +59,19 @@ public class ModelManager implements Model {
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
+
+    //=========== Undo ==================================================================================
+
+    @Override
+    public boolean canRedoAddressBook() {
+        return versionedAddressBook.canRedo();
+    }
+
+    @Override
+    public void redoAddressBook() {
+        versionedAddressBook.redo();
+    }
+
     //=========== UserPrefs ==================================================================================
 
     @Override

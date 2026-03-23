@@ -93,4 +93,7 @@ public interface Model {
     void commitAddressBook();
     void undoAddressBook();
     boolean canUndoAddressBook();
+
+    void redoAddressBook();
+    boolean canRedoAddressBook();
 }
