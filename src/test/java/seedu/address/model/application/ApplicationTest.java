@@ -109,7 +109,8 @@ public class ApplicationTest {
                 + ", hrEmail=" + ALICE.getHrEmail()
                 + ", company=" + ALICE.getCompany()
                 + ", tags=" + ALICE.getTags()
-                + ", status=" + ALICE.getStatus() + "}";
+                + ", status=" + ALICE.getStatus()
+                + ", deadline=" + ALICE.getDeadline() + "}";
         assertEquals(expected, ALICE.toString());
     }
 

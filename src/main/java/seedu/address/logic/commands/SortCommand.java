@@ -48,4 +48,23 @@ public class SortCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, criteria));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof SortCommand)) {
+            return false;
+        }
+
+        SortCommand otherSortCommand = (SortCommand) other;
+        return criteria.equalsIgnoreCase(otherSortCommand.criteria);
+    }
+
+    @Override
+    public int hashCode() {
+        return criteria.toLowerCase().hashCode();
+    }
 }

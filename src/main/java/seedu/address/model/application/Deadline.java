@@ -1,5 +1,7 @@
 package seedu.address.model.application;
 
+import java.util.Objects;
+
 /**
  * The deadline for representing the application.
  */
@@ -33,5 +35,24 @@ public class Deadline implements Comparable<Deadline> {
         }
 
         return this.value.compareTo(other.value);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline otherDeadline = (Deadline) other;
+        return value.equals(otherDeadline.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
