@@ -47,7 +47,8 @@ public class DeadlineCommand extends Command {
         Application appToEdit = lastShownList.get(index.getZeroBased());
         Application editedApp = new Application(
                 appToEdit.getRole(), appToEdit.getPhone(), appToEdit.getHrEmail(),
-                appToEdit.getCompany(), appToEdit.getTags(), appToEdit.getStatus(), deadline);
+                appToEdit.getCompany(), appToEdit.getTags(), appToEdit.getStatus(), deadline,
+                appToEdit.getApplicationEvent());
 
         model.setApplication(appToEdit, editedApp);
         model.commitAddressBook();

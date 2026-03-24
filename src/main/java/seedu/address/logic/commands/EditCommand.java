@@ -23,6 +23,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.application.Application;
+import seedu.address.model.application.ApplicationEvent;
 import seedu.address.model.application.Company;
 import seedu.address.model.application.Deadline;
 import seedu.address.model.application.HrEmail;
@@ -60,7 +61,7 @@ public class EditCommand extends Command {
     private final EditApplicationDescriptor editApplicationDescriptor;
 
     /**
-     * @param index of the application in the filtered application list to edit
+     * @param index                     of the application in the filtered application list to edit
      * @param editApplicationDescriptor details to edit the application with
      */
     public EditCommand(Index index, EditApplicationDescriptor editApplicationDescriptor) {
@@ -117,8 +118,11 @@ public class EditCommand extends Command {
         Deadline updatedDeadline = editApplicationDescriptor.getDeadline()
                 .orElse(applicationToEdit.getDeadline());
 
+        ApplicationEvent updatedApplicationEvent = editApplicationDescriptor.getApplicationEvent()
+                .orElse(applicationToEdit.getApplicationEvent());
+
         return new Application(updatedRole, updatedPhone, updatedHrEmail, updatedCompany,
-                updatedTags, updatedStatus, updatedDeadline);
+                updatedTags, updatedStatus, updatedDeadline, updatedApplicationEvent);
     }
 
     @Override
@@ -127,11 +131,10 @@ public class EditCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditCommand otherEditCommand)) {
             return false;
         }
 
-        EditCommand otherEditCommand = (EditCommand) other;
         return index.equals(otherEditCommand.index)
                 && editApplicationDescriptor.equals(otherEditCommand.editApplicationDescriptor);
     }
@@ -157,8 +160,10 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private Status status;
         private Deadline deadline;
+        private ApplicationEvent applicationEvent;
 
-        public EditApplicationDescriptor() {}
+        public EditApplicationDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -222,6 +227,7 @@ public class EditCommand extends Command {
             this.deadline = deadline;
         }
 
+
         public Optional<Deadline> getDeadline() {
             return Optional.ofNullable(deadline);
         }
@@ -249,6 +255,7 @@ public class EditCommand extends Command {
 
         /**
          * Sets {@code status} to this object's {@code status}.
+         *
          * @param status to be set to the object's status
          */
         public void setStatus(Status status) {
@@ -259,10 +266,18 @@ public class EditCommand extends Command {
          * Returns the status of the application to be edited, if specified.
          *
          * @return an {@code Optional} containing the {@code Status} if set,
-         *         or {@code Optional.empty()} if no status was provided.
+         *      or {@code Optional.empty()} if no status was provided
          */
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
+        }
+
+        public void setApplicationEvent(ApplicationEvent applicationEvent) {
+            this.applicationEvent = applicationEvent;
+        }
+
+        public Optional<ApplicationEvent> getApplicationEvent() {
+            return Optional.ofNullable(applicationEvent);
         }
 
         @Override
@@ -271,11 +286,10 @@ public class EditCommand extends Command {
                 return true;
             }
 
-            if (!(other instanceof EditApplicationDescriptor)) {
+            if (!(other instanceof EditApplicationDescriptor otherEditApplicationDescriptor)) {
                 return false;
             }
 
-            EditApplicationDescriptor otherEditApplicationDescriptor = (EditApplicationDescriptor) other;
             return Objects.equals(role, otherEditApplicationDescriptor.role)
                     && Objects.equals(phone, otherEditApplicationDescriptor.phone)
                     && Objects.equals(hrEmail, otherEditApplicationDescriptor.hrEmail)

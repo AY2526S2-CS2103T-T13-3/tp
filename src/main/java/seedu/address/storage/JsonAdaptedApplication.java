@@ -11,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.application.Application;
+import seedu.address.model.application.ApplicationEvent;
 import seedu.address.model.application.Company;
 import seedu.address.model.application.Deadline;
 import seedu.address.model.application.HrEmail;
+import seedu.address.model.application.OnlineAssessment;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
 import seedu.address.model.application.Status;
@@ -36,6 +38,12 @@ class JsonAdaptedApplication {
     private final String status;
     private final String deadline;
 
+    // OnlineAssessment fields — stored flat, all nullable (assessment is optional)
+    private final String assessmentLocation;
+    private final String assessmentPlatform;
+    private final String assessmentLink;
+    private final String assessmentNotes;
+
     /**
      * Constructs a {@code JsonAdaptedApplication} with the given application details.
      */
@@ -47,7 +55,11 @@ class JsonAdaptedApplication {
                                   @JsonProperty("companyLocation") String companyLocation,
                                   @JsonProperty("tags") List<JsonAdaptedTag> tags,
                                   @JsonProperty("status") String status,
-                                  @JsonProperty("deadline") String deadline) {
+                                  @JsonProperty("deadline") String deadline,
+                                  @JsonProperty("assessmentLocation") String assessmentLocation,
+                                  @JsonProperty("assessmentPlatform") String assessmentPlatform,
+                                  @JsonProperty("assessmentLink") String assessmentLink,
+                                  @JsonProperty("assessmentNotes") String assessmentNotes) {
         this.role = role;
         this.phone = phone;
         this.hrEmail = hrEmail;
@@ -58,6 +70,10 @@ class JsonAdaptedApplication {
         }
         this.status = status;
         this.deadline = deadline;
+        this.assessmentLocation = assessmentLocation;
+        this.assessmentPlatform = assessmentPlatform;
+        this.assessmentLink = assessmentLink;
+        this.assessmentNotes = assessmentNotes;
     }
 
     /**
@@ -73,7 +89,23 @@ class JsonAdaptedApplication {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         this.status = source.getStatus().name();
-        this.deadline = source.getDeadline().value;
+        this.deadline = (source.getDeadline() != null)
+                ? source.getDeadline().value
+                : null;
+
+        // Serialize OnlineAssessment fields if present, otherwise null
+        ApplicationEvent event = source.getApplicationEvent();
+        if (event instanceof OnlineAssessment oa) {
+            this.assessmentLocation = oa.getLocation();
+            this.assessmentPlatform = oa.getPlatform();
+            this.assessmentLink = oa.getLink();
+            this.assessmentNotes = oa.getNotes();
+        } else {
+            this.assessmentLocation = null;
+            this.assessmentPlatform = null;
+            this.assessmentLink = null;
+            this.assessmentNotes = null;
+        }
     }
 
     /**
@@ -82,6 +114,7 @@ class JsonAdaptedApplication {
      * @throws IllegalValueException if there were any data constraints violated in the adapted application.
      */
     public Application toModelType() throws IllegalValueException {
+
         final List<Tag> applicationTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             applicationTags.add(tag.toModelType());
@@ -138,7 +171,17 @@ class JsonAdaptedApplication {
             throw new IllegalValueException("Invalid status: " + status);
         }
 
+        // Deserialize OnlineAssessment only if all required fields are present
+        ApplicationEvent modelEvent = null;
+        if (assessmentLocation != null && assessmentPlatform != null && assessmentLink != null) {
+            modelEvent = (assessmentNotes != null)
+                    ? new OnlineAssessment(assessmentLocation, assessmentPlatform, assessmentLink, assessmentNotes)
+                    : new OnlineAssessment(assessmentLocation, assessmentPlatform, assessmentLink);
+        }
+
+
+
         return new Application(modelRole, modelPhone, modelHrEmail, modelCompany,
-                modelTags, modelStatus, modelDeadline);
+                modelTags, modelStatus, modelDeadline, modelEvent);
     }
 }

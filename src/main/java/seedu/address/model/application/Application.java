@@ -31,11 +31,14 @@ public class Application {
     //Deadline filed
     private final Deadline deadline;
 
+    //ApplicationEvent fields
+    private final ApplicationEvent applicationEvent;
+
     /**
      * Every field must be present and not null.
      */
     public Application(Role role, Phone phone, HrEmail hrEmail, Company company, Set<Tag> tags,
-            Status status, Deadline deadline) {
+                       Status status, Deadline deadline, ApplicationEvent applicationEvent) {
         requireAllNonNull(role, phone, hrEmail, company, tags, status, deadline);
         this.role = role;
         this.phone = phone;
@@ -44,10 +47,12 @@ public class Application {
         this.tags.addAll(tags);
         this.status = status;
         this.deadline = deadline;
+        this.applicationEvent = applicationEvent;
     }
 
     /**
      * Constructs a new Application with status APPLIED set as default if status is not specified
+     *
      * @param role
      * @param phone
      * @param hrEmail
@@ -63,6 +68,7 @@ public class Application {
         this.tags.addAll(tags);
         this.status = Status.APPLIED;
         this.deadline = Deadline.getEmptyDeadline();
+        this.applicationEvent = null;
     }
 
     public Role getRole() {
@@ -87,6 +93,10 @@ public class Application {
 
     public Deadline getDeadline() {
         return deadline;
+    }
+
+    public ApplicationEvent getApplicationEvent() {
+        return applicationEvent;
     }
 
     /**
@@ -122,11 +132,10 @@ public class Application {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Application)) {
+        if (!(other instanceof Application otherApplication)) {
             return false;
         }
 
-        Application otherApplication = (Application) other;
         return role.equals(otherApplication.role)
                 && phone.equals(otherApplication.phone)
                 && hrEmail.equals(otherApplication.hrEmail)
