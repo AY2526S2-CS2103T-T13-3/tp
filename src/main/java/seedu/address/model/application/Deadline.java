@@ -1,5 +1,6 @@
 package seedu.address.model.application;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -57,6 +58,17 @@ public class Deadline implements Comparable<Deadline> {
 
         return test.matches("\\d{4}-\\d{2}-\\d{2}")
                 || test.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}");
+    }
+
+    public LocalDate getLocalDate() {
+        if (isEmpty() || value.equals(PLACEHOLDER_DEADLINE)) {
+            return null;
+        }
+        try {
+            return LocalDate.parse(value.substring(0, 10));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

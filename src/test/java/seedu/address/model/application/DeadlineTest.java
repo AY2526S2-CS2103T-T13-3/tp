@@ -1,8 +1,12 @@
 package seedu.address.model.application;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
@@ -60,5 +64,35 @@ public class DeadlineTest {
 
         // different values -> returns false
         assertFalse(deadline.equals(new Deadline("2026-01-01")));
+    }
+
+    @Test
+    public void getLocalDate_validFormats_returnsParsedDate() {
+        assertEquals(LocalDate.of(2026, 12, 31), new Deadline("2026-12-31").getLocalDate());
+        assertEquals(LocalDate.of(2026, 3, 23), new Deadline("2026-03-23 15:00").getLocalDate());
+    }
+
+    @Test
+    public void getLocalDate_emptyOrPlaceholder_returnsNull() {
+        assertNull(Deadline.getEmptyDeadline().getLocalDate());
+        assertNull(new Deadline("-").getLocalDate());
+    }
+
+    @Test
+    public void getLocalDate_invalidDateString_returnsNull() {
+        // Length >= 10 but not parseable as LocalDate -> falls into catch block.
+        assertNull(new Deadline("2026-99-99").getLocalDate());
+    }
+
+    @Test
+    public void isValidDeadline_placeholder_returnsTrue() {
+        assertTrue(Deadline.isValidDeadline("-"));
+    }
+
+    @Test
+    public void hashCode_sameValue_sameHash() {
+        Deadline first = new Deadline("2026-12-31");
+        Deadline second = new Deadline("2026-12-31");
+        assertEquals(first.hashCode(), second.hashCode());
     }
 }

@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.commands.ReminderCommand.REMINDER_TAG_NAME;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -84,7 +86,13 @@ public class ApplicationCard extends UiPart<Region> {
 
         application.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    if (tag.tagName.equalsIgnoreCase(REMINDER_TAG_NAME)) {
+                        tagLabel.setStyle("-fx-background-color: #FF0000; -fx-text-fill: white;");
+                    }
+                    tags.getChildren().add(tagLabel);
+                });
 
         String statusText = application.getStatus().toString().toLowerCase();
         Label statusTag = new Label(statusText);
