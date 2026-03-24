@@ -4,6 +4,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.application.Application;
 import seedu.address.model.application.Company;
 import seedu.address.model.application.HrEmail;
+import seedu.address.model.application.Note;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
 import seedu.address.model.tag.Tag;
@@ -34,7 +36,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL,
-                        PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION, PREFIX_TAG);
+                        PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION, PREFIX_TAG, PREFIX_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL,
                 PREFIX_COMPANY_NAME) || !argMultimap.getPreamble().isEmpty()) {
@@ -42,7 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL,
-                PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION);
+                PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION, PREFIX_NOTE);
 
         Role role = ParserUtil.parseName(argMultimap.getValue(PREFIX_ROLE).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
@@ -53,10 +55,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         String companyLocation = ParserUtil.parseCompanyLocation(locationValue);
 
         Company company = new Company(companyName, companyLocation);
-
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Application application = new Application(role, phone, hrEmail, company, tagList);
+        String noteValue = argMultimap.getValue(PREFIX_NOTE).orElse("");
+        Note note = new Note(noteValue);
+
+        Application application = new Application(role, phone, hrEmail, company, tagList,
+                seedu.address.model.application.Status.APPLIED,
+                seedu.address.model.application.Deadline.getEmptyDeadline(),
+                note);
 
         return new AddCommand(application);
     }

@@ -14,6 +14,7 @@ import seedu.address.model.application.Application;
 import seedu.address.model.application.Company;
 import seedu.address.model.application.Deadline;
 import seedu.address.model.application.HrEmail;
+import seedu.address.model.application.Note;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
 import seedu.address.model.application.Status;
@@ -35,6 +36,7 @@ class JsonAdaptedApplication {
     @JsonProperty("status")
     private final String status;
     private final String deadline;
+    private final String note;
 
     /**
      * Constructs a {@code JsonAdaptedApplication} with the given application details.
@@ -47,7 +49,8 @@ class JsonAdaptedApplication {
                                   @JsonProperty("companyLocation") String companyLocation,
                                   @JsonProperty("tags") List<JsonAdaptedTag> tags,
                                   @JsonProperty("status") String status,
-                                  @JsonProperty("deadline") String deadline) {
+                                  @JsonProperty("deadline") String deadline,
+                                  @JsonProperty("note") String note) {
         this.role = role;
         this.phone = phone;
         this.hrEmail = hrEmail;
@@ -58,6 +61,7 @@ class JsonAdaptedApplication {
         }
         this.status = status;
         this.deadline = deadline;
+        this.note = note;
     }
 
     /**
@@ -74,6 +78,7 @@ class JsonAdaptedApplication {
                 .collect(Collectors.toList()));
         this.status = source.getStatus().name();
         this.deadline = source.getDeadline().value;
+        this.note = source.getNote().value;
     }
 
     /**
@@ -138,7 +143,9 @@ class JsonAdaptedApplication {
             throw new IllegalValueException("Invalid status: " + status);
         }
 
+        final Note modelNote = new Note(note != null ? note : "");
+
         return new Application(modelRole, modelPhone, modelHrEmail, modelCompany,
-                modelTags, modelStatus, modelDeadline);
+                modelTags, modelStatus, modelDeadline, modelNote);
     }
 }
