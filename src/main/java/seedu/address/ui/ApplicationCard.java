@@ -89,7 +89,7 @@ public class ApplicationCard extends UiPart<Region> {
                 .forEach(tag -> {
                     Label tagLabel = new Label(tag.tagName);
                     if (tag.tagName.equalsIgnoreCase(REMINDER_TAG_NAME)) {
-                        tagLabel.setStyle("-fx-background-color: #FF0000; -fx-text-fill: white;");
+                        tagLabel.setStyle("-fx-background-color: #ae3535; -fx-text-fill: white;");
                     }
                     tags.getChildren().add(tagLabel);
                 });

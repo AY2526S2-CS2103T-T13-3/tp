@@ -344,9 +344,29 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #2b8428;
+    -fx-background-color: #c87ed3;
     -fx-padding: 3 10 3 10;
     -fx-border-radius: 12;
     -fx-background-radius: 12;
     -fx-font-size: 11;
+}
+
+#tags .status-applied {
+    -fx-background-color: #e1c969;
+}
+
+#tags .status-offered {
+    -fx-background-color: #579a6a;
+}
+
+#tags .status-rejected {
+    -fx-background-color: #5e5650;
+}
+
+#tags .status-interviewing {
+    -fx-background-color: #63b5cf;
+}
+
+#tags .status-withdrawn {
+    -fx-background-color: #d85d1c;
 }
