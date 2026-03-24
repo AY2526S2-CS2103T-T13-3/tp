@@ -27,7 +27,8 @@ Hired! is a **desktop app for managing internship applications, optimized for us
    Some example commands you can try:
 
     * `list` : Lists all application records.
-    * `add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview` : Adds an application record for a Software Engineer role at Google.
+    * `add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview note/Met recruiter at career fair` : Adds an application record for a Software Engineer role at Google with a note.
+    * `findnote recruiter` : Finds applications whose notes contain `recruiter`.
     * `delete 3` : Deletes the 3rd application shown in the current list.
     * `clear` : Deletes all application records.
     * `exit` : Exits the app.
@@ -72,22 +73,22 @@ Format: `help`
 
 Adds an application record to Hired!.
 
-Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]...`
+Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]... [note/NOTE]`
 
 **Required prefixes:** `r/`, `p/`, `e/`, and `c/` must be provided for a valid `add` command.
 
-**Optional prefixes:** `l/` and `t/` are optional. If provided, they may appear in any order after the required fields.
+**Optional prefixes:** `l/`, `t/`, and `note/` are optional. If provided, they may appear in any order after the required fields.
 
-> **Note:** In Hired!, `r/` is used for the internship role, and `c/` is used for the company name. Applications 
-            with the same role and company name are considered duplicates and cannot be added.
-> **Tip:** An application can have any number of tags (including 0). 
-
+> **Note:** In Hired!, `r/` is used for the internship role, and `c/` is used for the company name. Applications with the same role and company name are considered duplicates and cannot be added.
+> **Tip:** An application can have any number of tags (including 0).
+> **Tip:** A note can be added when creating an application by using `note/`.
 
 Examples:
 * `add r/Software Engineer p/98765432 e/hr@google.com c/Google`
 * `add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Singapore`
 * `add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview t/priority`
 * `add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Boon Lay t/interview`
+* `add r/Data Analyst p/92345678 e/recruitment@meta.com c/Meta l/Singapore t/applied note/Met recruiter at career fair`
 
 ### Listing all applications : `list`
 
@@ -99,7 +100,7 @@ Format: `list`
 
 Edits the details of an existing application in Hired!.
 
-Format: `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]...`
+Format: `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]... [note/NOTE]`
 
 * Edits the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
@@ -108,12 +109,16 @@ Format: `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOC
 * Existing values will be overwritten by the input values.
 * When editing tags, the existing tags of the application will be removed, i.e. tag editing is not cumulative.
 * You can remove all tags by typing `t/` without specifying any tag after it.
+* You can edit an application's note using `note/NOTE`.
+* You can clear an existing note by typing `note/` with nothing after it.
 
 Examples:
 * `edit 1 p/91234567 e/hr@google.com` edits the phone number and email of the 1st application.
 * `edit 2 r/Backend Engineer c/Shopee` edits the role and company of the 2nd application.
 * `edit 3 t/urgent t/interview` replaces the tags of the 3rd application with `urgent` and `interview`.
 * `edit 4 t/` removes all tags from the 4th application.
+* `edit 1 note/Follow up next Monday` updates the note of the 1st application.
+* `edit 1 note/` clears the note of the 1st application.
 
 ### Locating applications by role: `find`
 
@@ -130,6 +135,21 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 * `find engineer` returns applications with roles containing `engineer`
 * `find backend frontend` returns applications with roles containing `backend` or `frontend`
+
+### Locating applications by note: `findnote`
+
+Finds applications whose notes contain any of the given keywords.
+
+Format: `findnote KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g. `follow` will match `Follow`
+* The order of the keywords does not matter.
+* Only the note field is searched.
+* Applications matching at least one keyword will be returned (i.e. `OR` search).
+
+Examples:
+* `findnote recruiter` returns applications with notes containing `recruiter`
+* `findnote follow Monday` returns applications with notes containing `follow` or `Monday`
 
 ### Changing the default status: `status`
 
@@ -210,11 +230,12 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]...` <br> e.g. `add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview t/priority`
+**Add** | `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]... [note/NOTE]` <br> e.g. `add r/Data Analyst p/92345678 e/recruitment@meta.com c/Meta l/Singapore t/applied note/Met recruiter at career fair`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
-**Edit** | `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]...`<br> e.g. `edit 2 r/Backend Engineer c/Shopee`
+**Edit** | `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]... [note/NOTE]`<br> e.g. `edit 1 note/Follow up next Monday`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g. `find engineer backend`
+**Find Note** | `findnote KEYWORD [MORE_KEYWORDS]`<br> e.g. `findnote recruiter follow`
 **List** | `list`
 **Status** | `status INDEX s/STATUS` <br> e.g. `status 2 s/offered`
 **Help** | `help`
