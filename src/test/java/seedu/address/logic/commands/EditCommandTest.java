@@ -37,7 +37,12 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Application editedApplication = new ApplicationBuilder().build();
+        Application firstApp = model.getFilteredApplicationList().get(0);
+
+        Application editedApplication = new ApplicationBuilder()
+                .withNote(firstApp.getNote().value)
+                .build();
+
         EditApplicationDescriptor descriptor = new EditApplicationDescriptorBuilder(editedApplication).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_APPLICATION, descriptor);
 
