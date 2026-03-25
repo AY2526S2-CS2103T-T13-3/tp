@@ -19,6 +19,7 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.application.Application;
+import seedu.address.model.application.Status;
 
 /**
  * A utility class containing a list of {@code Application} objects to be used in tests.
@@ -43,9 +44,13 @@ public class TypicalApplications {
     public static final Application ELLE = new ApplicationBuilder().withRole("Product Manager")
             .withPhone("9482224").withHrEmail("werner@example.com")
             .withCompanyName("Grab").withCompanyLocation("Singapore").build();
-    public static final Application FIONA = new ApplicationBuilder().withRole("Solutions Architect")
-            .withPhone("9482427").withHrEmail("lydia@example.com")
-            .withCompanyName("Amazon").withCompanyLocation("Seattle").build();
+    public static final Application FIONA = new ApplicationBuilder().withCompanyName("Meta")
+            .withRole("Data Analyst").withPhone("9482427")
+            .withHrEmail("lydia@example.com")
+            .withCompanyLocation("") // empty location
+            .withDeadline("")        // empty deadline
+            .withNote("")            // empty note
+            .withStatus(Status.REJECTED).build();
     public static final Application GEORGE = new ApplicationBuilder().withRole("DevOps Engineer")
             .withPhone("9482442").withHrEmail("anna@example.com")
             .withCompanyName("Microsoft").withCompanyLocation("Redmond").build();
