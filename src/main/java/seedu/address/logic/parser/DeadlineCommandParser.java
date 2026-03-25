@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.application.Deadline;
 
 /**
- * Parse the input parameters and create a new DeadlineCommand objectc
+ * Parse the input parameters and create a new DeadlineCommand object
  */
 public class DeadlineCommandParser implements Parser<DeadlineCommand> {
 
@@ -21,7 +21,6 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
         requireNonNull(args);
         String trimmedArgs = args.trim();
 
-        // 拆分 Index 和 剩下的日期字符串
         String[] parts = trimmedArgs.split("\\s+", 2);
 
         if (parts.length < 2) {
@@ -32,7 +31,8 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
         // Use ParserUtil to parse the Index: If the index is not valid,
         // directly throw the original ParseException information
         Index index = ParserUtil.parseIndex(parts[0]);
-        Deadline deadline = new Deadline(parts[1]);
+        Deadline deadline = ParserUtil.parseDeadline(parts[1]);
+
         return new DeadlineCommand(index, deadline);
     }
 }

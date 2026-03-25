@@ -86,7 +86,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
-            editApplicationDescriptor.setDeadline(new Deadline(argMultimap.getValue(PREFIX_DEADLINE).get()));
+            editApplicationDescriptor.setDeadline(ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
