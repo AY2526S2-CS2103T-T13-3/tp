@@ -70,6 +70,10 @@ public class ApplicationCardTest {
         Label deadlineLabel = getLabel(applicationCard, "deadline");
         assertFalse(deadlineLabel.isVisible());
         assertFalse(deadlineLabel.isManaged());
+
+        Label noteLabel = getLabel(applicationCard, "note");
+        assertFalse(noteLabel.isVisible());
+        assertFalse(noteLabel.isManaged());
     }
 
     @Test
@@ -105,6 +109,24 @@ public class ApplicationCardTest {
         assertTrue(deadlineLabel.isVisible());
         assertTrue(deadlineLabel.isManaged());
         assertEquals("Deadline: " + application.getDeadline().value, getLabelText(applicationCard, "deadline"));
+    }
+
+    @Test
+    public void constructor_withNote_setsNoteVisibleAndText() throws Exception {
+        Application application = new ApplicationBuilder()
+                .withCompanyName("Google")
+                .withRole("Intern")
+                .withPhone("91234567")
+                .withHrEmail("hr@google.com")
+                .withNote("Follow up in 3 days")
+                .build();
+
+        ApplicationCard applicationCard = new ApplicationCard(application, 1);
+
+        Label noteLabel = getLabel(applicationCard, "note");
+        assertTrue(noteLabel.isVisible());
+        assertTrue(noteLabel.isManaged());
+        assertEquals("Note: " + application.getNote().value, getLabelText(applicationCard, "note"));
     }
 
     @Test
