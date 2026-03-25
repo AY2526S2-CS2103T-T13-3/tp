@@ -55,15 +55,13 @@ public class ApplicationCard extends UiPart<Region> {
         hrEmail.setText(application.getHrEmail().value);
         companyName.setText(application.getCompany().companyName);
 
-        String loc = application.getCompany().companyLocation;
-        if (loc.isEmpty()) {
+        if (application.getCompany().companyLocation.isEmpty()) {
             companyLocation.setVisible(false);
             companyLocation.setManaged(false);
         } else {
-            companyLocation.setText(loc);
+            companyLocation.setText(application.getCompany().companyLocation);
         }
 
-        String deadlineValue = application.getDeadline().value;
         if (application.getDeadline().isEmpty()) {
             deadline.setVisible(false);
             deadline.setManaged(false);
@@ -71,12 +69,11 @@ public class ApplicationCard extends UiPart<Region> {
             deadline.setText("Deadline: " + application.getDeadline().value);
         }
 
-        String noteValue = application.getNote().value;
-        if (noteValue.isEmpty()) {
+        if (application.getNote().value.isEmpty()) {
             note.setVisible(false);
             note.setManaged(false);
         } else {
-            note.setText("Note: " + noteValue);
+            note.setText("Note: " + application.getNote().value);
         }
 
         status.setVisible(false);
