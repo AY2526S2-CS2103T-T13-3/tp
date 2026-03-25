@@ -369,4 +369,62 @@ public class ApplicationCardTest {
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("Status tag not found: " + statusText));
     }
+
+    @Test
+    public void constructor_allStatuses_addsCorrectStyleClass() throws Exception {
+        for (Status s : Status.values()) {
+            Application application = new ApplicationBuilder().withStatus(s).build();
+            ApplicationCard applicationCard = new ApplicationCard(application, 1);
+
+            String expectedStatusText = s.toString().toLowerCase();
+            String expectedStyleClass = "status-" + expectedStatusText.replace(" ", "-");
+
+            Label statusTag = getStatusTag(applicationCard, expectedStatusText);
+            assertTrue(statusTag.getStyleClass().contains(expectedStyleClass),
+                    "Tag for status " + s + " should have style class: " + expectedStyleClass);
+        }
+    }
+
+    @Test
+    public void constructor_withMixedCaseUrgentTag_hasUrgentStyleClass() throws Exception {
+        Application application = new ApplicationBuilder()
+                .withTags("uRgEnT")
+                .build();
+
+        ApplicationCard applicationCard = new ApplicationCard(application, 1);
+        FlowPane tagsPane = getTagsPane(applicationCard);
+
+        Label urgentLabel = (Label) tagsPane.getChildren().stream()
+                .filter(node -> node instanceof Label)
+                .map(node -> (Label) node)
+                .filter(label -> label.getText().equals("uRgEnT"))
+                .findFirst()
+                .orElseThrow();
+
+        assertTrue(urgentLabel.getStyleClass().contains("tag-urgent"),
+                "Mixed case 'uRgEnT' should still trigger 'tag-urgent' style");
+    }
+
+    @Test
+    public void constructor_allOptionalFieldsPresent_allVisible() throws Exception {
+        Application application = new ApplicationBuilder()
+                .withCompanyLocation("Singapore")
+                .withDeadline("2026-12-31")
+                .withNote("Important Note")
+                .build();
+
+        ApplicationCard applicationCard = new ApplicationCard(application, 1);
+
+        Label locLabel = getLabel(applicationCard, "companyLocation");
+        assertTrue(locLabel.isVisible());
+        assertEquals("Singapore", locLabel.getText());
+
+        Label deadlineLabel = getLabel(applicationCard, "deadline");
+        assertTrue(deadlineLabel.isVisible());
+        assertEquals("Deadline: 2026-12-31", deadlineLabel.getText());
+
+        Label noteLabel = getLabel(applicationCard, "note");
+        assertTrue(noteLabel.isVisible());
+        assertEquals("Note: Important Note", noteLabel.getText());
+    }
 }
