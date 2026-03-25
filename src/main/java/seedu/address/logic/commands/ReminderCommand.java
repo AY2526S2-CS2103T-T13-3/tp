@@ -30,12 +30,10 @@ public class ReminderCommand extends Command {
         requireNonNull(model);
         logger.info("Starting reminder command execution...");
 
-        //sort by time
         Comparator<Application> comparator = (a1, a2) ->
                 a1.getDeadline().compareTo(a2.getDeadline());
         model.updateSortedApplicationList(comparator);
 
-        //Traverse the list and check the date
         List<Application> lastShownList = model.getFilteredApplicationList();
         LocalDate today = LocalDate.now();
 
@@ -49,7 +47,6 @@ public class ReminderCommand extends Command {
             long daysBetween = ChronoUnit.DAYS.between(today, app.getDeadline().getLocalDate());
 
             if (daysBetween >= 0 && daysBetween < 3) {
-                // 如果少于3天且还没这个 tag，就加上去
                 if (!app.getTags().contains(new Tag(REMINDER_TAG_NAME))) {
                     Application updatedApp = addReminderTag(app);
                     model.setApplication(app, updatedApp);
@@ -64,7 +61,7 @@ public class ReminderCommand extends Command {
         Set<Tag> newTags = new HashSet<>(app.getTags());
         newTags.add(new Tag(REMINDER_TAG_NAME));
         return new Application(app.getRole(), app.getPhone(), app.getHrEmail(),
-                app.getCompany(), newTags, app.getStatus(), app.getDeadline());
+                app.getCompany(), newTags, app.getStatus(), app.getDeadline(), app.getNote());
     }
 
 }

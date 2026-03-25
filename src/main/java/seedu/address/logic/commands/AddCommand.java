@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -28,10 +29,12 @@ public class AddCommand extends Command {
             + PREFIX_HREMAIL + "EMAIL "
             + PREFIX_COMPANY_NAME + "COMPANY_NAME "
             + "[" + PREFIX_COMPANY_LOCATION + "COMPANY_LOCATION] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_NOTE + "NOTE]\n"
             + "Required prefixes: " + PREFIX_ROLE + ", " + PREFIX_PHONE + ", "
             + PREFIX_HREMAIL + ", and " + PREFIX_COMPANY_NAME + " must be provided.\n"
-            + "Optional prefixes: " + PREFIX_COMPANY_LOCATION + " and " + PREFIX_TAG
+            + "Optional prefixes: " + PREFIX_COMPANY_LOCATION + ", " + PREFIX_TAG
+            + ", and " + PREFIX_NOTE
             + " may be omitted. If provided, optional prefixes may appear in any order after the required fields.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ROLE + "Software Engineer "
@@ -40,7 +43,7 @@ public class AddCommand extends Command {
             + PREFIX_COMPANY_NAME + "Google "
             + PREFIX_COMPANY_LOCATION + "Singapore "
             + PREFIX_TAG + "interview "
-            + PREFIX_TAG + "priority";
+            + PREFIX_NOTE + "Met recruiter at career fair";
 
     public static final String MESSAGE_SUCCESS = "New application added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPLICATION = "This application already exists in the Hired!";

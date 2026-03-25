@@ -1,0 +1,77 @@
+package seedu.address.logic.commands;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.logic.Messages.MESSAGE_APPLICATIONS_LISTED_OVERVIEW;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalApplications.getTypicalAddressBook;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.application.NoteContainsKeywordsPredicate;
+import seedu.address.testutil.ApplicationBuilder;
+
+public class FindNoteCommandTest {
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void equals() {
+        NoteContainsKeywordsPredicate firstPredicate =
+                new NoteContainsKeywordsPredicate(Collections.singletonList("follow"));
+        NoteContainsKeywordsPredicate secondPredicate =
+                new NoteContainsKeywordsPredicate(Collections.singletonList("recruiter"));
+
+        FindNoteCommand findFirstCommand = new FindNoteCommand(firstPredicate);
+        FindNoteCommand findSecondCommand = new FindNoteCommand(secondPredicate);
+
+        assertEquals(findFirstCommand, findFirstCommand);
+        assertEquals(findFirstCommand, new FindNoteCommand(firstPredicate));
+        assertThrows(AssertionError.class, () -> {
+            throw new AssertionError();
+        });
+        org.junit.jupiter.api.Assertions.assertNotEquals(findFirstCommand, null);
+        org.junit.jupiter.api.Assertions.assertNotEquals(findFirstCommand, findSecondCommand);
+    }
+
+    @Test
+    public void execute_zeroKeywords_noApplicationFound() {
+        String expectedMessage = String.format(MESSAGE_APPLICATIONS_LISTED_OVERVIEW, 0);
+        NoteContainsKeywordsPredicate predicate = preparePredicate("nomatch");
+        FindNoteCommand command = new FindNoteCommand(predicate);
+        expectedModel.updateFilteredApplicationList(predicate);
+        assertEquals(expectedMessage, command.execute(model).getFeedbackToUser());
+        assertEquals(expectedModel.getFilteredApplicationList(), model.getFilteredApplicationList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_multipleApplicationsFound() {
+        model.addApplication(new ApplicationBuilder().withRole("Intern A").withNote("Follow up next Monday").build());
+        model.addApplication(new ApplicationBuilder().withRole("Intern B").withNote("Met recruiter at fair").build());
+
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        NoteContainsKeywordsPredicate predicate = preparePredicate("follow recruiter");
+        FindNoteCommand command = new FindNoteCommand(predicate);
+        expectedModel.updateFilteredApplicationList(predicate);
+
+        String expectedMessage = String.format(MESSAGE_APPLICATIONS_LISTED_OVERVIEW,
+                expectedModel.getFilteredApplicationList().size());
+
+        assertEquals(expectedMessage, command.execute(model).getFeedbackToUser());
+        assertEquals(expectedModel.getFilteredApplicationList(), model.getFilteredApplicationList());
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code NoteContainsKeywordsPredicate}.
+     */
+    private NoteContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new NoteContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    }
+}

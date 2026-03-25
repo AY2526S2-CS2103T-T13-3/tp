@@ -20,6 +20,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_STATUS = "Invalid status! \n%1$s";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
@@ -46,6 +47,10 @@ public class Messages {
                 .append(application.getCompany())
                 .append("; Status: ")
                 .append(application.getStatus())
+                .append("; Deadline: ")
+                .append(application.getDeadline())
+                .append("; Note: ")
+                .append(application.getNote())
                 .append("; Tags: ");
         application.getTags().forEach(builder::append);
         return builder.toString();

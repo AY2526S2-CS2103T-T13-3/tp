@@ -36,7 +36,8 @@ public class JsonSerializableAddressBookTest {
                 "Some Company", "",
                 Collections.emptyList(),
                 "APPLIED",
-                null);
+                null,
+                "");
         JsonSerializableAddressBook serializable =
                 new JsonSerializableAddressBook(Collections.singletonList(invalidApplication));
         assertThrows(IllegalValueException.class, serializable::toModelType);

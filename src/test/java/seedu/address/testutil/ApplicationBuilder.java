@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.application.Application;
 import seedu.address.model.application.Deadline;
 import seedu.address.model.application.HrEmail;
+import seedu.address.model.application.Note;
 import seedu.address.model.application.Phone;
 import seedu.address.model.application.Role;
 import seedu.address.model.application.Status;
@@ -23,6 +24,7 @@ public class ApplicationBuilder {
     public static final String DEFAULT_COMPANY_NAME = "Google";
     public static final String DEFAULT_COMPANY_LOCATION = "Singapore";
     public static final Status DEFAULT_STATUS = Status.APPLIED;
+    public static final String DEFAULT_NOTE = "";
 
     private Role role;
     private Phone phone;
@@ -32,6 +34,7 @@ public class ApplicationBuilder {
     private Set<Tag> tags;
     private Status status;
     private Deadline deadline;
+    private Note note;
 
     /**
      * Creates a {@code ApplicationBuilder} with the default details.
@@ -45,6 +48,7 @@ public class ApplicationBuilder {
         tags = new HashSet<>();
         status = DEFAULT_STATUS;
         deadline = Deadline.getEmptyDeadline();
+        note = new Note(DEFAULT_NOTE);
     }
 
     /**
@@ -59,6 +63,7 @@ public class ApplicationBuilder {
         tags = new HashSet<>(applicationToCopy.getTags());
         status = applicationToCopy.getStatus();
         deadline = applicationToCopy.getDeadline();
+        note = applicationToCopy.getNote();
     }
 
     /**
@@ -136,12 +141,20 @@ public class ApplicationBuilder {
     }
 
     /**
+     * Sets the {@code Note} of the {@code Application} that we are building.
+     */
+    public ApplicationBuilder withNote(String note) {
+        this.note = new Note(note);
+        return this;
+    }
+
+    /**
      * Builds an {@code Application} instance.
      */
     public Application build() {
         seedu.address.model.application.Company company =
                 new seedu.address.model.application.Company(companyName, companyLocation);
-        return new Application(role, phone, hrEmail, company, tags, status, deadline);
+        return new Application(role, phone, hrEmail, company, tags, status, deadline, note);
     }
 
 }

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditApplicationDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.application.Deadline;
+import seedu.address.model.application.Note;
 import seedu.address.model.application.Status;
 import seedu.address.model.tag.Tag;
 
@@ -38,7 +40,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL,
-                        PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION, PREFIX_TAG, PREFIX_STATUS, PREFIX_DEADLINE);
+                        PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION, PREFIX_TAG,
+                        PREFIX_STATUS, PREFIX_DEADLINE, PREFIX_NOTE);
 
         Index index;
 
@@ -49,7 +52,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ROLE, PREFIX_PHONE, PREFIX_HREMAIL,
-                PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION, PREFIX_DEADLINE);
+                PREFIX_COMPANY_NAME, PREFIX_COMPANY_LOCATION, PREFIX_DEADLINE, PREFIX_NOTE);
 
         EditApplicationDescriptor editApplicationDescriptor = new EditApplicationDescriptor();
 
@@ -86,7 +89,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             editApplicationDescriptor.setDeadline(new Deadline(argMultimap.getValue(PREFIX_DEADLINE).get()));
         }
 
-        //check this after others
+        if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
+            editApplicationDescriptor.setNote(new Note(argMultimap.getValue(PREFIX_NOTE).get()));
+        }
+
         if (!editApplicationDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }

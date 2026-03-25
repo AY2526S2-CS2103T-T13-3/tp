@@ -77,7 +77,8 @@ public class EditApplicationDescriptorTest {
                 + editApplicationDescriptor.getCompanyLocation().orElse(null) + ", tags="
                 + editApplicationDescriptor.getTags().orElse(null) + ", status="
                 + editApplicationDescriptor.getStatus().orElse(null) + ", deadline="
-                + editApplicationDescriptor.getDeadline().orElse(null) + "}";
+                + editApplicationDescriptor.getDeadline().orElse(null) + ", note="
+                + editApplicationDescriptor.getNote().orElse(null) + "}";
         assertEquals(expected, editApplicationDescriptor.toString());
     }
 }
