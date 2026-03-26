@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -12,8 +13,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -24,24 +23,35 @@ import seedu.address.model.application.OnlineAssessment;
 import seedu.address.model.application.Status;
 import seedu.address.testutil.ApplicationBuilder;
 
-@DisabledOnOs(OS.LINUX)
 public class ApplicationCardTest {
 
     private static final LocalDateTime VALID_DATETIME = LocalDateTime.of(2026, 12, 31, 23, 59);
 
     @BeforeAll
     public static void initJfxRuntime() throws Exception {
+        System.setProperty("java.awt.headless", "true");
         System.setProperty("prism.order", "sw");
+        System.setProperty("prism.text", "t2k");
         System.setProperty("testfx.robot", "glass");
         System.setProperty("testfx.headless", "true");
+        System.setProperty("glass.platform", "Monocle");
+        System.setProperty("monocle.platform", "Headless");
 
         CountDownLatch latch = new CountDownLatch(1);
         try {
-            Platform.startup(latch::countDown);
+            Platform.startup(() -> {
+                // Prevent the FX toolkit from shutting down between tests
+                Platform.setImplicitExit(false);
+                latch.countDown();
+            });
         } catch (IllegalStateException e) {
-            latch.countDown();
+            // Platform already started by another test class — still set ImplicitExit
+            Platform.runLater(() -> {
+                Platform.setImplicitExit(false);
+                latch.countDown();
+            });
         }
-        assertTrue(latch.await(5, TimeUnit.SECONDS));
+        assertTrue(latch.await(10, TimeUnit.SECONDS), "JavaFX platform failed to start");
     }
 
     // ==================== Helper to run on FX thread ====================
@@ -63,7 +73,11 @@ public class ApplicationCardTest {
                 latch.countDown();
             }
         });
-        assertTrue(latch.await(10, TimeUnit.SECONDS), "FX thread timed out");
+        boolean completed = latch.await(15, TimeUnit.SECONDS);
+        if (!completed) {
+            throw new Exception("FX thread timed out — JavaFX toolkit may have shut down. "
+                    + "Ensure Platform.setImplicitExit(false) is set in @BeforeAll.");
+        }
         if (error.get() != null) {
             throw new Exception(error.get());
         }
@@ -553,6 +567,62 @@ public class ApplicationCardTest {
         });
     }
 
+    @Test
+    public void handleEventButtonClick_windowNotShowing_showsWindow() throws Exception {
+        runOnFxThread(() -> {
+            OnlineAssessment event = new OnlineAssessment(
+                    "home", VALID_DATETIME, "HackerRank", "www.hackerrank.com");
+            Application application = new ApplicationBuilder()
+                    .withCompanyName("Google")
+                    .withRole("Intern")
+                    .withPhone("91234567")
+                    .withHrEmail("hr@google.com")
+                    .withApplicationEvent(event)
+                    .build();
+
+            ApplicationCard applicationCard = new ApplicationCard(application, 1);
+            EventDetailsWindow window = getEventDetailsWindow(applicationCard);
+
+            assertFalse(window.isShowing());
+
+            invokeHandleEventButtonClick(applicationCard);
+
+            assertTrue(window.isShowing());
+
+            // Clean up
+            window.hide();
+        });
+    }
+
+    @Test
+    public void handleEventButtonClick_windowAlreadyShowing_focusesWindow() throws Exception {
+        runOnFxThread(() -> {
+            OnlineAssessment event = new OnlineAssessment(
+                    "home", VALID_DATETIME, "HackerRank", "www.hackerrank.com");
+            Application application = new ApplicationBuilder()
+                    .withCompanyName("Google")
+                    .withRole("Intern")
+                    .withPhone("91234567")
+                    .withHrEmail("hr@google.com")
+                    .withApplicationEvent(event)
+                    .build();
+
+            ApplicationCard applicationCard = new ApplicationCard(application, 1);
+            EventDetailsWindow window = getEventDetailsWindow(applicationCard);
+
+            // Show the window first
+            window.show();
+            assertTrue(window.isShowing());
+
+            // Clicking again should focus — window stays showing
+            invokeHandleEventButtonClick(applicationCard);
+            assertTrue(window.isShowing());
+
+            // Clean up
+            window.hide();
+        });
+    }
+
     // ==================== Reflection helpers ====================
 
     private String getLabelText(ApplicationCard card, String fieldName) throws Exception {
@@ -583,6 +653,12 @@ public class ApplicationCardTest {
         Field field = ApplicationCard.class.getDeclaredField("eventDetailsWindow");
         field.setAccessible(true);
         return (EventDetailsWindow) field.get(card);
+    }
+
+    private void invokeHandleEventButtonClick(ApplicationCard card) throws Exception {
+        Method method = ApplicationCard.class.getDeclaredMethod("handleEventButtonClick");
+        method.setAccessible(true);
+        method.invoke(card);
     }
 
     private Label getStatusTag(ApplicationCard card, String statusText) throws Exception {

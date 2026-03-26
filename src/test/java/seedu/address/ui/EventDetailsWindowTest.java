@@ -14,15 +14,12 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import seedu.address.model.application.ApplicationEvent;
 import seedu.address.model.application.OnlineAssessment;
 
-@DisabledOnOs(OS.LINUX)
 public class EventDetailsWindowTest {
 
     private static final DateTimeFormatter DISPLAY_FORMATTER =
@@ -34,18 +31,28 @@ public class EventDetailsWindowTest {
 
     @BeforeAll
     public static void initJfxRuntime() throws Exception {
+        // Enable headless mode for Linux CI environments
+        System.setProperty("java.awt.headless", "true");
+        System.setProperty("prism.order", "sw");
+        System.setProperty("prism.text", "t2k");
+        System.setProperty("testfx.robot", "glass");
+        System.setProperty("testfx.headless", "true");
+        System.setProperty("glass.platform", "Monocle");
+        System.setProperty("monocle.platform", "Headless");
+
         CountDownLatch latch = new CountDownLatch(1);
         try {
             Platform.startup(latch::countDown);
         } catch (IllegalStateException e) {
+            // Platform already started
             latch.countDown();
         }
-        assertTrue(latch.await(5, TimeUnit.SECONDS));
+        assertTrue(latch.await(5, TimeUnit.SECONDS), "JavaFX platform failed to start");
     }
 
     @BeforeEach
     public void setUp() throws Exception {
-        // EventDetailsWindow must also be created on the FX thread
+        // EventDetailsWindow must be created on the FX thread
         runOnFxThread(() -> eventDetailsWindow = new EventDetailsWindow());
     }
 
@@ -65,7 +72,7 @@ public class EventDetailsWindowTest {
                 latch.countDown();
             }
         });
-        assertTrue(latch.await(5, TimeUnit.SECONDS), "JavaFX task timed out");
+        assertTrue(latch.await(10, TimeUnit.SECONDS), "JavaFX task timed out");
         if (exception.get() != null) {
             throw exception.get();
         }
@@ -235,6 +242,35 @@ public class EventDetailsWindowTest {
         runOnFxThread(() -> {
             eventDetailsWindow.hide();
             assertFalse(eventDetailsWindow.isShowing());
+        });
+    }
+
+    // ==================== show and focus ====================
+
+    @Test
+    public void show_thenIsShowing_returnsTrue() throws Exception {
+        runOnFxThread(() -> {
+            eventDetailsWindow.show();
+            assertTrue(eventDetailsWindow.isShowing());
+            // clean up
+            eventDetailsWindow.hide();
+        });
+    }
+
+    @Test
+    public void show_thenHide_isShowingReturnsFalse() throws Exception {
+        runOnFxThread(() -> {
+            eventDetailsWindow.show();
+            eventDetailsWindow.hide();
+            assertFalse(eventDetailsWindow.isShowing());
+        });
+    }
+
+    @Test
+    public void focus_doesNotThrow() throws Exception {
+        runOnFxThread(() -> {
+            // focus on a non-showing window should not throw
+            eventDetailsWindow.focus();
         });
     }
 
