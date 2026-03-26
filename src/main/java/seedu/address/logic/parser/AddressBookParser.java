@@ -23,12 +23,12 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.OpenResumeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ReminderCommand;
+import seedu.address.logic.commands.RemoveResumeCommand;
+import seedu.address.logic.commands.ResumeCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatusCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.commands.ResumeCommand;
-import seedu.address.logic.commands.RemoveResumeCommand;
 
 /**
  * Parses user input.

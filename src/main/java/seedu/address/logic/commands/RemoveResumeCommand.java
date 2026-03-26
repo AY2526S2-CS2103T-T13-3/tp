@@ -29,6 +29,11 @@ public class RemoveResumeCommand extends Command {
 
     private final Index index;
 
+    /**
+     * Create an RemoveResumeCommand.
+     *
+     * @param index Index of the application to remove resume
+     */
     public RemoveResumeCommand(Index index) {
         requireNonNull(index);
         this.index = index;

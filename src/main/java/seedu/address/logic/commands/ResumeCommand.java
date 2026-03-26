@@ -35,6 +35,12 @@ public class ResumeCommand extends Command {
     private final Index index;
     private final Resume resume;
 
+    /**
+     * Creates a ResumeCommand.
+     *
+     * @param index Index of the application to create resume
+     * @param resume The resume
+     */
     public ResumeCommand(Index index, Resume resume) {
         requireNonNull(index);
         requireNonNull(resume);

@@ -36,6 +36,11 @@ public class OpenResumeCommand extends Command {
 
     private final Index index;
 
+    /**
+     * Create an OpenResumeCommand.
+     *
+     * @param index Index of the application to open resume
+     */
     public OpenResumeCommand(Index index) {
         requireNonNull(index);
         this.index = index;
