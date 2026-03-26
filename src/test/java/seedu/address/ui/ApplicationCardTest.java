@@ -483,6 +483,76 @@ public class ApplicationCardTest {
         });
     }
 
+    @Test
+    public void constructor_allStatuses_addsCorrectStyleClass() throws Exception {
+        runOnFxThread(() -> {
+            for (Status status : Status.values()) {
+                Application application = new ApplicationBuilder()
+                        .withStatus(status)
+                        .build();
+                ApplicationCard applicationCard = new ApplicationCard(application, 1);
+                String expectedStyleClass = "status-" + status.toString().toLowerCase();
+                Label statusTag = getStatusTag(applicationCard, status.toString().toLowerCase());
+                assertTrue(statusTag.getStyleClass().contains(expectedStyleClass),
+                        "Status tag should have '" + expectedStyleClass + "' CSS class");
+            }
+        });
+    }
+
+    @Test
+    public void constructor_withMixedCaseUrgentTag_hasUrgentStyleClass() throws Exception {
+        runOnFxThread(() -> {
+            String reminderTag = seedu.address.logic.commands.ReminderCommand.REMINDER_TAG_NAME;
+            String mixedCaseTag = reminderTag.substring(0, 1).toUpperCase()
+                    + reminderTag.substring(1).toLowerCase();
+            Application application = new ApplicationBuilder()
+                    .withTags(mixedCaseTag)
+                    .build();
+
+            ApplicationCard applicationCard = new ApplicationCard(application, 1);
+            FlowPane tagsPane = getTagsPane(applicationCard);
+
+            Label urgentLabel = (Label) tagsPane.getChildren().stream()
+                    .filter(node -> node instanceof Label)
+                    .map(node -> (Label) node)
+                    .filter(label -> label.getText().equalsIgnoreCase(reminderTag))
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("Mixed case urgent tag label not found"));
+
+            assertTrue(urgentLabel.getStyleClass().contains("tag-urgent"),
+                    "Mixed case urgent tag should have 'tag-urgent' CSS class");
+        });
+    }
+
+    @Test
+    public void constructor_allOptionalFieldsPresent_allVisible() throws Exception {
+        runOnFxThread(() -> {
+            OnlineAssessment event = new OnlineAssessment(
+                    "home", VALID_DATETIME, "HackerRank", "www.hackerrank.com");
+            Application application = new ApplicationBuilder()
+                    .withCompanyName("Google")
+                    .withCompanyLocation("Singapore")
+                    .withRole("Intern")
+                    .withPhone("91234567")
+                    .withHrEmail("hr@google.com")
+                    .withDeadline("2026-12-31")
+                    .withNote("Follow up")
+                    .withApplicationEvent(event)
+                    .build();
+
+            ApplicationCard applicationCard = new ApplicationCard(application, 1);
+
+            assertTrue(getLabel(applicationCard, "companyLocation").isVisible());
+            assertTrue(getLabel(applicationCard, "companyLocation").isManaged());
+            assertTrue(getLabel(applicationCard, "deadline").isVisible());
+            assertTrue(getLabel(applicationCard, "deadline").isManaged());
+            assertTrue(getLabel(applicationCard, "note").isVisible());
+            assertTrue(getLabel(applicationCard, "note").isManaged());
+            assertTrue(getEventButton(applicationCard).isVisible());
+            assertTrue(getEventButton(applicationCard).isManaged());
+        });
+    }
+
     // ==================== Reflection helpers ====================
 
     private String getLabelText(ApplicationCard card, String fieldName) throws Exception {
