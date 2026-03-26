@@ -19,5 +19,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_ASSESSMENT_PLATFORM = new Prefix("ap/");
     public static final Prefix PREFIX_ASSESSMENT_LINK = new Prefix("al/");
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
+    public static final Prefix PREFIX_RESUME = new Prefix("rp/");
 }
 

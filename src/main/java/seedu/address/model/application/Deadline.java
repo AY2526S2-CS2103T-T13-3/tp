@@ -105,4 +105,9 @@ public class Deadline implements Comparable<Deadline> {
     public int hashCode() {
         return Objects.hash(value);
     }
+
+    @Override
+    public String toString() {
+        return this.value;
+    }
 }

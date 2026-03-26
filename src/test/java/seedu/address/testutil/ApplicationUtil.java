@@ -2,7 +2,9 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
@@ -36,6 +38,12 @@ public class ApplicationUtil {
         sb.append(PREFIX_PHONE + application.getPhone().value + " ");
         sb.append(PREFIX_HREMAIL + application.getHrEmail().value + " ");
         sb.append(PREFIX_COMPANY_NAME + application.getCompany().companyName + " ");
+        if (!application.getDeadline().isEmpty()) {
+            sb.append(PREFIX_DEADLINE).append(application.getDeadline().value).append(" ");
+        }
+        if (!application.getNote().value.isEmpty()) {
+            sb.append(PREFIX_NOTE).append(application.getNote().value).append(" ");
+        }
         // Note: AddCommandParser currently does not tokenize PREFIX_COMPANY_LOCATION.
         // Keep add-command details aligned with parser behavior.
         application.getTags().stream().forEach(
@@ -56,6 +64,17 @@ public class ApplicationUtil {
                 sb.append(PREFIX_COMPANY_NAME).append(name).append(" "));
         descriptor.getCompanyLocation().ifPresent(location ->
                 sb.append(PREFIX_COMPANY_LOCATION).append(location).append(" "));
+        descriptor.getDeadline().ifPresent(deadline -> {
+            if (deadline.isEmpty()) {
+                sb.append(PREFIX_DEADLINE).append("-").append(" ");
+            } else {
+                sb.append(PREFIX_DEADLINE).append(deadline.value).append(" ");
+            }
+        });
+
+        descriptor.getNote().ifPresent(note -> {
+            sb.append(PREFIX_NOTE).append(note.value).append(" ");
+        });
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

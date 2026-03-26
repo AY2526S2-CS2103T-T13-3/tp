@@ -45,7 +45,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/Xingchen722)]
 
 * Role: Tech Lead
-* Responsibilities: software development 
+* Responsibilities: software development
 
 ### Brenda Tan Kai Xin
 

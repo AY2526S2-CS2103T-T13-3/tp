@@ -21,8 +21,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditApplicationDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.application.Deadline;
-import seedu.address.model.application.Note;
 import seedu.address.model.application.Status;
 import seedu.address.model.tag.Tag;
 
@@ -86,11 +84,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
-            editApplicationDescriptor.setDeadline(new Deadline(argMultimap.getValue(PREFIX_DEADLINE).get()));
+            editApplicationDescriptor.setDeadline(ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE)
+                    .get()));
         }
 
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
-            editApplicationDescriptor.setNote(new Note(argMultimap.getValue(PREFIX_NOTE).get()));
+            editApplicationDescriptor.setNote(
+                    ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get()));
         }
 
         if (!editApplicationDescriptor.isAnyFieldEdited()) {

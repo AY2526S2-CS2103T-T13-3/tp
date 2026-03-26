@@ -10,8 +10,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.application.Company;
+import seedu.address.model.application.Deadline;
 import seedu.address.model.application.HrEmail;
+import seedu.address.model.application.Note;
 import seedu.address.model.application.Phone;
+import seedu.address.model.application.Resume;
 import seedu.address.model.application.Role;
 import seedu.address.model.tag.Tag;
 
@@ -33,6 +36,23 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String resume} into a {@code Resume}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code resume} is invalid.
+     */
+    public static Resume parseResume(String resume) throws ParseException {
+        requireNonNull(resume);
+        String trimmedResume = resume.trim();
+
+        if (!Resume.isValidResume(trimmedResume)) {
+            throw new ParseException(Resume.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Resume(trimmedResume);
     }
 
     /**
@@ -132,5 +152,46 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String deadline} into a {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code deadline} is invalid.
+     */
+    public static Deadline parseDeadline(String deadline) throws ParseException {
+        if (deadline == null || deadline.isBlank()) {
+            return Deadline.getEmptyDeadline();
+        }
+
+        String trimmedDeadline = deadline.trim();
+
+        if (trimmedDeadline.equals(Deadline.PLACEHOLDER_DEADLINE)) {
+            return Deadline.getEmptyDeadline();
+        }
+
+        if (!Deadline.isValidDeadline(trimmedDeadline)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Deadline(trimmedDeadline);
+    }
+
+    /**
+     * Parses a {@code String note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim(); // defensive programming: remove blank chars
+
+        if (!Note.isValidNote(trimmedNote)) {
+            // defensive programming: set constraints on note length
+            throw new ParseException(Note.MESSAGE_CONSTRAINTS);
+        }
+        return new Note(trimmedNote);
     }
 }

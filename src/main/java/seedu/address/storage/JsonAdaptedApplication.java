@@ -22,6 +22,7 @@ import seedu.address.model.application.HrEmail;
 import seedu.address.model.application.Note;
 import seedu.address.model.application.OnlineAssessment;
 import seedu.address.model.application.Phone;
+import seedu.address.model.application.Resume;
 import seedu.address.model.application.Role;
 import seedu.address.model.application.Status;
 import seedu.address.model.tag.Tag;
@@ -44,6 +45,7 @@ class JsonAdaptedApplication {
     private final String deadline;
     private final String eventLocation;
     private final String eventTime;
+    private final String resume;
 
     // OnlineAssessment fields — stored flat, all nullable (assessment is optional)
     private final String assessmentPlatform;
@@ -68,7 +70,8 @@ class JsonAdaptedApplication {
                                   @JsonProperty("assessmentPlatform") String assessmentPlatform,
                                   @JsonProperty("assessmentLink") String assessmentLink,
                                   @JsonProperty("assessmentNotes") String assessmentNotes,
-                                  @JsonProperty("note") String note) {
+                                  @JsonProperty("note") String note,
+                                  @JsonProperty("resume") String resume) {
         this.role = role;
         this.phone = phone;
         this.hrEmail = hrEmail;
@@ -85,6 +88,7 @@ class JsonAdaptedApplication {
         this.assessmentLink = assessmentLink;
         this.assessmentNotes = assessmentNotes;
         this.note = note;
+        this.resume = resume;
     }
 
     /**
@@ -120,6 +124,7 @@ class JsonAdaptedApplication {
             this.assessmentNotes = null;
         }
         this.note = source.getNote().value;
+        this.resume = source.getResume().value;
     }
 
     /**
@@ -201,7 +206,11 @@ class JsonAdaptedApplication {
 
         final Note modelNote = new Note(note != null ? note : "");
 
+        final Resume modelResume = (resume != null)
+                ? new Resume(resume)
+                : Resume.getEmptyResume();
+
         return new Application(modelRole, modelPhone, modelHrEmail, modelCompany,
-                modelTags, modelStatus, modelDeadline, modelEvent, modelNote);
+                modelTags, modelStatus, modelDeadline, modelEvent, modelNote, modelResume);
     }
 }
