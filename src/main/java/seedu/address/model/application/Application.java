@@ -31,17 +31,22 @@ public class Application {
     // Deadline field
     private final Deadline deadline;
 
-    //ApplicationEvent fields
+    // ApplicationEvent field
     private final ApplicationEvent applicationEvent;
+
     // Note field
     private final Note note;
 
+    // Resume field
+    private final Resume resume;
+
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null except applicationEvent, which may be null.
      */
     public Application(Role role, Phone phone, HrEmail hrEmail, Company company, Set<Tag> tags,
-                       Status status, Deadline deadline, ApplicationEvent applicationEvent, Note note) {
-        requireAllNonNull(role, phone, hrEmail, company, tags, status, deadline, note);
+                       Status status, Deadline deadline, ApplicationEvent applicationEvent, Note note,
+                       Resume resume) {
+        requireAllNonNull(role, phone, hrEmail, company, tags, status, deadline, note, resume);
         this.role = role;
         this.phone = phone;
         this.hrEmail = hrEmail;
@@ -51,16 +56,20 @@ public class Application {
         this.deadline = deadline;
         this.applicationEvent = applicationEvent;
         this.note = note;
+        this.resume = resume;
     }
 
     /**
-     * Constructs a new Application with status APPLIED, empty deadline, and empty note by default.
-     *
-     * @param role
-     * @param phone
-     * @param hrEmail
-     * @param company
-     * @param tags
+     * Backward-compatible constructor.
+     */
+    public Application(Role role, Phone phone, HrEmail hrEmail, Company company, Set<Tag> tags,
+                       Status status, Deadline deadline, ApplicationEvent applicationEvent, Note note) {
+        this(role, phone, hrEmail, company, tags, status, deadline, applicationEvent, note,
+                Resume.getEmptyResume());
+    }
+
+    /**
+     * Constructs a new Application with status APPLIED, empty deadline, empty note, and empty resume by default.
      */
     public Application(Role role, Phone phone, HrEmail hrEmail, Company company, Set<Tag> tags) {
         requireAllNonNull(role, phone, hrEmail, company, tags);
@@ -73,6 +82,7 @@ public class Application {
         this.deadline = Deadline.getEmptyDeadline();
         this.applicationEvent = null;
         this.note = new Note("");
+        this.resume = Resume.getEmptyResume();
     }
 
     public Role getRole() {
@@ -102,8 +112,17 @@ public class Application {
     public ApplicationEvent getApplicationEvent() {
         return applicationEvent;
     }
+
     public Note getNote() {
         return note;
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public boolean hasResume() {
+        return !resume.isEmpty();
     }
 
     /**
@@ -138,7 +157,6 @@ public class Application {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof Application otherApplication)) {
             return false;
         }
@@ -150,12 +168,14 @@ public class Application {
                 && tags.equals(otherApplication.tags)
                 && status.equals(otherApplication.status)
                 && deadline.equals(otherApplication.deadline)
-                && note.equals(otherApplication.note);
+                && Objects.equals(applicationEvent, otherApplication.applicationEvent)
+                && note.equals(otherApplication.note)
+                && resume.equals(otherApplication.resume);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(role, phone, hrEmail, company, tags, status, deadline, note);
+        return Objects.hash(role, phone, hrEmail, company, tags, status, deadline, applicationEvent, note, resume);
     }
 
     @Override
@@ -168,7 +188,9 @@ public class Application {
                 .add("tags", tags)
                 .add("status", status)
                 .add("deadline", deadline)
+                .add("applicationEvent", applicationEvent)
                 .add("note", note)
+                .add("resume", resume)
                 .toString();
     }
 }

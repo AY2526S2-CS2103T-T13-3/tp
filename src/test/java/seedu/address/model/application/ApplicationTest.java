@@ -99,6 +99,7 @@ public class ApplicationTest {
                 GOOGLE_SWE.getTags());
 
         assertEquals(Status.APPLIED, applicationWithDefaultStatus.getStatus());
+        assertEquals(Resume.getEmptyResume(), applicationWithDefaultStatus.getResume());
     }
 
     @Test
@@ -111,7 +112,9 @@ public class ApplicationTest {
                 + ", tags=" + GOOGLE_SWE.getTags()
                 + ", status=" + GOOGLE_SWE.getStatus()
                 + ", deadline=" + GOOGLE_SWE.getDeadline()
-                + ", note=" + GOOGLE_SWE.getNote() + "}";
+                + ", applicationEvent=" + GOOGLE_SWE.getApplicationEvent()
+                + ", note=" + GOOGLE_SWE.getNote()
+                + ", resume=" + GOOGLE_SWE.getResume() + "}";
         assertEquals(expected, GOOGLE_SWE.toString());
     }
 

@@ -38,6 +38,7 @@ public class JsonAdaptedApplicationTest {
     private static final String VALID_DEADLINE = "2026-12-31 23:59";
     private static final String VALID_DATETIME = "2026-12-31 23:59";
     private static final String VALID_NOTE = "";
+    private static final String VALID_RESUME = "";
 
     @Test
     public void toModelType_validApplicationDetails_returnsApplication() throws Exception {
@@ -51,7 +52,7 @@ public class JsonAdaptedApplicationTest {
                 VALID_ROLE, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
                 "home", VALID_DATETIME, "HackerRank",
-                "www.hackerrank.com", null, VALID_NOTE);
+                "www.hackerrank.com", null, VALID_NOTE, VALID_RESUME);
         seedu.address.model.application.Application result = application.toModelType();
         assertEquals("home", result.getApplicationEvent().getLocation());
     }
@@ -62,7 +63,7 @@ public class JsonAdaptedApplicationTest {
                 VALID_ROLE, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
                 "home", VALID_DATETIME, "HackerRank", "www.hackerrank.com",
-                null, "some notes");
+                null, "some notes", VALID_RESUME);
         seedu.address.model.application.Application result = application.toModelType();
         assertEquals("home", result.getApplicationEvent().getLocation());
     }
@@ -73,7 +74,7 @@ public class JsonAdaptedApplicationTest {
                 VALID_ROLE, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
                 "home", INVALID_DATETIME, "HackerRank",
-                "www.hackerrank.com", null, VALID_NOTE);
+                "www.hackerrank.com", null, VALID_NOTE, VALID_RESUME);
         assertThrows(IllegalValueException.class, application::toModelType);
     }
 
@@ -83,7 +84,7 @@ public class JsonAdaptedApplicationTest {
                 new JsonAdaptedApplication(INVALID_ROLE, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                         VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
                         null, null, null,
-                        null, null, VALID_NOTE);
+                        null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = Role.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -93,7 +94,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application = new JsonAdaptedApplication(
                 null, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
-                null, null, null, null, null, VALID_NOTE);
+                null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -103,7 +104,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application =
                 new JsonAdaptedApplication(VALID_ROLE, INVALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                         VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
-                        null, null, null, null, null, VALID_NOTE);
+                        null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -113,7 +114,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application = new JsonAdaptedApplication(
                 VALID_ROLE, null, VALID_HREMAIL, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
-                null, null, null, null, null, VALID_NOTE);
+                null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -123,7 +124,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application =
                 new JsonAdaptedApplication(VALID_ROLE, VALID_PHONE, INVALID_HREMAIL, VALID_COMPANY_NAME,
                         VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
-                        null, null, null, null, null, VALID_NOTE);
+                        null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = HrEmail.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -133,7 +134,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application = new JsonAdaptedApplication(
                 VALID_ROLE, VALID_PHONE, null, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
-                null, null, null, null, null, VALID_NOTE);
+                null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, HrEmail.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -143,7 +144,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application =
                 new JsonAdaptedApplication(VALID_ROLE, VALID_PHONE, VALID_HREMAIL, INVALID_COMPANY,
                         VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
-                        null, null, null, null, null, VALID_NOTE);
+                        null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = Company.MESSAGE_CONSTRAINTS_NAME;
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -153,7 +154,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application = new JsonAdaptedApplication(
                 VALID_ROLE, VALID_PHONE, VALID_HREMAIL, null,
                 VALID_COMPANY_LOCATION, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
-                null, null, null, null, null, VALID_NOTE);
+                null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -163,7 +164,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application = new JsonAdaptedApplication(
                 VALID_ROLE, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                 null, VALID_TAGS, VALID_STATUS, VALID_DEADLINE,
-                null, null, null, null, null, VALID_NOTE);
+                null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "companyLocation");
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -173,7 +174,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application = new JsonAdaptedApplication(
                 VALID_ROLE, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, VALID_TAGS, null, VALID_DEADLINE,
-                null, null, null, null, null, VALID_NOTE);
+                null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         seedu.address.model.application.Application modelApplication = application.toModelType();
         assertEquals(Status.APPLIED, modelApplication.getStatus());
     }
@@ -184,7 +185,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application = new JsonAdaptedApplication(
                 VALID_ROLE, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, VALID_TAGS, invalidStatus, VALID_DEADLINE,
-                null, null, null, null, null, VALID_NOTE);
+                null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         String expectedMessage = "Invalid status: " + invalidStatus;
         assertThrows(IllegalValueException.class, expectedMessage, application::toModelType);
     }
@@ -196,7 +197,7 @@ public class JsonAdaptedApplicationTest {
         JsonAdaptedApplication application = new JsonAdaptedApplication(
                 VALID_ROLE, VALID_PHONE, VALID_HREMAIL, VALID_COMPANY_NAME,
                 VALID_COMPANY_LOCATION, invalidTags, VALID_STATUS, VALID_DEADLINE,
-                null, null, null, null, null, VALID_NOTE);
+                null, null, null, null, null, VALID_NOTE, VALID_RESUME);
         assertThrows(IllegalValueException.class, application::toModelType);
     }
 }

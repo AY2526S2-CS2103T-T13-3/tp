@@ -48,6 +48,7 @@ public class ApplicationCard extends UiPart<Region> {
     private Button eventButton;
 
     private final EventDetailsWindow eventDetailsWindow;
+    private Label resume;
 
     /**
      * Creates a {@code ApplicationCard} with the given {@code Application} and index to display.
@@ -82,6 +83,13 @@ public class ApplicationCard extends UiPart<Region> {
             note.setManaged(false);
         } else {
             note.setText("Note: " + application.getNote().value);
+        }
+
+        if (application.getResume().isEmpty()) {
+            resume.setVisible(false);
+            resume.setManaged(false);
+        } else {
+            resume.setText("Resume: " + application.getResume().value);
         }
 
         status.setVisible(false);

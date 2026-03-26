@@ -14,6 +14,7 @@ import seedu.address.model.application.Deadline;
 import seedu.address.model.application.HrEmail;
 import seedu.address.model.application.Note;
 import seedu.address.model.application.Phone;
+import seedu.address.model.application.Resume;
 import seedu.address.model.application.Role;
 import seedu.address.model.tag.Tag;
 
@@ -35,6 +36,23 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String resume} into a {@code Resume}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code resume} is invalid.
+     */
+    public static Resume parseResume(String resume) throws ParseException {
+        requireNonNull(resume);
+        String trimmedResume = resume.trim();
+
+        if (!Resume.isValidResume(trimmedResume)) {
+            throw new ParseException(Resume.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Resume(trimmedResume);
     }
 
     /**

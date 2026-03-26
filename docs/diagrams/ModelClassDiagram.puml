@@ -20,6 +20,19 @@ Class Name
 Class Phone
 Class Tag
 
+' ===== Resume Feature =====
+Class Resume {
+    +value : String
+    +getValue() : String
+}
+
+' One person can have at most one resume
+Person --> "0..1" Resume
+
+' Resume is associated with a file path (simplified representation)
+Resume --> "1" String : filePath
+' =========================
+
 Class I #FFFFFF
 }
 
