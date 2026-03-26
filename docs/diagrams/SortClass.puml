@@ -5,24 +5,27 @@ skinparam classAttributeIconSize 0
 Class "{abstract}\nCommand" as Command {
   +execute(Model): CommandResult
 }
-Class ReminderCommand {
+
+Class SortCommand {
   +COMMAND_WORD: String
-  +REMINDER_TAG_NAME: String
+  +MESSAGE_USAGE: String
   +MESSAGE_SUCCESS: String
+  -criteria: String
   +execute(Model): CommandResult
-  +addReminderTag(app): Application
 }
+
 Class CommandException
 Class Model
 Class Application
 Class Deadline
-Class Tag
+Class Role
 
-ReminderCommand -up-|> Command
+SortCommand -up-|> Command
 Command ..> CommandException: throws >
-ReminderCommand .right.> CommandException: throws >
+SortCommand .right.> CommandException: throws >
 
-ReminderCommand ..> Deadline
-ReminderCommand ..> Application
-ReminderCommand ..> Tag
+SortCommand ..> Application
+SortCommand ..> Deadline
+SortCommand ..> Role
 @enduml
+

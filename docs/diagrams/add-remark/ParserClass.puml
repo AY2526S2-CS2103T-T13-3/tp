@@ -2,13 +2,17 @@
 hide circle
 skinparam classAttributeIconSize 0
 
-Class "<<interface>>\nParser" as Parser
-Class RemarkCommandParser {
-  +parse(): RemarkCommand
-}
-Class ParserException
+Class "{abstract}\nCommand" as Command
+Class CommandResult
+Class Model
 
-RemarkCommandParser .up.|> Parser
-Parser .right.> ParserException: throws >
-RemarkCommandParser .right.> ParserException: throws >
+Class AddressBookParser {
+  +parseCommand(args): Command
+}
+Class ReminderCommand {
+  +COMMAND_WORD: String
+  +execute(Model): CommandResult
+}
+
+AddressBookParser ..> ReminderCommand : <<create>>
 @enduml

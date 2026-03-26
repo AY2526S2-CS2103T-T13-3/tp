@@ -30,7 +30,19 @@ deactivate AddressBookParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
+UndoCommand -> Model : canUndoAddressBook()
+activate Model
+
+Model --> UndoCommand
+deactivate Model
+
 UndoCommand -> Model : undoAddressBook()
+activate Model
+
+Model --> UndoCommand
+deactivate Model
+
+UndoCommand -> Model : updateFilteredApplicationList(PREDICATE_SHOW_ALL_APPLICATIONS)
 activate Model
 
 Model --> UndoCommand

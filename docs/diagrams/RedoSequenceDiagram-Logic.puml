@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "r:RedoCommand" as RedoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute(redo)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(redo)
+activate AddressBookParser
+
+create RedoCommand
+AddressBookParser -> RedoCommand
+activate RedoCommand
+
+RedoCommand --> AddressBookParser
+deactivate RedoCommand
+
+AddressBookParser --> LogicManager : r
+deactivate AddressBookParser
+
+LogicManager -> RedoCommand : execute()
+activate RedoCommand
+
+RedoCommand -> Model : canRedoAddressBook()
+activate Model
+
+Model --> RedoCommand
+deactivate Model
+
+RedoCommand -> Model : redoAddressBook()
+activate Model
+
+Model --> RedoCommand
+deactivate Model
+
+RedoCommand -> Model : updateFilteredApplicationList(PREDICATE_SHOW_ALL_APPLICATIONS)
+activate Model
+
+Model --> RedoCommand
+deactivate Model
+
+RedoCommand --> LogicManager : result
+deactivate RedoCommand
+RedoCommand -[hidden]-> LogicManager : result
+destroy RedoCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
+

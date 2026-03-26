@@ -1,0 +1,19 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+Class "<<interface>>\nParser" as Parser
+Class SortCommandParser {
+  +parse(args): SortCommand
+}
+Class ParseException
+
+Class SortCommand {
+  +COMMAND_WORD: String
+}
+
+SortCommandParser .up.|> Parser
+Parser .right.> ParseException: throws >
+SortCommandParser .right.> ParseException: throws >
+@enduml
+
