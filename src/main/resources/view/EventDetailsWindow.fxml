@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.Scene?>
+
+<fx:root type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         title="Event Details"
+         minWidth="400"
+         minHeight="300"
+         resizable="false">
+
+    <scene>
+        <Scene>
+            <VBox spacing="12" styleClass="background">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20" />
+                </padding>
+
+                <!-- Title -->
+                <Label fx:id="titleLabel"
+                       text="Event Details"
+                       styleClass="event-window-title" />
+
+                <Separator />
+
+                <!-- Details grid -->
+                <GridPane hgap="15" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="80" prefWidth="100" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="150" />
+                    </columnConstraints>
+
+                    <Label text="Location:"
+                           styleClass="event-detail-key"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label fx:id="locationLabel"
+                           styleClass="event-detail-value"
+                           wrapText="true"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Date &amp; Time:"
+                           styleClass="event-detail-key"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label fx:id="dateTimeLabel"
+                           styleClass="event-detail-value"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Platform:"
+                           styleClass="event-detail-key"
+                           GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Label fx:id="platformLabel"
+                           styleClass="event-detail-value"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Link:"
+                           styleClass="event-detail-key"
+                           GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <Label fx:id="linkLabel"
+                           styleClass="event-detail-value"
+                           wrapText="true"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                    <Label text="Notes:"
+                           styleClass="event-detail-key"
+                           GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <Label fx:id="notesLabel"
+                           styleClass="event-detail-value"
+                           wrapText="true"
+                           GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                </GridPane>
+
+                <Separator />
+
+                <!-- Close button -->
+                <Button text="Close"
+                        onAction="#handleClose"
+                        maxWidth="Infinity"
+                        styleClass="event-close-button" />
+            </VBox>
+        </Scene>
+    </scene>
+
+</fx:root>

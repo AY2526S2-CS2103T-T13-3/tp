@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Button?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -42,4 +43,16 @@
       <Label fx:id="note" styleClass="cell_small_label" text="$note" />
     </VBox>
   </GridPane>
+
+  <VBox alignment="CENTER" HBox.hgrow="NEVER">
+    <padding>
+      <Insets top="5" right="10" bottom="5" left="5" />
+    </padding>
+    <Button fx:id="eventButton"
+            text="View Event"
+            onAction="#handleEventButtonClick"
+            styleClass="event-button"
+            visible="false"
+            managed="false" />
+  </VBox>
 </HBox>
