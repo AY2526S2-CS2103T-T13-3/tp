@@ -2,44 +2,30 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
-      </padding>
-      <HBox spacing="0.5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="role" text="\$first" styleClass="cell_big_label" />
-      </HBox>
-      <FlowPane fx:id="tags" />
+<HBox id="cardPane" fx:id="cardPane" xmlns:fx="http://javafx.com/fxml/1"
+      styleClass="card-pane" spacing="10" alignment="CENTER_LEFT">
 
-      <Label fx:id="status" styleClass="cell_small_label" text="$status" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="$phone" />
+  <VBox spacing="5" HBox.hgrow="ALWAYS">
 
-      <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="companyName" styleClass="cell_small_label" text="$companyName" />
-        <Label fx:id="companyLocation" styleClass="cell_small_label" text="$companyLocation" opacity="0.7" />
-      </HBox>
+    <HBox spacing="8" alignment="CENTER_LEFT">
+      <Label fx:id="id"   styleClass="cell-id" />
+      <Label fx:id="role" styleClass="cell-role-name" />
+    </HBox>
 
-      <Label fx:id="hrEmail" styleClass="cell_small_label" text="$hrEmail" />
-      <Label fx:id="deadline" styleClass="cell_small_label" text="$deadline" />
-      <Label fx:id="resume" />
-      <Label fx:id="note" styleClass="cell_small_label" text="$note" />
-    </VBox>
-  </GridPane>
+    <Label fx:id="deadline" styleClass="deadline-label" />
+
+    <FlowPane fx:id="tags" hgap="6" vgap="4" />
+
+    <VBox fx:id="detailsBox" spacing="4" />
+
+  </VBox>
+
+  <padding>
+    <Insets top="10" right="16" bottom="10" left="16" />
+  </padding>
+
 </HBox>

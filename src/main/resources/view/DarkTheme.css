@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    background-color: #383838;
 }
 
 .label {
@@ -95,7 +95,7 @@
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
+    -fx-graphic-text-gap: 0;
     -fx-padding: 0 0 0 0;
 }
 
@@ -133,13 +133,13 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -207,11 +207,6 @@
     -fx-background-color: black;
 }
 
-/*
- * Metro style Push Button
- * Author: Pedro Duque Vieira
- * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
- */
 .button {
     -fx-padding: 5 22 5 22;
     -fx-border-color: #e2e2e2;
@@ -229,8 +224,8 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
 }
 
 .button:focused {
@@ -342,35 +337,63 @@
     -fx-vgap: 3;
 }
 
-#tags .label {
+/* Base chip — used by all tags and status */
+.chip {
     -fx-text-fill: white;
     -fx-background-color: #c87ed3;
     -fx-padding: 3 10 3 10;
     -fx-border-radius: 12;
     -fx-background-radius: 12;
     -fx-font-size: 11;
+    -fx-font-weight: bold;
 }
 
-#tags .status-applied {
-    -fx-background-color: #e1c969;
+/* Status chip colours */
+.chip-status-applied {
+    -fx-background-color: #1565c0;
 }
 
-#tags .status-offered {
-    -fx-background-color: #579a6a;
-}
-
-#tags .status-rejected {
-    -fx-background-color: #5e5650;
-}
-
-#tags .status-interviewing {
+.chip-status-interviewing {
     -fx-background-color: #63b5cf;
 }
 
-#tags .status-withdrawn {
+.chip-status-offered {
+    -fx-background-color: #579a6a;
+}
+
+.chip-status-rejected {
+    -fx-background-color: #5e5650;
+}
+
+.chip-status-withdrawn {
     -fx-background-color: #d85d1c;
 }
 
-#tags .tag-urgent {
+/* Urgent reminder tag */
+.chip-urgent {
     -fx-background-color: #ae3535;
+}
+
+/* Card layout */
+.cell-id {
+    -fx-font-size: 13px;
+    -fx-text-fill: #888888;
+}
+
+.cell-role-name {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f0f0f0;
+}
+
+.deadline-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e53935;
+    -fx-graphic-text-gap: 6;
+}
+
+.detail-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #cccccc;
 }
