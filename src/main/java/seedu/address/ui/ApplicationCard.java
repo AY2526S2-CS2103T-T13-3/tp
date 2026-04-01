@@ -27,7 +27,8 @@ public class ApplicationCard extends UiPart<Region> {
     private static final String FXML = "ApplicationListCard.fxml";
     private static final Color ICON_COLOR = Color.WHITE;
     private static final int ICON_SIZE = 14;
-    private static final DateTimeFormatter DEADLINE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private static final DateTimeFormatter DEADLINE_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final Color ROLE_COLOR_DEFAULT = Color.WHITE;
     private static final Color ROLE_COLOR_URGENT = Color.web("#e53935");
     private static final Color ROLE_COLOR_OVERDUE = Color.web("#fb8c00");

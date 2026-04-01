@@ -208,8 +208,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseDeadline_invalidTime_throwsParseException() {
-        assertThrows(ParseException.class, Deadline.MESSAGE_CONSTRAINTS,
-                () -> ParserUtil.parseDeadline("2026-04-01 12:60"));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDeadline("2026-04-01 12:60"));
     }
 
     @Test
