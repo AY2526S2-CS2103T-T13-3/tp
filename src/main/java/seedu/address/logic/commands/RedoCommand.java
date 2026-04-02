@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_SUCCESS = "Redo Successfully！";
+    public static final String MESSAGE_SUCCESS = "Redo Successfully!";
     public static final String MESSAGE_FAILURE = "No undoable state to redo. Please perform an undo first.";
 
     @Override
