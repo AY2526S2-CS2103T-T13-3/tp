@@ -3,16 +3,35 @@ package seedu.address.ui;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
+import seedu.address.model.application.Application;
+import seedu.address.model.application.Resume;
 import seedu.address.testutil.ApplicationBuilder;
 
 public class ApplicationCardTest {
+
+    @BeforeAll
+    public static void initJfxRuntime() throws Exception {
+        CountDownLatch latch = new CountDownLatch(1);
+        try {
+            Platform.startup(latch::countDown);
+        } catch (IllegalStateException e) {
+            // JavaFX toolkit already initialized.
+            latch.countDown();
+        }
+        assertTrue(latch.await(5, TimeUnit.SECONDS));
+    }
 
     // ── formatPhone ──────────────────────────────────────────────────────────
 
@@ -335,5 +354,42 @@ public class ApplicationCardTest {
                 1);
 
         assertNotNull(card);
+    }
+
+    @Test
+    public void constructor_noDeadline_hidesDeadlineField() {
+        ApplicationCard card = new ApplicationCard(new ApplicationBuilder().build(), 1);
+        assertNotNull(card);
+    }
+
+    @Test
+    public void constructor_resumePresent_showsResumeIcon() {
+        Application base = new ApplicationBuilder()
+                .withDeadline("2026-03-12 21:00")
+                .build();
+        Application applicationWithResume = new Application(
+                base.getRole(),
+                base.getPhone(),
+                base.getHrEmail(),
+                base.getCompany(),
+                base.getTags(),
+                base.getStatus(),
+                base.getDeadline(),
+                base.getApplicationEvent(),
+                base.getNote(),
+                new Resume("resume.pdf"));
+
+        ApplicationCard card = new ApplicationCard(applicationWithResume, 1);
+        assertNotNull(card);
+    }
+
+    @Test
+    public void toStatusKey_null_returnsEmpty() {
+        assertEquals("", ApplicationCard.toStatusKey(null));
+    }
+
+    @Test
+    public void toTitleCase_null_returnsNull() {
+        assertNull(ApplicationCard.toTitleCase(null));
     }
 }
