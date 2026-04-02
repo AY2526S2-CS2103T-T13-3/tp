@@ -171,8 +171,12 @@ public class ParserUtil {
             return Deadline.getEmptyDeadline();
         }
 
-        if (!Deadline.isValidDeadline(trimmedDeadline)) {
-            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        if (!Deadline.isValidFormat(trimmedDeadline)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS_FORMAT);
+        }
+
+        if (!Deadline.isValidCalendarDate(trimmedDeadline)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS_DATE);
         }
 
         return new Deadline(trimmedDeadline);
