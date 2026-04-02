@@ -39,6 +39,29 @@ public class StringUtil {
     }
 
     /**
+     * Returns true if the {@code sentence} contains the {@code keyword} partially or fully.
+     * Ignores case and trims leading/trailing spaces.
+     * <br>examples:<pre>
+     * containsSubstringIgnoreCase("Software Engineer", "soft") == true
+     * containsSubstringIgnoreCase("Software Engineer", "ENGIN") == true
+     * containsSubstringIgnoreCase("Software Engineer", " dev ") == false
+     * </pre>
+     * @param sentence cannot be null
+     * @param keyword cannot be null, cannot be empty
+     */
+    public static boolean containsSubstringIgnoreCase(String sentence, String keyword) {
+        requireNonNull(sentence);
+        requireNonNull(keyword);
+
+        String preppedKeyword = keyword.trim().toLowerCase();
+        checkArgument(!preppedKeyword.isEmpty(), "Keyword parameter cannot be empty");
+
+        String preppedSentence = sentence.toLowerCase();
+
+        return preppedSentence.contains(preppedKeyword);
+    }
+
+    /**
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {

@@ -159,7 +159,6 @@ public class ModelManager implements Model {
         filteredApplications.setPredicate(predicate);
     }
 
-    // 在 ModelManager.java 内部实现 updateSortedApplicationList
     @Override
     public void updateSortedApplicationList(Comparator<Application> comparator) {
         requireNonNull(comparator);

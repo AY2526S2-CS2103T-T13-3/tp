@@ -3,6 +3,8 @@ package seedu.address.model.application;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Tests that an {@code Application}'s note matches any of the keywords given.
  */
@@ -15,9 +17,8 @@ public class NoteContainsKeywordsPredicate implements Predicate<Application> {
 
     @Override
     public boolean test(Application application) {
-        String note = application.getNote().toString().toLowerCase();
         return keywords.stream()
-                .anyMatch(keyword -> note.contains(keyword.toLowerCase()));
+                .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(application.getNote().toString(), keyword));
     }
 
     @Override

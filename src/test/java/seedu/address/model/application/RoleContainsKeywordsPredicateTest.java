@@ -56,8 +56,15 @@ public class RoleContainsKeywordsPredicateTest {
         // Mixed-case keywords
         predicate = new RoleContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new ApplicationBuilder().withRole("Alice Bob").build()));
-    }
 
+        // ================= Partial match =================
+        predicate = new RoleContainsKeywordsPredicate(Arrays.asList("Ali", "ob"));
+        assertTrue(predicate.test(new ApplicationBuilder().withRole("Alice Bob").build()));
+
+        // ================= Mixed-case partial match =================
+        predicate = new RoleContainsKeywordsPredicate(Arrays.asList("aLi", "oB"));
+        assertTrue(predicate.test(new ApplicationBuilder().withRole("Alice Bob").build()));
+    }
     @Test
     public void test_roleDoesNotContainKeywords_returnsFalse() {
         // Zero keywords

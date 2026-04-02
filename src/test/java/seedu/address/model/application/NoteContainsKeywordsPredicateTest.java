@@ -30,6 +30,7 @@ public class NoteContainsKeywordsPredicateTest {
 
     @Test
     public void test_noteContainsKeywords_returnsTrue() {
+        // Exact words match
         NoteContainsKeywordsPredicate predicate =
                 new NoteContainsKeywordsPredicate(Arrays.asList("follow", "recruiter"));
 
@@ -43,6 +44,12 @@ public class NoteContainsKeywordsPredicateTest {
 
         assertTrue(predicate.test(applicationWithFollow));
         assertTrue(predicate.test(applicationWithRecruiter));
+
+        NoteContainsKeywordsPredicate partialPredicate =
+                new NoteContainsKeywordsPredicate(Arrays.asList("foll", "RECRUIT"));
+
+        assertTrue(partialPredicate.test(applicationWithFollow));
+        assertTrue(partialPredicate.test(applicationWithRecruiter));
     }
 
     @Test

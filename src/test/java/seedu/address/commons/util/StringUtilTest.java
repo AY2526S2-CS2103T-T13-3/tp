@@ -123,6 +123,50 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
+    //---------------- Tests for containsSubstringIgnoreCase --------------------------------------
+
+    @Test
+    public void containsSubstringIgnoreCase_nullKeyword_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> StringUtil
+                .containsSubstringIgnoreCase("typical sentence", null));
+    }
+
+    @Test
+    public void containsSubstringIgnoreCase_emptyKeyword_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, "Keyword parameter cannot be empty", ()
+                -> StringUtil.containsSubstringIgnoreCase("typical sentence", "  "));
+    }
+
+    @Test
+    public void containsSubstringIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> StringUtil.containsSubstringIgnoreCase(null, "abc"));
+    }
+
+    @Test
+    public void containsSubstringIgnoreCase_validInputs_correctResult() {
+
+        // Empty sentence
+        assertFalse(StringUtil.containsSubstringIgnoreCase("", "abc"));
+
+        // Exact match
+        assertTrue(StringUtil.containsSubstringIgnoreCase("Software Engineer", "Software"));
+
+        // Matches a partial word (Partial matching)
+        assertTrue(StringUtil.containsSubstringIgnoreCase("Software Engineer", "soft"));
+        assertTrue(StringUtil.containsSubstringIgnoreCase("Software Engineer", "engin"));
+        assertTrue(StringUtil.containsSubstringIgnoreCase("Data Analyst", "naly"));
+
+        // Matches with different cases (Case-insensitive)
+        assertTrue(StringUtil.containsSubstringIgnoreCase("Product Manager", "mAnAgEr"));
+        assertTrue(StringUtil.containsSubstringIgnoreCase("Product Manager", "PROD"));
+
+        // Sentence missing keyword
+        assertFalse(StringUtil.containsSubstringIgnoreCase("Software Engineer", "dev"));
+
+        // Keyword has leading/trailing spaces (should be trimmed and match)
+        assertTrue(StringUtil.containsSubstringIgnoreCase("Software Engineer", "  soft  "));
+    }
+
     //---------------- Tests for getDetails --------------------------------------
 
     /*
