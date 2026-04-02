@@ -240,11 +240,22 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidDeadline_failure() {
+    public void parse_invalidDeadlineFormat_failure() {
         Index targetIndex = INDEX_FIRST_APPLICATION;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_DEADLINE + "invalid date";
 
-        assertParseFailure(parser, userInput, Deadline.MESSAGE_CONSTRAINTS);
+        // "invalid date" fails the regex format check
+        assertParseFailure(parser, userInput, Deadline.MESSAGE_CONSTRAINTS_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidDeadlineDate_failure() {
+        Index targetIndex = INDEX_FIRST_APPLICATION;
+        // 2026 is not a leap year, so Feb 29th does not exist
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_DEADLINE + "2026-02-29";
+
+        // Passes format check, but fails calendar validation
+        assertParseFailure(parser, userInput, Deadline.MESSAGE_CONSTRAINTS_DATE);
     }
 
     @Test

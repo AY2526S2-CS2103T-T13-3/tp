@@ -48,7 +48,17 @@ public class DeadlineCommandParserTest {
     }
 
     @Test
-    public void parse_invalidDeadline_failure() {
-        assertParseFailure(parser, "1 2026-04-01 12:60", Deadline.MESSAGE_CONSTRAINTS);
+    public void parse_invalidDeadlineFormat_failure() {
+        // Format is wrong (using slashes instead of dashes)
+        assertParseFailure(parser, "1 2026/04/01", Deadline.MESSAGE_CONSTRAINTS_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidDeadlineDate_failure() {
+        // Format is correct, but 60th minute does not exist on a clock
+        assertParseFailure(parser, "1 2026-04-01 12:60", Deadline.MESSAGE_CONSTRAINTS_DATE);
+
+        // Format is correct, but 90th day does not exist on the calendar
+        assertParseFailure(parser, "1 2026-01-90", Deadline.MESSAGE_CONSTRAINTS_DATE);
     }
 }
