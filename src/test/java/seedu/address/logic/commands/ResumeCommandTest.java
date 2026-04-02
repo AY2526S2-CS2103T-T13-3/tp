@@ -64,7 +64,10 @@ public class ResumeCommandTest {
 
         Application expected = createApplication(resumePath.toString());
 
-        assertEquals(String.format(ResumeCommand.MESSAGE_SUCCESS, expected), result.getFeedbackToUser());
+        assertEquals(
+                String.format(ResumeCommand.MESSAGE_SUCCESS, expected),
+                result.getFeedbackToUser()
+        );
         assertEquals(expected, model.applicationSet);
         assertTrue(model.commitCalled);
     }
@@ -74,7 +77,10 @@ public class ResumeCommandTest {
         Application original = createApplication("");
         ModelStub model = new ModelStub(original);
 
-        ResumeCommand command = new ResumeCommand(Index.fromOneBased(2), new Resume("resume.pdf"));
+        ResumeCommand command = new ResumeCommand(
+                Index.fromOneBased(2),
+                new Resume("resume.pdf")
+        );
 
         assertThrows(CommandException.class, MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX, () -> command.execute(model));
     }
@@ -84,8 +90,10 @@ public class ResumeCommandTest {
         Application original = createApplication("");
         ModelStub model = new ModelStub(original);
 
-        ResumeCommand command = new ResumeCommand(Index.fromOneBased(1),
-                new Resume(tempDir.resolve("missing.pdf").toString()));
+        ResumeCommand command = new ResumeCommand(
+                Index.fromOneBased(1),
+                new Resume(tempDir.resolve("missing.pdf").toString())
+        );
 
         assertThrows(CommandException.class, ResumeCommand.MESSAGE_FILE_NOT_FOUND, () -> command.execute(model));
     }
@@ -95,18 +103,28 @@ public class ResumeCommandTest {
         Application original = createApplication("");
         ModelStub model = new ModelStub(original);
 
-        ResumeCommand command = new ResumeCommand(Index.fromOneBased(1),
-                new Resume("resume.pdf"));
+        ResumeCommand command = new ResumeCommand(
+                Index.fromOneBased(1),
+                new Resume("resume.pdf")
+        );
 
-        // on most environments "resume.pdf" is a valid relative path, so this would become FILE_NOT_FOUND.
         assertThrows(CommandException.class, ResumeCommand.MESSAGE_FILE_NOT_FOUND, () -> command.execute(model));
     }
 
     @Test
     public void equals() {
-        ResumeCommand firstCommand = new ResumeCommand(Index.fromOneBased(1), new Resume("a.pdf"));
-        ResumeCommand secondCommand = new ResumeCommand(Index.fromOneBased(2), new Resume("b.pdf"));
-        ResumeCommand firstCommandCopy = new ResumeCommand(Index.fromOneBased(1), new Resume("a.pdf"));
+        ResumeCommand firstCommand = new ResumeCommand(
+                Index.fromOneBased(1),
+                new Resume("a.pdf")
+        );
+        ResumeCommand secondCommand = new ResumeCommand(
+                Index.fromOneBased(2),
+                new Resume("b.pdf")
+        );
+        ResumeCommand firstCommandCopy = new ResumeCommand(
+                Index.fromOneBased(1),
+                new Resume("a.pdf")
+        );
 
         assertTrue(firstCommand.equals(firstCommand));
         assertTrue(firstCommand.equals(firstCommandCopy));
@@ -135,7 +153,8 @@ public class ResumeCommandTest {
      * A default model stub that only supports the methods needed by ResumeCommand.
      */
     private static class ModelStub implements Model {
-        private final ObservableList<Application> filteredApplications = FXCollections.observableArrayList();
+        private final ObservableList<Application> filteredApplications =
+                FXCollections.observableArrayList();
         private Application applicationSet;
         private boolean commitCalled;
 
@@ -152,6 +171,7 @@ public class ResumeCommandTest {
         public void setApplication(Application target, Application editedApplication) {
             requireNonNull(target);
             requireNonNull(editedApplication);
+
             applicationSet = editedApplication;
             int index = filteredApplications.indexOf(target);
             filteredApplications.set(index, editedApplication);

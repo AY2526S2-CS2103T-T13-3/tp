@@ -9,7 +9,8 @@ import static java.util.Objects.requireNonNull;
 public class Resume {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Resume path should be empty or end with .pdf, .doc, or .docx";
+            "Resume path should end with .pdf, .doc, or .docx.\n"
+                    + "Example: resume 1 rp/path/to/resume.pdf";
 
     public final String value;
 

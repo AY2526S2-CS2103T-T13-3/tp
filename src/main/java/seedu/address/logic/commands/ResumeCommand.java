@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX;
 
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -10,6 +9,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.application.Application;
@@ -22,15 +22,19 @@ public class ResumeCommand extends Command {
 
     public static final String COMMAND_WORD = "resume";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Attaches a resume file path to the application identified by the index number used in the "
-            + "displayed application list.\n"
-            + "Parameters: INDEX rp/RESUME_PATH\n"
-            + "Example: " + COMMAND_WORD + " 1 rp/C:\\Users\\qiyu\\Documents\\resume.pdf";
+    public static final String MESSAGE_USAGE =
+            "resume: Attaches a resume file path to the application.\n"
+                    + "Parameters: INDEX rp/FILE_PATH\n"
+                    + "Example: resume 1 rp/path/to/resume.pdf";
 
     public static final String MESSAGE_SUCCESS = "Attached resume to application: %1$s";
-    public static final String MESSAGE_FILE_NOT_FOUND = "Resume file does not exist.";
-    public static final String MESSAGE_INVALID_PATH = "Resume path is invalid.";
+    public static final String MESSAGE_FILE_NOT_FOUND =
+            "Resume file not found. Please ensure the file exists and the path is correct.\n"
+                    + MESSAGE_USAGE;
+
+    public static final String MESSAGE_INVALID_PATH =
+            "Invalid resume file path. Please check your path format.\n"
+                    + MESSAGE_USAGE;
 
     private final Index index;
     private final Resume resume;
@@ -51,23 +55,27 @@ public class ResumeCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Application> lastShownList = model.getFilteredApplicationList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX);
-        }
-
-        try {
-            if (!Files.exists(Path.of(resume.value))) {
-                throw new CommandException(MESSAGE_FILE_NOT_FOUND);
-            }
-        } catch (InvalidPathException e) {
-            throw new CommandException(MESSAGE_INVALID_PATH);
+            throw new CommandException(Messages.MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX);
         }
 
         Application applicationToEdit = lastShownList.get(index.getZeroBased());
 
-        Application updatedApplication = new Application(
+        try {
+            Path resumePath = Path.of(resume.value);
+
+            if (!Files.exists(resumePath) || !Files.isRegularFile(resumePath)) {
+                throw new CommandException(MESSAGE_FILE_NOT_FOUND);
+            }
+
+        } catch (InvalidPathException e) {
+            throw new CommandException(MESSAGE_INVALID_PATH);
+        }
+
+        Application editedApplication = new Application(
                 applicationToEdit.getRole(),
                 applicationToEdit.getPhone(),
                 applicationToEdit.getHrEmail(),
@@ -77,12 +85,15 @@ public class ResumeCommand extends Command {
                 applicationToEdit.getDeadline(),
                 applicationToEdit.getApplicationEvent(),
                 applicationToEdit.getNote(),
-                resume);
+                resume
+        );
 
-        model.setApplication(applicationToEdit, updatedApplication);
+        model.setApplication(applicationToEdit, editedApplication);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedApplication));
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, editedApplication)
+        );
     }
 
     @Override

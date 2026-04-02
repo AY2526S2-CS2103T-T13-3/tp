@@ -21,7 +21,8 @@ public class ResumeCommandParser implements Parser<ResumeCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_RESUME);
 
         if (argMultimap.getPreamble().isEmpty() || !arePrefixesPresent(argMultimap, PREFIX_RESUME)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ResumeCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ResumeCommand.MESSAGE_USAGE));
         }
 
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());

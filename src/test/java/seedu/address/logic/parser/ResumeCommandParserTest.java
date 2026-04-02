@@ -16,24 +16,29 @@ public class ResumeCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        assertParseSuccess(parser, "1 rp/resume.pdf",
+        assertParseSuccess(parser,
+                "1 rp/resume.pdf",
                 new ResumeCommand(Index.fromOneBased(1), new Resume("resume.pdf")));
     }
 
     @Test
     public void parse_missingIndex_failure() {
-        assertParseFailure(parser, "rp/resume.pdf",
+        assertParseFailure(parser,
+                "rp/resume.pdf",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ResumeCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_missingPrefix_failure() {
-        assertParseFailure(parser, "1 resume.pdf",
+        assertParseFailure(parser,
+                "1 resume.pdf",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ResumeCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidResume_failure() {
-        assertParseFailure(parser, "1 rp/resume.txt", Resume.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser,
+                "1 rp/resume.txt",
+                Resume.MESSAGE_CONSTRAINTS);
     }
 }
