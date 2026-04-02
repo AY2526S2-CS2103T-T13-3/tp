@@ -57,7 +57,8 @@ public class FindNoteCommandTest {
 
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        NoteContainsKeywordsPredicate predicate = preparePredicate("follow recruiter");
+        // Modified to test PARTIAL match: "foll" matches "Follow", "recruit" matches "recruiter"
+        NoteContainsKeywordsPredicate predicate = preparePredicate("foll recruit");
         FindNoteCommand command = new FindNoteCommand(predicate);
         expectedModel.updateFilteredApplicationList(predicate);
 
