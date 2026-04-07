@@ -455,11 +455,11 @@ _Details coming soon ..._
 
 ## Known issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. **Displayed indexes are context-dependent**: index-based commands (`edit`, `delete`, `status`, `deadline`, etc.) act on the currently displayed list. After `find`, `findnote`, `sort`, or `list`, the same index may refer to a different application.
-4. **Reminder color updates are not timer-driven**: when real time crosses a deadline minute, colors update on UI refresh actions (e.g., selecting a card, re-running `reminder`, or other list re-render triggers), not by a background timer.
-5. **Date-only deadlines are day-based**: `yyyy-MM-dd` deadlines are compared at the date level, while `yyyy-MM-dd HH:mm` uses minute-level comparison.
+* **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+* **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+* **Displayed indexes are context-dependent**: index-based commands (`edit`, `delete`, `status`, `deadline`, etc.) act on the currently displayed list. After `find`, `findnote`, `sort`, or `list`, the same index may refer to a different application.
+* **Reminder color updates are not timer-driven**: when real time crosses a deadline minute, colors update on UI refresh actions (e.g., selecting a card, re-running `reminder`, or other list re-render triggers), not by a background timer.
+* **Date-only deadlines are day-based**: `yyyy-MM-dd` deadlines are compared at the date level, while `yyyy-MM-dd HH:mm` uses minute-level comparison.
 
 --------------------------------------------------------------------------------------------------------------------
 
