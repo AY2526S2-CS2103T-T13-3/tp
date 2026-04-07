@@ -6,27 +6,28 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 package Logic as LogicPackage {
 
-package "Parser Classes" as ParserClasses{
+package "Parser Classes" as ParserClasses {
 }
-Class AddCommand
-Class EditCommand
-Class DeleteCommand
-Class FindCommand
-Class CommandResult
-Class "{abstract}\nCommand" as Command
+class AddCommand
+class EditCommand
+class DeleteCommand
+class FindCommand
+class FindNoteCommand
+class CommandResult
+class "{abstract}\nCommand" as Command
 
-Class "<<interface>>\nLogic" as Logic
-Class LogicManager
+class "<<interface>>\nLogic" as Logic
+class LogicManager
 }
 
 package Model {
-Class HiddenModel #FFFFFF
+class HiddenModel #FFFFFF
 }
 
 package Storage {
 }
 
-Class HiddenOutside #FFFFFF
+class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .right.|> Logic
@@ -35,11 +36,13 @@ ParserClasses ..> AddCommand : <<create>>
 ParserClasses ..> EditCommand : <<create>>
 ParserClasses ..> DeleteCommand : <<create>>
 ParserClasses ..> FindCommand : <<create>>
+ParserClasses ..> FindNoteCommand : <<create>>
 
 AddCommand -up-|> Command
 EditCommand -up-|> Command
 DeleteCommand -up-|> Command
 FindCommand -up-|> Command
+FindNoteCommand -up-|> Command
 LogicManager .left.> Command : <<call>>
 
 LogicManager --> Model

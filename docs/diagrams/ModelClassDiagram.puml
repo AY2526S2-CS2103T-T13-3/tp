@@ -4,7 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model as ModelPackage <<Rectangle>>{
+Package Model as ModelPackage <<Rectangle>> {
 Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
@@ -21,6 +21,7 @@ Class Role
 Class Phone
 Class Status
 Class Deadline
+Class Note
 Class Tag
 
 ' ===== Resume Feature =====
@@ -28,12 +29,6 @@ Class Resume {
     +value : String
     +getValue() : String
 }
-
-' One person can have at most one resume
-Person --> "0..1" Resume
-
-' Resume is associated with a file path (simplified representation)
-Resume --> "1" String : filePath
 ' =========================
 
 Class I #FFFFFF
@@ -60,7 +55,9 @@ Application *--> HrEmail
 Application *--> Company
 Application *--> Status
 Application *--> Deadline
+Application *--> Note
 Application *--> "*" Tag
+Application --> "0..1" Resume
 
 Application -[hidden]up--> I
 UniqueApplicationList -[hidden]right-> I
@@ -70,6 +67,7 @@ Phone -[hidden]right-> Company
 Company -[hidden]right-> HrEmail
 HrEmail -[hidden]right-> Status
 Status -[hidden]right-> Deadline
+Deadline -[hidden]right-> Note
 
 ModelManager --> "~* filtered" Application
 @enduml

@@ -1,0 +1,40 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+class "{abstract}\nCommand" as Command
+class FindNoteCommand
+class NoteContainsKeywordsPredicate
+
+package "Parser classes" {
+class "<<interface>>\nParser" as Parser
+class AddressBookParser
+class FindNoteCommandParser
+class CliSyntax
+class ParserUtil
+class ArgumentMultimap
+class ArgumentTokenizer
+class Prefix
+}
+
+class HiddenOutside #FFFFFF
+HiddenOutside ..> AddressBookParser
+
+AddressBookParser .down.> FindNoteCommandParser : <<create>>
+
+FindNoteCommandParser ..> FindNoteCommand : <<create>>
+FindNoteCommand --> NoteContainsKeywordsPredicate
+AddressBookParser ..> Command : <<use>>
+FindNoteCommandParser .up.|> Parser
+FindNoteCommandParser ..> ArgumentMultimap
+FindNoteCommandParser ..> ArgumentTokenizer
+ArgumentTokenizer .left.> ArgumentMultimap
+FindNoteCommandParser ..> CliSyntax
+CliSyntax ..> Prefix
+FindNoteCommandParser ..> ParserUtil
+ParserUtil .down.> Prefix
+ArgumentTokenizer .down.> Prefix
+FindNoteCommand -up-|> Command
+@enduml
