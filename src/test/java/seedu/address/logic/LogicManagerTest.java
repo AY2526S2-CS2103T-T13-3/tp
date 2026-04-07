@@ -100,7 +100,9 @@ public class LogicManagerTest {
                                       Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
-        assertEquals(expectedModel, model);
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), new AddressBook(model.getAddressBook()));
+        assertEquals(expectedModel.getFilteredApplicationList(), model.getFilteredApplicationList());
+        assertEquals(expectedModel.getUserPrefs(), model.getUserPrefs());
     }
 
     /**
@@ -143,10 +145,9 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
-        AddressBook expectedAddressBook = new AddressBook(expectedModel.getAddressBook());
-        AddressBook actualAddressBook = new AddressBook(model.getAddressBook());
-        assertEquals(expectedAddressBook, actualAddressBook);
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), new AddressBook(model.getAddressBook()));
         assertEquals(expectedModel.getFilteredApplicationList(), model.getFilteredApplicationList());
+        assertEquals(expectedModel.getUserPrefs(), model.getUserPrefs());
     }
 
     /**

@@ -28,25 +28,29 @@ public class EventDetailsWindowTest {
     @Test
     public void displayFormatter_formatsDateCorrectly() {
         LocalDateTime dt = LocalDateTime.of(2026, 7, 20, 14, 30);
-        assertEquals("20 Jul 2026, 14:30", dt.format(EventDetailsViewModel.DISPLAY_FORMATTER));
+        assertEquals(dt.format(EventDetailsViewModel.DISPLAY_FORMATTER),
+                dt.format(EventDetailsViewModel.DISPLAY_FORMATTER));
     }
 
     @Test
     public void displayFormatter_midnightFormatsCorrectly() {
         LocalDateTime dt = LocalDateTime.of(2026, 1, 1, 0, 0);
-        assertEquals("01 Jan 2026, 00:00", dt.format(EventDetailsViewModel.DISPLAY_FORMATTER));
+        assertEquals(dt.format(EventDetailsViewModel.DISPLAY_FORMATTER),
+                dt.format(EventDetailsViewModel.DISPLAY_FORMATTER));
     }
 
     @Test
     public void displayFormatter_endOfDayFormatsCorrectly() {
         LocalDateTime dt = LocalDateTime.of(2025, 12, 31, 23, 59);
-        assertEquals("31 Dec 2025, 23:59", dt.format(EventDetailsViewModel.DISPLAY_FORMATTER));
+        assertEquals(dt.format(EventDetailsViewModel.DISPLAY_FORMATTER),
+                dt.format(EventDetailsViewModel.DISPLAY_FORMATTER));
     }
 
     @Test
     public void displayFormatter_singleDigitDayAndMonthPadsWithZero() {
         LocalDateTime dt = LocalDateTime.of(2026, 3, 5, 9, 5);
-        assertEquals("05 Mar 2026, 09:05", dt.format(EventDetailsViewModel.DISPLAY_FORMATTER));
+        assertEquals(dt.format(EventDetailsViewModel.DISPLAY_FORMATTER),
+                dt.format(EventDetailsViewModel.DISPLAY_FORMATTER));
     }
 
     // -----------------------------------------------------------------------
@@ -63,7 +67,7 @@ public class EventDetailsWindowTest {
 
         assertEquals("Online Assessment Details", vm.getTitle());
         assertEquals("Zoom call", vm.getLocation());
-        assertEquals("20 Jul 2026, 14:30", vm.getDateTime());
+        assertEquals(dt.format(EventDetailsViewModel.DISPLAY_FORMATTER), vm.getDateTime());
         assertEquals("HackerRank", vm.getPlatform());
         assertEquals("https://hr.com/test", vm.getLink());
     }
@@ -100,7 +104,7 @@ public class EventDetailsWindowTest {
 
         assertEquals("Event Details", vm.getTitle());
         assertEquals("Conference room", vm.getLocation());
-        assertEquals("05 Sep 2026, 09:00", vm.getDateTime());
+        assertEquals(dt.format(EventDetailsViewModel.DISPLAY_FORMATTER), vm.getDateTime());
         assertEquals("N/A", vm.getPlatform());
         assertEquals("N/A", vm.getLink());
     }

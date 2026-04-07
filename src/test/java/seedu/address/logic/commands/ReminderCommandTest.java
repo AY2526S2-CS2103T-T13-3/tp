@@ -38,6 +38,9 @@ public class ReminderCommandTest {
         expectedModel.addApplication(nearDeadlineApp);
 
         expectedModel.updateSortedApplicationList((a1, a2) -> a1.getDeadline().compareTo(a2.getDeadline()));
+        UserPrefs expectedPrefs = new UserPrefs(expectedModel.getUserPrefs());
+        expectedPrefs.setReminderHighlightEnabled(true);
+        expectedModel.setUserPrefs(expectedPrefs);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new ReminderCommand(), model, ReminderCommand.MESSAGE_SUCCESS, expectedModel);
@@ -55,6 +58,9 @@ public class ReminderCommandTest {
         model.addApplication(farDeadlineApp);
         expectedModel.addApplication(farDeadlineApp);
         expectedModel.updateSortedApplicationList((a1, a2) -> a1.getDeadline().compareTo(a2.getDeadline()));
+        UserPrefs expectedPrefs = new UserPrefs(expectedModel.getUserPrefs());
+        expectedPrefs.setReminderHighlightEnabled(true);
+        expectedModel.setUserPrefs(expectedPrefs);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new ReminderCommand(), model, ReminderCommand.MESSAGE_SUCCESS, expectedModel);

@@ -3,12 +3,37 @@ layout: page
 title: User Guide
 ---
 
-Hired! is a **desktop app for managing internship applications, optimized for use via a Command Line Interface** (CLI) while still providing the benefits of a Graphical User Interface (GUI).
+# Hired! 
+A **desktop app for managing internship applications**, optimized for use via a Command Line Interface (CLI) while still providing the benefits of a Graphical User Interface (GUI).
 
-If you can type fast, Hired! can help you manage your internship applications more efficiently than traditional GUI apps (like Google Sheet, Word).
+It is designed for users who prefer typing commands and want to track application progress, deadlines, reminders, and notes in one place.
 
 * Table of Contents
-  {:toc}
+  * [Quick start](#quick-start)
+  * [Features](#features)
+    * [Viewing help : `help`](#viewing-help--help)
+    * [Adding an application: `add`](#adding-an-application-add)
+    * [Listing all applications : `list`](#listing-all-applications--list)
+    * [Editing an application : `edit`](#editing-an-application--edit)
+    * [Locating applications by role: `find`](#locating-applications-by-role-find)
+    * [Locating applications by note: `findnote`](#locating-applications-by-note-findnote)
+    * [Changing an application's status: `status`](#changing-an-applications-status-status)
+    * [Setting the deadline for an application : `deadline`](#setting-the-deadline-for-an-application--deadline)
+    * [Deleting an application : `delete`](#deleting-an-application--delete)
+    * [Identifying urgent applications : `reminder`](#identifying-urgent-applications--reminder)
+    * [Sorting applications : `sort`](#sorting-applications--sort)
+    * [Undoing previous commands : `undo`](#undoing-previous-commands--undo)
+    * [Redoing undone commands : `redo`](#redoing-undone-commands--redo)
+    * [Attaching your resume : `resume`](#attaching-your-resume--resume)
+    * [Clearing all entries : `clear`](#clearing-all-entries--clear)
+    * [Exiting the program : `exit`](#exiting-the-program--exit)
+    * [Saving the data](#saving-the-data)
+    * [Editing the data file](#editing-the-data-file)
+    * [Archiving data files `[coming in v6.0]`](#archiving-data-files-coming-in-v20)
+  * [FAQ](#faq)
+  * [Known issues](#known-issues)
+  * [Command summary](#command-summary)
+  * [Future Improvement](#future-improvement)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -38,7 +63,7 @@ If you can type fast, Hired! can help you manage your internship applications mo
     * `clear` : Deletes all application records.
     * `exit` : Exits our app.
 
-6. Refer to the [Features](#features) below for details of each command.
+6. For command details and usage constraints, start from [Features](#features), then use [FAQ](#faq), [Known issues](#known-issues), and [Command summary](#command-summary) as quick references.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -59,12 +84,25 @@ If you can type fast, Hired! can help you manage your internship applications mo
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `r/ROLE p/PHONE`, `p/PHONE r/ROLE` is also acceptable.
+  This applies to prefixed parameters of the same command.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines, as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
+
+### Default behavior at a glance
+
+These defaults are useful when you are trying commands for the first time:
+
+* If no data file exists yet, Hired! starts with sample applications.
+* `add` creates an application with default values unless you explicitly set them:
+  * status defaults to `APPLIED`
+  * deadline defaults to `No deadline set` (shown as no deadline in UI)
+  * note defaults to empty
+* Reminder highlighting is **disabled by default** until you run `reminder` at least once.
+* `list`, `find`, and `findnote` change which applications are currently shown; all index-based commands (`edit`, `delete`, `status`, `deadline`, etc.) use the **currently displayed** list indexes.
 
 ### Viewing help : `help`
 
@@ -95,8 +133,9 @@ Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG].
 > 3) the same `company location`:
      >    * if both locations are empty (e.g. `l/` is omitted), they are treated as the same;
 >    * if one location is empty and the other is not, they are treated as different.
-       > **Tip:** An application can have any number of tags (including 0).
-       > **Tip:** A note can be added when creating an application by using `note/`.
+> **Tip:** An application can have any number of tags (including 0).
+> **Tip:** A note can be added when creating an application by using `note/`.
+> **Default after successful add:** status is `APPLIED`, deadline is unset, and reminder color remains default until `reminder` is enabled.
 
 Examples:
 * `add r/Software Engineer p/98765432 e/hr@google.com c/Google`
@@ -111,11 +150,13 @@ Shows a list of all application records in Hired!.
 
 Format: `list`
 
+* Resets any existing `find` / `findnote` filter and shows all applications.
+
 ### Editing an application : `edit`
 
 Edits the details of an existing application in Hired!.
 
-Format: `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG] [s/STATUS] [d/DEADLINE]... [note/NOTE]`
+Format: `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]... [s/STATUS] [d/DEADLINE] [note/NOTE]`
 
 * Edits the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
@@ -126,6 +167,7 @@ Format: `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOC
 * You can remove all tags by typing `t/` without specifying any tag after it.
 * You can edit an application's note using `note/NOTE`.
 * You can clear an existing note by typing `note/` with nothing after it.
+* You can clear an existing deadline using `d/-`.
 
 Examples:
 * `edit 1 p/91234567 e/hr@google.com` edits the phone number and email of the 1st application.
@@ -146,6 +188,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Only the role is searched.
 * Partial words will also be matched. e.g. `eng` will match `Engineer`
 * Applications matching at least one keyword will be returned, if given more than 1 keyword (i.e. `OR` search).
+* At least one keyword must be provided (e.g. `find` alone is invalid).
 
 Examples:
 * `find engineer` returns applications with roles containing `engineer`
@@ -162,12 +205,13 @@ Format: `findnote KEYWORD [MORE_KEYWORDS]`
 * Only the note field is searched.
 * Partial words will also be matched. e.g. `rec` will match `recruit`
 * Applications matching at least one keyword will be returned (i.e. `OR` search).
+* At least one keyword must be provided (e.g. `findnote` alone is invalid).
 
 Examples:
 * `findnote recruiter` returns applications with notes containing `recruiter`
 * `findnote follow Monday` returns applications with notes containing `follow` or `Monday`
 
-### Changing the default status: `status`
+### Changing an application's status: `status`
 
 * Changes the status of an application to APPLIED, INTERVIEWING, OFFERED, REJECTED, or WITHDRAWN.
 * The accepted input keywords are apply, interviewing, offered, rejected, and withdraw, and they are not case-sensitive.
@@ -184,7 +228,7 @@ Format: `status INDEX s/STATUS`
 
 Examples:
 * `status 1 s/OFFERED` changes the status to `offered`
-* `status 1 s/selected` will result in an error as `selected` is not a given status.
+* `status 1 s/selected` will result in an error as `selected` is not a valid status.
 
 ### Setting the deadline for an application : `deadline`
 
@@ -194,8 +238,13 @@ Format: `deadline INDEX DATE_TIME`
 
 * The `DATE_TIME` can be `yyyy-MM-dd`, `yyyy-MM-dd HH:mm`.
 * Our app do not accept `yyyy-MM-dd HH:60` or any invalid date and time
+* Use `-` to clear an existing deadline (e.g. `deadline 2 -`).
 * The index refers to the index number shown in the displayed application list.
+* This `deadline` refers to the **interview / application-process deadline** for that application.
 * This deadline is used by `reminder` and `sort time`.
+* This deadline is **not** the same as online assessment time:
+  * If you set an OA time via `assessment ... et/...`, that `et/` value belongs to the assessment event only.
+  * `reminder` compares only this `deadline` field, not the OA `et/` time.
 
 Examples:
 * `deadline 1 2026-12-31`
@@ -217,6 +266,7 @@ Format: `delete INDEX`
 * Deletes the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
 * The index **must be a positive integer** `1, 2, 3, ...`
+* This deletes the entire application record (not just one field).
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd application in the displayed list.
@@ -239,6 +289,7 @@ Format: `reminder`
     * Otherwise, `role` keeps the default color (white).
     * ![reminder_default.png](reminder_default.png)
 * Once you have executed `reminder`, the highlighting preference is saved, so restarting the app will keep the red/orange coloring behaviour.
+* Before you run `reminder` at least once, reminder highlighting is disabled and `role`/calendar colors stay at default.
 * Deadline format affects how the comparison is done:
     * If you enter `deadline` as `yyyy-MM-dd`, it is treated as a date and compared using the day window (end of day is handled implicitly for highlighting).
     * If you enter `deadline` as `yyyy-MM-dd HH:mm`, the comparison is accurate to **minutes**.
@@ -265,7 +316,7 @@ Sorts the current list of applications based on a specified criterion.
 
 Format: `sort [CRITERION]`
 
-* The `CRITERION` must be either `time` or `alphabet`.
+* The `CRITERION` is required and must be either `time` or `alphabet`.
 * `sort time`: Sorts applications by their deadline (nearest first). Applications without deadlines are placed at the bottom.
 * `sort alphabet`: Sorts applications alphabetically by their role name (A-Z).
 
@@ -380,7 +431,7 @@ If your changes to the data file make its format invalid, Hired! may discard all
 Furthermore, certain edits can cause Hired! to behave in unexpected ways (for example, if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
+### Archiving data files `[coming in v6.0]`
 
 _Details coming soon ..._
 
@@ -391,12 +442,24 @@ _Details coming soon ..._
 **Q**: How do I transfer my data to another computer?<br>
 **A**: Install Hired! on the other computer and overwrite the empty data file it creates with the data file from your previous Hired! home folder.
 
+**Q**: Why does `find`/`findnote` say invalid format when I type only the command word?<br>
+**A**: Both commands require at least one keyword. For example, use `find engineer` or `findnote recruiter`.
+
+**Q**: Why does `delete 1` remove a whole application instead of one field?<br>
+**A**: `delete` removes the entire application record at the displayed index. To change only one field, use `edit`, `status`, or `deadline`.
+
+**Q**: Why are reminder colors not shown right after app startup?<br>
+**A**: Reminder highlighting is disabled by default. Run `reminder` once to enable and persist highlighting behavior.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **Displayed indexes are context-dependent**: index-based commands (`edit`, `delete`, `status`, `deadline`, etc.) act on the currently displayed list. After `find`, `findnote`, `sort`, or `list`, the same index may refer to a different application.
+4. **Reminder color updates are not timer-driven**: when real time crosses a deadline minute, colors update on UI refresh actions (e.g., selecting a card, re-running `reminder`, or other list re-render triggers), not by a background timer.
+5. **Date-only deadlines are day-based**: `yyyy-MM-dd` deadlines are compared at the date level, while `yyyy-MM-dd HH:mm` uses minute-level comparison.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -407,7 +470,7 @@ Action | Format, Examples
 **Add** | `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]... [note/NOTE]` <br> e.g. `add r/Data Analyst p/92345678 e/recruitment@meta.com c/Meta l/Singapore t/applied note/Met recruiter at career fair`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
-**Edit** | `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]... [note/NOTE]`<br> e.g. `edit 1 note/Follow up next Monday`
+**Edit** | `edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]... [s/STATUS] [d/DEADLINE] [note/NOTE]`<br> e.g. `edit 1 s/OFFERED d/2026-12-31 23:59 note/Follow up next Monday`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g. `find engineer backend`
 **Find Note** | `findnote KEYWORD [MORE_KEYWORDS]`<br> e.g. `findnote recruiter follow`
 **List** | `list`
@@ -425,3 +488,8 @@ Action | Format, Examples
 
 
 ## Future Improvement
+
+1. Add richer filter commands (e.g., by status, company, deadline range, and reminder state).
+2. Support export/import profiles for easier migration and backup workflows.
+3. Add optional automatic reminder refresh strategy (without requiring manual UI refresh actions).
+4. Provide clearer in-app error hints with concrete correction examples for invalid command input.
