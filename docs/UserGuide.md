@@ -93,10 +93,10 @@ Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG].
 > 1) the same `role`,
 > 2) the same `company name`, and
 > 3) the same `company location`:
->    * if both locations are empty (e.g. `l/` is omitted), they are treated as the same;
+     >    * if both locations are empty (e.g. `l/` is omitted), they are treated as the same;
 >    * if one location is empty and the other is not, they are treated as different.
-> **Tip:** An application can have any number of tags (including 0).
-> **Tip:** A note can be added when creating an application by using `note/`.
+       > **Tip:** An application can have any number of tags (including 0).
+       > **Tip:** A note can be added when creating an application by using `note/`.
 
 Examples:
 * `add r/Software Engineer p/98765432 e/hr@google.com c/Google`
@@ -205,8 +205,8 @@ Tips: Note that we can change deadline and status by either using their own comm
 Examples:
 * `status 1 s/OFFERED` is equivalent to `edit 1 s/OFFERED`
 * `deadline 2 2026-03-25` is equivalent to `edit 2 d/2026-03-25`
-This is intended to give user more flexibility in entering command.
-This is a feature not a bug.
+  This is intended to give user more flexibility in entering command.
+  This is a feature not a bug.
 
 ### Deleting an application : `delete`
 
@@ -230,34 +230,34 @@ This feature is UI-only: it does **not** add or remove any tags.
 Format: `reminder`
 
 * After executing `reminder`, the application list is re-sorted by `deadline` in ascending order (nearest first).
-* Applications with no deadline (i.e. deadline is `-` / “No deadline set”) are placed at the bottom and are not highlighted.
+* Applications with no deadline (i.e. deadline is `-` / "No deadline set") are placed at the bottom and are not highlighted.
 * Highlighting is based on the comparison between each application's `deadline` and your current local time:
-  * **Red** `role` text: the deadline is within the next **3 days**, including today.
-  * ![reminder_red.png](reminder_red.png)
-  * **Orange** `role` text: the deadline is already **in the past** (i.e. earlier than the current local time).
-  * ![reminder_orange.png](reminder_orange.png)
-  * Otherwise, `role` keeps the default color (white).
-  * ![reminder_default.png](reminder_default.png)
+    * **Red** `role` text: the deadline is within the next **3 days**, including today.
+    * ![reminder_red.png](reminder_red.png)
+    * **Orange** `role` text: the deadline is already **in the past** (i.e. earlier than the current local time).
+    * ![reminder_orange.png](reminder_orange.png)
+    * Otherwise, `role` keeps the default color (white).
+    * ![reminder_default.png](reminder_default.png)
 * Once you have executed `reminder`, the highlighting preference is saved, so restarting the app will keep the red/orange coloring behaviour.
 * Deadline format affects how the comparison is done:
-  * If you enter `deadline` as `yyyy-MM-dd`, it is treated as a date and compared using the day window (end of day is handled implicitly for highlighting).
-  * If you enter `deadline` as `yyyy-MM-dd HH:mm`, the comparison is accurate to **minutes**.
+    * If you enter `deadline` as `yyyy-MM-dd`, it is treated as a date and compared using the day window (end of day is handled implicitly for highlighting).
+    * If you enter `deadline` as `yyyy-MM-dd HH:mm`, the comparison is accurate to **minutes**.
 * Interaction with `deadline` and `edit`:
-  * If you change a deadline using `deadline INDEX DATE_TIME` or `edit INDEX d/DATE_TIME`, the UI will re-render and the `role` color will immediately reflect the updated deadline (red/orange based on current local time).
-  * The **list order** is re-sorted by deadline **only** when you run either:
-    * `reminder`, or
-    * `sort time`.
+    * If you change a deadline using `deadline INDEX DATE_TIME` or `edit INDEX d/DATE_TIME`, the UI will re-render and the `role` color will immediately reflect the updated deadline (red/orange based on current local time).
+    * The **list order** is re-sorted by deadline **only** when you run either:
+        * `reminder`, or
+        * `sort time`.
 
 * Updating color at an exact time point (datetime `yyyy-MM-dd HH:mm`):
-  * **Precondition:** You have already executed `reminder` at least once in this application (otherwise the highlighting is kept disabled and the `role`/calendar icon will stay at default colors until you run `reminder`).
-  * Suppose your current local time is `2026-04-02 15:48` and you set an application deadline to `2026-04-02 15:48` (using `deadline INDEX 2026-04-02 15:48` or `edit INDEX d/2026-04-02 15:48`).
-  * After setting the deadline:
-    * If the current time is still within the same minute (e.g. `15:48:00`), the deadline is **not considered overdue yet** and the `role` stays **red**.
-  * After the deadline minute has passed (e.g. `15:48:01` or any time after that), the deadline becomes **overdue** per the rule above.
-  * To make the UI apply the new color at that moment:
-    * Click the corresponding application list item (the big box / card area of that `INDEX`) so that the UI re-renders that card, **or**
-    * Enter `reminder`.
-  * Note: this action refreshes **colors** (to reflect the newly overdue deadline).
+    * **Precondition:** You have already executed `reminder` at least once in this application (otherwise the highlighting is kept disabled and the `role`/calendar icon will stay at default colors until you run `reminder`).
+    * Suppose your current local time is `2026-04-02 15:48` and you set an application deadline to `2026-04-02 15:48` (using `deadline INDEX 2026-04-02 15:48` or `edit INDEX d/2026-04-02 15:48`).
+    * After setting the deadline:
+        * If the current time is still within the same minute (e.g. `15:48:00`), the deadline is **not considered overdue yet** and the `role` stays **red**.
+    * After the deadline minute has passed (e.g. `15:48:01` or any time after that), the deadline becomes **overdue** per the rule above.
+    * To make the UI apply the new color at that moment:
+        * Click the corresponding application list item (the big box / card area of that `INDEX`) so that the UI re-renders that card, **or**
+        * Enter `reminder`.
+    * Note: this action refreshes **colors** (to reflect the newly overdue deadline).
 
 ### Sorting applications : `sort`
 
@@ -280,7 +280,7 @@ Undoes the most recent command that modified the application list.
 Format: `undo`
 
 * Keeps track of up to 10 steps of your command history.
-* Commands that can be undone include add, delete, edit, clear, status, reminder, deadline, sort, and assessment.
+* Commands that can be undone include add, delete, edit, clear, status, reminder, deadline, sort, assessment, and removeevent.
 * You cannot undo if there are no more states to revert to in the history.
 
 Examples:
@@ -314,6 +314,46 @@ Format: `resume INDEX rp/RESUME_PATH` / `openresume INDEX` / `removeresume INDEX
 
 Examples:
 * `resume 1 rp/C:\Users\qiyu\Documents\resume.pdf` will attach your resume to the first application.
+
+### Setting an online assessment : `assessment`
+
+Attaches online assessment details to a specific application. Once set, an **Event** button will appear on the application card — clicking it opens a window showing the full event details.
+
+Format: `assessment INDEX el/LOCATION et/DATE_TIME ap/PLATFORM al/LINK`
+
+* Sets the online assessment for the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed application list.
+* The index **must be a positive integer** `1, 2, 3, ...`
+* All four prefixes are **required**:
+    * `el/` — location of the assessment (e.g. `home`, `office`).
+    * `et/` — date and time of the assessment in `yyyy-MM-dd HH:mm` format.
+    * `ap/` — platform used for the assessment (e.g. `HackerRank`, `Codility`).
+    * `al/` — link to the assessment (e.g. `www.hackerrank.com`).
+* If the application already has an assessment, running `assessment` again will **overwrite** the existing one.
+* To remove an existing assessment, use the [`removeevent`](#removing-an-online-assessment--removeevent) command.
+
+> **Note:** The datetime must be in `yyyy-MM-dd HH:mm` format exactly. Invalid dates or times (e.g. `2026-13-01 10:00` or `2026-03-24 10:60`) will not be accepted.
+
+Examples:
+* `assessment 1 el/home et/2026-03-24 10:00 ap/HackerRank al/www.hackerrank.com`
+* `assessment 2 el/office et/2026-06-15 14:30 ap/Codility al/www.codility.com`
+
+### Removing an online assessment : `removeevent`
+
+Removes the online assessment (event) attached to a specific application.
+
+Format: `removeevent INDEX`
+
+* Removes the event from the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed application list.
+* The index **must be a positive integer** `1, 2, 3, ...`
+* If the application at the given index does not have an event, an error message will be shown and no changes will be made.
+* After a successful removal, the **Event** button on the application card will be hidden.
+* This action can be undone using `undo`.
+
+Examples:
+* `removeevent 1` removes the online assessment from the 1st application.
+* `removeevent 3` removes the online assessment from the 3rd application.
 
 ### Clearing all entries : `clear`
 
@@ -377,7 +417,9 @@ Action | Format, Examples
 **Sort** | `sort [CRITERION]` <br> CRITERION: `time` or `alphabet` <br> e.g. `sort time`, `sort alphabet`
 **Undo** | `undo` <br> Reverts the most recent data-modifying command (up to 10 steps).
 **Redo** | `redo` <br> Reapplies the most recently undone command.
-**Resume** | `resume` <br> Attaches you resume to a specific application.
+**Resume** | `resume INDEX rp/RESUME_PATH` <br> Attaches a resume to a specific application.
+**Assessment** | `assessment INDEX el/LOCATION et/DATE_TIME ap/PLATFORM al/LINK` <br> e.g. `assessment 1 el/home et/2026-03-24 10:00 ap/HackerRank al/www.hackerrank.com`
+**Remove Event** | `removeevent INDEX` <br> e.g. `removeevent 1`
 **Exit** | `exit`
 **Help** | `help`
 
