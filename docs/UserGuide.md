@@ -354,17 +354,47 @@ Examples:
 
 Attaches your resume to a specific application.
 
-Format: `resume INDEX rp/RESUME_PATH` / `openresume INDEX` / `removeresume INDEX`
+Format: `resume INDEX rp/RESUME_PATH`
 
 * Edits the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
 * The index **must be a positive integer** `1, 2, 3, ...`
-* You must specify the path of you resume。
+* You must specify the path of you resume.
+* The `RESUME_PATH` is the absolute address of your file in your computer.
 * This feature will not save your resume in the storage, but just a reference to your own documentation.
-* Please don't change the path of the file or it will result in unexpected errors.
+* Make sure your file is ended with ".pdf, .doc, or .docx", no other format will be accepted.
+* Please don't change the path of the file, or it will result in unexpected errors.
 
 Examples:
-* `resume 1 rp/C:\Users\qiyu\Documents\resume.pdf` will attach your resume to the first application.
+* (For Windows) `resume 1 rp/C:\Users\john\Documents\resume.pdf` will attach your resume to the first application.
+* (For Mac) `resume 1 rp/Users/john/Documents/resume.pdf` will attach your resume to the first application.
+
+### Opening your resume : `openresume`
+
+Opens your resume of a specific application.
+
+Format: `openresume INDEX`
+
+* Opens the resume of the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed application list.
+* The index **must be a positive integer** `1, 2, 3, ...`
+
+Examples:
+* `openresume 2` will open your resume of the first application in the default way.
+
+### Removing your resume : `removeresume`
+
+Removes your resume of a specific application.
+
+Format: `removeresume INDEX`
+
+* Edits the application at the specified `INDEX`.
+* The index refers to the index number shown in the displayed application list.
+* The index **must be a positive integer** `1, 2, 3, ...`
+* This feature will not delete your resume file in your computer, but just remove the reference.
+
+Examples:
+* `removeresume 3` will remove your resume of the third application.
 
 ### Setting an online assessment : `assessment`
 
@@ -481,6 +511,8 @@ Action | Format, Examples
 **Undo** | `undo` <br> Reverts the most recent data-modifying command (up to 10 steps).
 **Redo** | `redo` <br> Reapplies the most recently undone command.
 **Resume** | `resume INDEX rp/RESUME_PATH` <br> Attaches a resume to a specific application.
+**Open Resume** | `openresume INDEX` <br> Opens a resume of a specific application.
+**Remove Resume** | `removeresume INDEX` <br> Removes a resume of a specific application.
 **Assessment** | `assessment INDEX el/LOCATION et/DATE_TIME ap/PLATFORM al/LINK` <br> e.g. `assessment 1 el/home et/2026-03-24 10:00 ap/HackerRank al/www.hackerrank.com`
 **Remove Event** | `removeevent INDEX` <br> e.g. `removeevent 1`
 **Exit** | `exit`
