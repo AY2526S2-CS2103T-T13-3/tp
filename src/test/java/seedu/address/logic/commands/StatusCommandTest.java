@@ -29,6 +29,7 @@ class StatusCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
+        // EP: valid index, different valid status -> status is updated successfully
         Application applicationToUpdate = model.getFilteredApplicationList()
                 .get(INDEX_FIRST_APPLICATION.getZeroBased());
         Status newStatus = Status.INTERVIEWING;
@@ -49,6 +50,7 @@ class StatusCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        // BVA + Invalid: index just outside the valid displayed list range -> command failure
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredApplicationList().size() + 1);
         StatusCommand statusCommand = new StatusCommand(outOfBoundIndex, Status.INTERVIEWING);
 
@@ -57,6 +59,7 @@ class StatusCommandTest {
 
     @Test
     public void execute_allStatusValues_success() {
+        // EP: all valid status enum values are accepted
         for (Status status : Status.values()) {
             Model testModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
             Application applicationToUpdate = testModel.getFilteredApplicationList()
@@ -64,42 +67,46 @@ class StatusCommandTest {
 
             StatusCommand statusCommand = new StatusCommand(INDEX_FIRST_APPLICATION, status);
 
-            Application updatedApplication = new ApplicationBuilder(applicationToUpdate)
-                    .withStatus(status)
-                    .build();
+            if (applicationToUpdate.getStatus().equals(status)) {
+                // EP: valid status same as current status -> unchanged message, no model update
+                String expectedMessage = String.format(StatusCommand.MESSAGE_STATUS_UNCHANGED, status);
+                Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
+                assertCommandSuccess(statusCommand, testModel, expectedMessage, expectedModel);
+            } else {
+                // EP: valid status different from current status -> model updated
+                Application updatedApplication = new ApplicationBuilder(applicationToUpdate)
+                        .withStatus(status)
+                        .build();
 
-            String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
+                String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
 
-            Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
-            expectedModel.setApplication(applicationToUpdate, updatedApplication);
+                Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
+                expectedModel.setApplication(applicationToUpdate, updatedApplication);
 
-            assertCommandSuccess(statusCommand, testModel, expectedMessage, expectedModel);
+                assertCommandSuccess(statusCommand, testModel, expectedMessage, expectedModel);
+            }
         }
     }
 
     @Test
     public void execute_sameStatus_success() {
+        // EP: valid index, status same as existing status -> no-op with unchanged message
         Application applicationToUpdate = model.getFilteredApplicationList()
                 .get(INDEX_FIRST_APPLICATION.getZeroBased());
 
-        // Update with the application's existing status
         Status sameStatus = applicationToUpdate.getStatus();
         StatusCommand statusCommand = new StatusCommand(INDEX_FIRST_APPLICATION, sameStatus);
 
-        Application updatedApplication = new ApplicationBuilder(applicationToUpdate)
-                .withStatus(sameStatus)
-                .build();
-
-        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
+        String expectedMessage = String.format(StatusCommand.MESSAGE_STATUS_UNCHANGED, sameStatus);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setApplication(applicationToUpdate, updatedApplication);
 
         assertCommandSuccess(statusCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
+        // Equality case: same values, different values, null, and different types
         StatusCommand statusFirstCommand = new StatusCommand(INDEX_FIRST_APPLICATION, Status.INTERVIEWING);
         StatusCommand statusSecondCommand = new StatusCommand(INDEX_SECOND_APPLICATION, Status.OFFERED);
 
@@ -128,10 +135,53 @@ class StatusCommandTest {
 
     @Test
     public void toStringMethod() {
+        // String representation: toString returns the expected format
         Index index = Index.fromOneBased(1);
         StatusCommand statusCommand = new StatusCommand(index, Status.INTERVIEWING);
         String expected = StatusCommand.class.getCanonicalName()
                 + "{index=" + index + ", status=" + Status.INTERVIEWING + "}";
         assertEquals(expected, statusCommand.toString());
+    }
+
+    @Test
+    public void execute_firstApplicationToOffered_success() {
+        // EP: first valid index, different valid status -> application updated successfully
+        Model testModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Application applicationToUpdate = testModel.getFilteredApplicationList()
+                .get(INDEX_FIRST_APPLICATION.getZeroBased());
+
+        StatusCommand statusCommand = new StatusCommand(INDEX_FIRST_APPLICATION, Status.OFFERED);
+
+        Application updatedApplication = new ApplicationBuilder(applicationToUpdate)
+                .withStatus(Status.OFFERED)
+                .build();
+
+        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
+
+        Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
+        expectedModel.setApplication(applicationToUpdate, updatedApplication);
+
+        assertCommandSuccess(statusCommand, testModel, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_secondApplicationToRejected_success() {
+        // EP: another valid index, different valid status -> correct application updated successfully
+        Model testModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Application applicationToUpdate = testModel.getFilteredApplicationList()
+                .get(INDEX_SECOND_APPLICATION.getZeroBased());
+
+        StatusCommand statusCommand = new StatusCommand(INDEX_SECOND_APPLICATION, Status.REJECTED);
+
+        Application updatedApplication = new ApplicationBuilder(applicationToUpdate)
+                .withStatus(Status.REJECTED)
+                .build();
+
+        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
+
+        Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
+        expectedModel.setApplication(applicationToUpdate, updatedApplication);
+
+        assertCommandSuccess(statusCommand, testModel, expectedMessage, expectedModel);
     }
 }

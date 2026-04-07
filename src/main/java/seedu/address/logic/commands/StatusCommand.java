@@ -33,6 +33,8 @@ public class StatusCommand extends Command {
             + "WITHDRAWN";
 
     public static final String MESSAGE_SUCCESS = "Updated application status: %1$s";
+    public static final String MESSAGE_STATUS_UNCHANGED =
+            "This application is already marked as %1$s.";
 
     private final Index index;
     private final Status status;
@@ -57,6 +59,10 @@ public class StatusCommand extends Command {
         }
 
         Application applicationToEdit = lastShownList.get(index.getZeroBased());
+
+        if (applicationToEdit.getStatus().equals(status)) {
+            return new CommandResult(String.format(MESSAGE_STATUS_UNCHANGED, status));
+        }
 
         Application updatedApplication = new Application(
                 applicationToEdit.getRole(),

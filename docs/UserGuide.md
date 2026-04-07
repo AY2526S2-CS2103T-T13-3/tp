@@ -124,9 +124,12 @@ Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG].
 
 > **Note:** In Hired!,
 > * `r/` is used for the internship role,
+> * `p/` is used for the recruiter or company contact phone number,
 > * `c/` is used for the company name, and
 > * `l/` (optional) is used for the company location.
 >
+> > Phone numbers are intentionally not restricted to a fixed length, as valid phone number lengths and formats vary across countries.
+> 
 > Applications are considered duplicates (and cannot be added) only when they have the same identity:
 > 1) the same `role`,
 > 2) the same `company name`, and

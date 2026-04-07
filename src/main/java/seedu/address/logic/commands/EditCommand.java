@@ -3,10 +3,12 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HREMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPLICATIONS;
 
@@ -44,10 +46,6 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the application identified "
             + "by the index number used in the displayed application list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_HREMAIL + "hr@example.com "
-            + PREFIX_NOTE + "Follow up next week\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_ROLE + "ROLE] "
             + "[" + PREFIX_PHONE + "PHONE] "
@@ -55,7 +53,13 @@ public class EditCommand extends Command {
             + "[" + PREFIX_COMPANY_NAME + "COMPANY_NAME] "
             + "[" + PREFIX_COMPANY_LOCATION + "COMPANY_LOCATION] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + "[" + PREFIX_NOTE + "NOTE]";
+            + "[" + PREFIX_STATUS + "STATUS] "
+            + "[" + PREFIX_DEADLINE + "DEADLINE] "
+            + "[" + PREFIX_NOTE + "NOTE]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_HREMAIL + "hr@example.com "
+            + PREFIX_NOTE + "Follow up next week";
 
     public static final String MESSAGE_EDIT_APPLICATION_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
