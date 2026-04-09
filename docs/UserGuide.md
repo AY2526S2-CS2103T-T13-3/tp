@@ -6,10 +6,44 @@ title: User Guide
 # Hired! 
 A **desktop app for managing internship applications**, optimized for use via a Command Line Interface (CLI) while still providing the benefits of a Graphical User Interface (GUI).
 
-It is designed for users who prefer typing commands and want to track application progress, deadlines, reminders, and notes in one place.
+## Who Hired! is for
+
+Hired! is designed for students and jobseekers who are applying to multiple internship roles at the same time and prefer working with keyboard-friendly tools.
+
+It is especially useful for users who:
+* prefer ***entering commands quickly*** instead of clicking through many forms
+* want to keep application records, deadlines, notes, resume references, and online assessments ***in one place***
+* need a ***lightweight*** way to monitor application progress ***across different companies***
+
+## Why using Hired!
+
+Managing internship applications can become messy very quickly. Important details are often scattered across emails, spreadsheets, calendars, note apps, and downloaded files.
+
+Hired! helps you keep the key parts of each application together in a single desktop app, such as:
+* the role and company
+* your current application status
+* important deadlines
+* personal notes from interviews, career fairs, or follow-ups
+* an attached resume file path
+* online assessment details
+
+This makes it easier to review your progress, identify urgent applications, and keep your application process organised.
+
+## How to use this guide
+
+If you are new to Hired!, follow this order:
+1. Read [Quick start](#quick-start) to install and launch the app.
+2. Read [Quick tour of the interface](#quick-tour-of-the-interface) to understand the main parts of the app.
+3. Try the commands in [5-minute quick tutorial](#5-minute-quick-tutorial).
+4. Refer to [Features](#features) for detailed command usage.
+5. Use [FAQ](#faq), [Known issues](#known-issues), and [Command summary](#command-summary) as quick references later.
+
+This guide focuses on the commands and behaviours that matter most during normal usage. Less common edge cases are covered only when they are important for avoiding confusion.
 
 * Table of Contents
   * [Quick start](#quick-start)
+  * [Quick tour of the interface](#quick-tour-of-the-interface)
+  * [5-minute quick tutorial](#5-minute-quick-tutorial)
   * [Features](#features)
     * [Default behavior at a glance](#default-behavior-at-a-glance)
     * [Viewing help : `help`](#viewing-help--help)
@@ -70,6 +104,140 @@ It is designed for users who prefer typing commands and want to track applicatio
 
 6. For command details and usage constraints, start from [Features](#features), then use [FAQ](#faq), [Known issues](#known-issues), and [Command summary](#command-summary) as quick references.
 
+## Quick tour of the interface
+
+After launching Hired!, you will mainly interact with these parts of the app:
+
+![Ui](images/Ui_current.png)
+
+### Command box
+This is where you type commands such as `add`, `find`, `deadline`, or `status`.
+
+### Result display
+After each command, Hired! shows a success or error message to tell you what happened.
+
+### Application list
+This is the main list of applications currently being shown.  
+Commands such as `list`, `find`, `findnote`, and `sort` can change which applications appear here and in what order.
+
+### Application card
+Each application is shown as a card containing details such as:
+* role
+* company name
+* phone and hr's email
+* company location, if available
+* tags, if available
+* note, if available
+* deadline, if available
+* resume information, if available
+* assessment information, if available
+
+### Displayed index
+Each card has an index based on the **currently displayed list**.  
+Index-based commands such as `edit`, `delete`, `status`, `deadline`, `resume`, and `removeevent` always use the displayed indexes, not a permanent index.
+
+### Event button
+If an application has an online assessment attached, a **View Event** button will appear on its card. Clicking it opens a window showing the full assessment details.
+
+### Reminder highlighting
+After you run `reminder` at least once, Hired! can highlight application roles based on deadline urgency:
+* red: deadline is within the next 3 days, including today
+* orange: deadline is already overdue
+* default color: no urgent reminder condition applies
+
+## 5-minute quick tutorial
+
+This short tutorial helps you try the most important features of Hired! in a logical order.
+
+### Step 1: Show all applications
+
+Command:
+`list`
+
+Expected result:
+All applications are shown in the application list. We have prepared some example loaded in the app.
+
+### Step 2: Add a new application
+
+Command:
+`add r/Software Engineer Intern p/98765432 e/hr@example.com c/ExampleCorp l/Singapore t/priority note/Met recruiter at career fair`
+
+Expected result:
+A new application for `Software Engineer Intern` at `ExampleCorp` is added to the list.
+
+### Step 3: Find the application by role
+
+Command:
+`find software`
+
+Expected result:
+Only applications whose role contains `software` are shown.
+
+### Step 4: Set a deadline
+
+Command:
+`deadline 1 2026-12-31 23:59`
+
+Expected result:
+The first displayed application now shows a deadline of `2026-12-31 23:59`.
+
+### Step 5: Change the application status
+
+Command:
+`status 1 s/INTERVIEWING`
+
+Expected result:
+The first displayed application now has status `INTERVIEWING`.
+
+### Step 6: Enable reminder highlighting
+
+Command:
+`reminder`
+
+Expected result:
+The displayed list is sorted by deadline, nearest first.  
+Applications may now be highlighted based on deadline urgency.
+
+### Step 7: Attach a resume
+
+Command:
+`resume 1 rp/Documents/resume.pdf`
+
+Expected result:
+The first displayed application now stores a reference to the resume file.
+
+### Step 8: Add an online assessment
+
+Command:
+`assessment 1 el/home et/2026-11-20 14:00 ap/HackerRank al/www.hackerrank.com`
+
+Expected result:
+The first displayed application now has an assessment attached, and an **Event** button appears on the application card.
+
+### Step 9: Undo and redo
+
+Command:
+`undo`
+
+Expected result:
+The most recent data-modifying action is reverted.
+
+Command:
+`redo`
+
+Expected result:
+The undone action is applied again.
+
+### Step 10: Clear
+
+Command:
+`clear`
+
+Expected result:
+All applications are deleted.
+
+You are all set! Time to start creating your first application! 
+After this tutorial, continue with [Features](#features) for the full command reference.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -497,6 +665,23 @@ _Details coming soon ..._
 **Q**: Why are reminder colors not shown right after app startup?<br>
 **A**: Reminder highlighting is disabled by default. Run `reminder` once to enable and persist highlighting behavior.
 
+**Q**: Why did `openresume` fail even though I attached a resume before?<br>
+**A**: Hired! stores only the file path reference, not a copy of the actual file. If the file was moved, renamed, deleted, or is no longer accessible, `openresume` may fail.
+
+**Q**: Why do reminder colors not update automatically at the exact deadline time?<br>
+**A**: Reminder color updates are not driven by a background timer. The UI updates those colors when the relevant application card or list is re-rendered, such as after running `reminder` again.
+
+**Q**: Why does the same index refer to a different application after `find`, `findnote`, `sort`, or `list`?<br>
+**A**: Index-based commands always use the **currently displayed list**. When the displayed list changes, the index of an application may also change.
+
+**Q**: Does `resume` store my actual resume file inside the app?<br>
+**A**: No. Hired! stores only a reference to the file path you provided.
+
+**Q**: Can I use relative file paths for `resume`?<br>
+**A**: Yes, as long as the file path points to an existing `.pdf`, `.doc`, or `.docx` file that your system can access.
+
+**Q**: What is the difference between `deadline` and assessment time?<br>
+**A**: `deadline` refers to the application or interview-related deadline used by `reminder` and `sort time`. Assessment time is stored separately inside the online assessment event and does not replace the application's deadline field.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
@@ -508,6 +693,16 @@ _Details coming soon ..._
 * **Date-only deadlines are day-based**: `yyyy-MM-dd` deadlines are compared at the date level, while `yyyy-MM-dd HH:mm` uses minute-level comparison.
 
 --------------------------------------------------------------------------------------------------------------------
+## What you can do with Hired!
+
+With Hired!, you can:
+* add and manage internship applications from multiple companies
+* record contact details and notes for each application
+* track application progress using statuses such as `APPLIED` and `INTERVIEWING`
+* set deadlines and quickly identify urgent applications
+* attach a resume file reference to each application
+* record online assessment details and open them from the application card
+* undo and redo recent changes during active usage
 
 ## Command summary
 
