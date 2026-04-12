@@ -398,6 +398,16 @@ Examples:
 
 Format: `status INDEX s/STATUS`
 
+e.g.
+
+Before
+
+<img src="images/statusapplied.png" width="550">
+
+After
+
+<img src="images/statusoffered.png" width="550">
+
 * Edits the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
 * The index **must be a positive integer** `1, 2, 3, ...`
@@ -539,6 +549,8 @@ Attaches your resume to a specific application.
 
 Format: `resume INDEX rp/RESUME_PATH`
 
+<img src="images/resume.png" width="550">
+
 * Edits the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
 * The index **must be a positive integer** `1, 2, 3, ...`
@@ -559,6 +571,8 @@ Opens your resume of a specific application.
 
 Format: `openresume INDEX`
 
+<img src="images/openresume.png" width="550">
+
 * Opens the resume of the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.
 * The index **must be a positive integer** `1, 2, 3, ...`
@@ -571,6 +585,8 @@ Examples:
 Removes your resume of a specific application.
 
 Format: `removeresume INDEX`
+
+<img src="images/removeresume.png" width="550">
 
 * Edits the application at the specified `INDEX`.
 * The index refers to the index number shown in the displayed application list.

@@ -1,0 +1,786 @@
+<html>
+<head>
+<title>UserGuide.md</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #56a8f5;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+UserGuide.md</font>
+</center></td></tr></table>
+<pre><span class="s0">---</span>
+<span class="s1">layout: page 
+title: User Guide</span>
+<span class="s0">---</span>
+
+<span class="s0"># </span><span class="s2">Hired</span><span class="s1">!</span>
+<span class="s2">A </span><span class="s1">**</span><span class="s2">desktop app for managing internship applications</span><span class="s1">**</span><span class="s2">, optimized for use via a Command Line Interface </span><span class="s1">(</span><span class="s2">CLI</span><span class="s1">) </span><span class="s2">while still providing the benefits of a Graphical User Interface </span><span class="s1">(</span><span class="s2">GUI</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s0">## </span><span class="s2">Who Hired</span><span class="s1">! </span><span class="s2">is for</span>
+
+<span class="s2">Hired</span><span class="s1">! </span><span class="s2">is designed for students and jobseekers who are applying to multiple internship roles at the same time and prefer working with keyboard-friendly tools.</span>
+
+<span class="s2">It is especially useful for users who</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">prefer </span><span class="s1">***</span><span class="s2">entering commands quickly</span><span class="s1">*** </span><span class="s2">instead of clicking through many forms</span>
+<span class="s0">* </span><span class="s2">want to keep application records, deadlines, notes, resume references, and online assessments </span><span class="s1">***</span><span class="s2">in one place</span><span class="s1">***</span>
+<span class="s0">* </span><span class="s2">need a </span><span class="s1">***</span><span class="s2">lightweight</span><span class="s1">*** </span><span class="s2">way to monitor application progress </span><span class="s1">***</span><span class="s2">across different companies</span><span class="s1">***</span>
+
+<span class="s0">## </span><span class="s2">Why using Hired</span><span class="s1">!</span>
+
+<span class="s2">Managing internship applications can become messy very quickly. Important details are often scattered across emails, spreadsheets, calendars, note apps, and downloaded files.</span>
+
+<span class="s2">Hired</span><span class="s1">! </span><span class="s2">helps you keep the key parts of each application together in a single desktop app, such as</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">the role and company</span>
+<span class="s0">* </span><span class="s2">your current application status</span>
+<span class="s0">* </span><span class="s2">important deadlines</span>
+<span class="s0">* </span><span class="s2">personal notes from interviews, career fairs, or follow-ups</span>
+<span class="s0">* </span><span class="s2">an attached resume file path</span>
+<span class="s0">* </span><span class="s2">online assessment details</span>
+
+<span class="s2">This makes it easier to review your progress, identify urgent applications, and keep your application process organised.</span>
+
+<span class="s0">## </span><span class="s2">How to use this guide</span>
+
+<span class="s2">If you are new to Hired</span><span class="s1">!</span><span class="s2">, follow this order</span><span class="s1">:</span>
+<span class="s0">1. </span><span class="s2">Read </span><span class="s1">[</span><span class="s2">Quick start</span><span class="s1">](</span><span class="s2">#quick-start</span><span class="s1">) </span><span class="s2">to install and launch the app.</span>
+<span class="s0">2. </span><span class="s2">Read </span><span class="s1">[</span><span class="s2">Quick tour of the interface</span><span class="s1">](</span><span class="s2">#quick-tour-of-the-interface</span><span class="s1">) </span><span class="s2">to understand the main parts of the app.</span>
+<span class="s0">3. </span><span class="s2">Try the commands in </span><span class="s1">[</span><span class="s2">5-minute quick tutorial</span><span class="s1">](</span><span class="s2">#5-minute-quick-tutorial</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">4. </span><span class="s2">Refer to </span><span class="s1">[</span><span class="s2">Features</span><span class="s1">](</span><span class="s2">#features</span><span class="s1">) </span><span class="s2">for detailed command usage.</span>
+<span class="s0">5. </span><span class="s2">Use </span><span class="s1">[</span><span class="s2">FAQ</span><span class="s1">](</span><span class="s2">#faq</span><span class="s1">)</span><span class="s2">, </span><span class="s1">[</span><span class="s2">Known issues</span><span class="s1">](</span><span class="s2">#known-issues</span><span class="s1">)</span><span class="s2">, and </span><span class="s1">[</span><span class="s2">Command summary</span><span class="s1">](</span><span class="s2">#command-summary</span><span class="s1">) </span><span class="s2">as quick references later.</span>
+
+<span class="s2">This guide focuses on the commands and behaviours that matter most during normal usage. Less common edge cases are covered only when they are important for avoiding confusion.</span>
+
+<span class="s0">* </span><span class="s2">Table of Contents</span>
+    <span class="s0">* </span><span class="s1">[</span><span class="s2">Quick start</span><span class="s1">](</span><span class="s2">#quick-start</span><span class="s1">)</span>
+    <span class="s0">* </span><span class="s1">[</span><span class="s2">Features</span><span class="s1">](</span><span class="s2">#features</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Default behavior at a glance</span><span class="s1">](</span><span class="s2">#default-behavior-at-a-glance</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Viewing help </span><span class="s1">: </span><span class="s2">`help`</span><span class="s1">](</span><span class="s2">#viewing-help--help</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Adding an application</span><span class="s1">: </span><span class="s2">`add`</span><span class="s1">](</span><span class="s2">#adding-an-application-add</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Listing all applications </span><span class="s1">: </span><span class="s2">`list`</span><span class="s1">](</span><span class="s2">#listing-all-applications--list</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Editing an application </span><span class="s1">: </span><span class="s2">`edit`</span><span class="s1">](</span><span class="s2">#editing-an-application--edit</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Locating applications by role</span><span class="s1">: </span><span class="s2">`find`</span><span class="s1">](</span><span class="s2">#locating-applications-by-role-find</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Locating applications by note</span><span class="s1">: </span><span class="s2">`findnote`</span><span class="s1">](</span><span class="s2">#locating-applications-by-note-findnote</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Changing an application's status</span><span class="s1">: </span><span class="s2">`status`</span><span class="s1">](</span><span class="s2">#changing-an-applications-status-status</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Setting the deadline for an application </span><span class="s1">: </span><span class="s2">`deadline`</span><span class="s1">](</span><span class="s2">#setting-the-deadline-for-an-application--deadline</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Deleting an application </span><span class="s1">: </span><span class="s2">`delete`</span><span class="s1">](</span><span class="s2">#deleting-an-application--delete</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Identifying urgent applications </span><span class="s1">: </span><span class="s2">`reminder`</span><span class="s1">](</span><span class="s2">#identifying-urgent-applications--reminder</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Sorting applications </span><span class="s1">: </span><span class="s2">`sort`</span><span class="s1">](</span><span class="s2">#sorting-applications--sort</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Undoing previous commands </span><span class="s1">: </span><span class="s2">`undo`</span><span class="s1">](</span><span class="s2">#undoing-previous-commands--undo</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Redoing undone commands </span><span class="s1">: </span><span class="s2">`redo`</span><span class="s1">](</span><span class="s2">#redoing-undone-commands--redo</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Attaching your resume </span><span class="s1">: </span><span class="s2">`resume`</span><span class="s1">](</span><span class="s2">#attaching-your-resume--resume</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Opening your resume </span><span class="s1">: </span><span class="s2">`openresume`</span><span class="s1">](</span><span class="s2">#opening-your-resume--openresume</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Removing your resume </span><span class="s1">: </span><span class="s2">`removeresume`</span><span class="s1">](</span><span class="s2">#removing-your-resume--removeresume</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Setting an online assessment </span><span class="s1">: </span><span class="s2">`assessment`</span><span class="s1">](</span><span class="s2">#setting-an-online-assessment--assessment</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Setting an interview </span><span class="s1">: </span><span class="s2">`interview`</span><span class="s1">](</span><span class="s2">#setting-an-interview--interview</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Removing an event </span><span class="s1">: </span><span class="s2">`removeevent`</span><span class="s1">](</span><span class="s2">#removing-an-event--removeevent</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Clearing all entries </span><span class="s1">: </span><span class="s2">`clear`</span><span class="s1">](</span><span class="s2">#clearing-all-entries--clear</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Exiting the program </span><span class="s1">: </span><span class="s2">`exit`</span><span class="s1">](</span><span class="s2">#exiting-the-program--exit</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Saving the data</span><span class="s1">](</span><span class="s2">#saving-the-data</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Editing the data file</span><span class="s1">](</span><span class="s2">#editing-the-data-file</span><span class="s1">)</span>
+        <span class="s0">* </span><span class="s1">[</span><span class="s2">Archiving data files `</span><span class="s1">[</span><span class="s2">coming in v6.0</span><span class="s1">]</span><span class="s2">`</span><span class="s1">](</span><span class="s2">#archiving-data-files-coming-in-v60</span><span class="s1">)</span>
+    <span class="s0">* </span><span class="s1">[</span><span class="s2">FAQ</span><span class="s1">](</span><span class="s2">#faq</span><span class="s1">)</span>
+    <span class="s0">* </span><span class="s1">[</span><span class="s2">Known issues</span><span class="s1">](</span><span class="s2">#known-issues</span><span class="s1">)</span>
+    <span class="s0">* </span><span class="s1">[</span><span class="s2">Command summary</span><span class="s1">](</span><span class="s2">#command-summary</span><span class="s1">)</span>
+    <span class="s0">* </span><span class="s1">[</span><span class="s2">Future Improvement</span><span class="s1">](</span><span class="s2">#future-improvement</span><span class="s1">)</span>
+
+<span class="s0">--------------------------------------------------------------------------------------------------------------------</span>
+
+<span class="s0">## </span><span class="s2">Quick start</span>
+
+<span class="s0">1. </span><span class="s2">Ensure you have Java `17` or above installed on your computer.</span><span class="s1">&lt;br&gt;</span>
+   <span class="s2">You can download the </span><span class="s1">[</span><span class="s2">Oracle version</span><span class="s1">](</span><span class="s3">https://www.oracle.com/java/technologies/downloads/#java17</span><span class="s1">) </span><span class="s2">or another alternative such as the OpenJDK version.</span><span class="s1">&lt;br&gt;</span>
+   <span class="s1">**</span><span class="s2">Mac users</span><span class="s1">:** </span><span class="s2">Ensure you have the precise JDK version prescribed </span><span class="s1">[</span><span class="s2">here</span><span class="s1">](</span><span class="s3">https://se-education.org/guides/tutorials/javaInstallationMac.html</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s0">2. </span><span class="s2">Download the latest `.jar` file from the </span><span class="s1">[</span><span class="s2">project release page</span><span class="s1">](</span><span class="s3">https://github.com/AY2526S2-CS2103T-T13-3/tp/releases/tag/v1.0</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s0">3. </span><span class="s2">Copy the file to the folder you want to use as the </span><span class="s1">_</span><span class="s2">home folder</span><span class="s1">_ </span><span class="s2">for Hired</span><span class="s1">!</span><span class="s2">.</span>
+
+<span class="s0">4. </span><span class="s2">Open a command terminal, `cd` into the folder you put the jar file in, and run the application using `java -jar hired.jar`.</span><span class="s1">&lt;br&gt;</span>
+   <span class="s2">In case you are curious about how to deal with `cd`, here is </span><span class="s1">[</span><span class="s2">a simple tutorial</span><span class="s1">](</span><span class="s3">https://www.ibm.com/docs/en/aix/7.1.0?topic=directories-changing-another-directory-cd-command</span><span class="s1">)</span><span class="s2">.</span><span class="s1">&lt;br&gt;</span>
+   <span class="s2">A GUI similar to the one below should appear in a few seconds. Note that the app contains some sample application records.</span><span class="s1">&lt;br&gt;</span>
+   <span class="s2">Moreover, it is normal to see some warning messages printed on your terminal.</span><span class="s1">&lt;br&gt;</span>
+   <span class="s1">![</span><span class="s2">Ui</span><span class="s1">](</span><span class="s2">images/Ui_current.png</span><span class="s1">)</span>
+
+<span class="s0">5. </span><span class="s2">Type the command in the command box and press Enter to execute it. For example, typing </span><span class="s1">**</span><span class="s2">`help`</span><span class="s1">** </span><span class="s2">and pressing Enter will open the help window.</span><span class="s1">&lt;br&gt;</span>
+   <span class="s2">Some example commands you can try to have a taste of </span><span class="s1">**</span><span class="s2">Hired</span><span class="s1">!**:</span>
+
+    <span class="s0">* </span><span class="s2">`list` </span><span class="s1">: </span><span class="s2">Lists all existing application records.</span>
+    <span class="s0">* </span><span class="s2">`add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview note/Met recruiter at career fair` </span><span class="s1">: </span><span class="s2">Adds an application record for a Software Engineer role at Google with a note.</span>
+    <span class="s0">* </span><span class="s2">`findnote recruiter` </span><span class="s1">: </span><span class="s2">Finds applications whose notes contain `recruiter`.</span>
+    <span class="s0">* </span><span class="s2">`delete 3` </span><span class="s1">: </span><span class="s2">Deletes the 3rd application shown in the current list.</span>
+    <span class="s0">* </span><span class="s2">`clear` </span><span class="s1">: </span><span class="s2">Deletes all application records.</span>
+    <span class="s0">* </span><span class="s2">`exit` </span><span class="s1">: </span><span class="s2">Exits our app.</span>
+
+<span class="s0">6. </span><span class="s2">For command details and usage constraints, start from </span><span class="s1">[</span><span class="s2">Features</span><span class="s1">](</span><span class="s2">#features</span><span class="s1">)</span><span class="s2">, then use </span><span class="s1">[</span><span class="s2">FAQ</span><span class="s1">](</span><span class="s2">#faq</span><span class="s1">)</span><span class="s2">, </span><span class="s1">[</span><span class="s2">Known issues</span><span class="s1">](</span><span class="s2">#known-issues</span><span class="s1">)</span><span class="s2">, and </span><span class="s1">[</span><span class="s2">Command summary</span><span class="s1">](</span><span class="s2">#command-summary</span><span class="s1">) </span><span class="s2">as quick references.</span>
+
+<span class="s0">## </span><span class="s2">Quick tour of the interface</span>
+
+<span class="s2">After launching Hired</span><span class="s1">!</span><span class="s2">, you will mainly interact with these parts of the app</span><span class="s1">:</span>
+
+<span class="s1">![</span><span class="s2">Ui</span><span class="s1">](</span><span class="s2">images/Ui_current.png</span><span class="s1">)</span>
+
+<span class="s0">### </span><span class="s2">Command box</span>
+<span class="s2">This is where you type commands such as `add`, `find`, `deadline`, or `status`.</span>
+
+<span class="s0">### </span><span class="s2">Result display</span>
+<span class="s2">After each command, Hired</span><span class="s1">! </span><span class="s2">shows a success or error message to tell you what happened.</span>
+
+<span class="s0">### </span><span class="s2">Application list</span>
+<span class="s2">This is the main list of applications currently being shown.  </span>
+<span class="s2">Commands such as `list`, `find`, `findnote`, and `sort` can change which applications appear here and in what order.</span>
+
+<span class="s0">### </span><span class="s2">Application card</span>
+<span class="s2">Each application is shown as a card containing details such as</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">role</span>
+<span class="s0">* </span><span class="s2">company name</span>
+<span class="s0">* </span><span class="s2">phone and hr's email</span>
+<span class="s0">* </span><span class="s2">company location, if available</span>
+<span class="s0">* </span><span class="s2">tags, if available</span>
+<span class="s0">* </span><span class="s2">note, if available</span>
+<span class="s0">* </span><span class="s2">deadline, if available</span>
+<span class="s0">* </span><span class="s2">resume information, if available</span>
+<span class="s0">* </span><span class="s2">assessment information, if available</span>
+
+<span class="s0">### </span><span class="s2">Displayed index</span>
+<span class="s2">Each card has an index based on the </span><span class="s1">**</span><span class="s2">currently displayed list</span><span class="s1">**</span><span class="s2">.  </span>
+<span class="s2">Index-based commands such as `edit`, `delete`, `status`, `deadline`, `resume`, and `removeevent` always use the displayed indexes, not a permanent index.</span>
+
+<span class="s0">### </span><span class="s2">Event button</span>
+<span class="s2">If an application has an online assessment attached, a </span><span class="s1">**</span><span class="s2">View Event</span><span class="s1">** </span><span class="s2">button will appear on its card. Clicking it opens a window showing the full assessment details.</span>
+
+<span class="s0">### </span><span class="s2">Reminder highlighting</span>
+<span class="s2">After you run `reminder` at least once, Hired</span><span class="s1">! </span><span class="s2">can highlight application roles based on deadline urgency</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">red</span><span class="s1">: </span><span class="s2">deadline is within the next 3 days, including today</span>
+<span class="s0">* </span><span class="s2">orange</span><span class="s1">: </span><span class="s2">deadline is already overdue</span>
+<span class="s0">* </span><span class="s2">default color</span><span class="s1">: </span><span class="s2">no urgent reminder condition applies</span>
+
+<span class="s0">## </span><span class="s2">5-minute quick tutorial</span>
+
+<span class="s2">This short tutorial helps you try the most important features of Hired</span><span class="s1">! </span><span class="s2">in a logical order.</span>
+
+<span class="s0">### </span><span class="s2">Step 1</span><span class="s1">: </span><span class="s2">Show all applications</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`list`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">All applications are shown in the application list. We have prepared some example loaded in the app.</span>
+
+<span class="s0">### </span><span class="s2">Step 2</span><span class="s1">: </span><span class="s2">Add a new application</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`add r/Software Engineer Intern p/98765432 e/hr@example.com c/ExampleCorp l/Singapore t/priority note/Met recruiter at career fair`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">A new application for `Software Engineer Intern` at `ExampleCorp` is added to the list.</span>
+
+<span class="s0">### </span><span class="s2">Step 3</span><span class="s1">: </span><span class="s2">Find the application by role</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`find software`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">Only applications whose role contains `software` are shown.</span>
+
+<span class="s0">### </span><span class="s2">Step 4</span><span class="s1">: </span><span class="s2">Set a deadline</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`deadline 1 2026-12-31 23</span><span class="s1">:</span><span class="s2">59`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">The first displayed application now shows a deadline of `2026-12-31 23</span><span class="s1">:</span><span class="s2">59`.</span>
+
+<span class="s0">### </span><span class="s2">Step 5</span><span class="s1">: </span><span class="s2">Change the application status</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`status 1 s/INTERVIEWING`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">The first displayed application now has status `INTERVIEWING`.</span>
+
+<span class="s0">### </span><span class="s2">Step 6</span><span class="s1">: </span><span class="s2">Enable reminder highlighting</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`reminder`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">The displayed list is sorted by deadline, nearest first.  </span>
+<span class="s2">Applications may now be highlighted based on deadline urgency.</span>
+
+<span class="s0">### </span><span class="s2">Step 7</span><span class="s1">: </span><span class="s2">Attach a resume</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`resume 1 rp/Documents/resume.pdf`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">The first displayed application now stores a reference to the resume file.</span>
+
+<span class="s0">### </span><span class="s2">Step 8</span><span class="s1">: </span><span class="s2">Add an online assessment</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`assessment 1 el/home et/2026-11-20 14</span><span class="s1">:</span><span class="s2">00 ap/HackerRank al/</span><span class="s3">www.hackerrank.com</span><span class="s2">`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">The first displayed application now has an assessment attached, and an </span><span class="s1">**</span><span class="s2">Event</span><span class="s1">** </span><span class="s2">button appears on the application card.</span>
+
+<span class="s0">### </span><span class="s2">Step 9</span><span class="s1">: </span><span class="s2">Undo and redo</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`undo`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">The most recent data-modifying action is reverted.</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`redo`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">The undone action is applied again.</span>
+
+<span class="s0">### </span><span class="s2">Step 10</span><span class="s1">: </span><span class="s2">Clear</span>
+
+<span class="s2">Command</span><span class="s1">:</span>
+<span class="s2">`clear`</span>
+
+<span class="s2">Expected result</span><span class="s1">:</span>
+<span class="s2">All applications are deleted.</span>
+
+<span class="s2">You are all set</span><span class="s1">! </span><span class="s2">Time to start creating your first application</span><span class="s1">! </span>
+<span class="s2">After this tutorial, continue with </span><span class="s1">[</span><span class="s2">Features</span><span class="s1">](</span><span class="s2">#features</span><span class="s1">) </span><span class="s2">for the full command reference.</span>
+<span class="s0">--------------------------------------------------------------------------------------------------------------------</span>
+
+<span class="s0">## </span><span class="s2">Features</span>
+
+<span class="s1">&lt;div markdown=&quot;block&quot; class=&quot;alert alert-info&quot;&gt;</span>
+
+<span class="s1">**:</span><span class="s2">information_source</span><span class="s1">: </span><span class="s2">Notes about the command format</span><span class="s1">:**&lt;br&gt;</span>
+
+<span class="s0">* </span><span class="s2">Words in `UPPER_CASE` are parameters to be supplied by the user.</span><span class="s1">&lt;br&gt;</span>
+  <span class="s2">e.g. in `add r/ROLE`, `ROLE` is a parameter which can be used as `add r/Software Engineer`.</span>
+
+<span class="s0">* </span><span class="s2">Items in square brackets are optional.</span><span class="s1">&lt;br&gt;</span>
+  <span class="s2">e.g. `r/ROLE </span><span class="s1">[</span><span class="s2">t/TAG</span><span class="s1">]</span><span class="s2">` can be used as `r/Software Engineer t/interview` or as `r/Software Engineer`.</span>
+
+<span class="s0">* </span><span class="s2">Items with `…` after them can be used multiple times including zero times.</span><span class="s1">&lt;br&gt;</span>
+  <span class="s2">e.g. `</span><span class="s1">[</span><span class="s2">t/TAG</span><span class="s1">]</span><span class="s2">...` can be used as ` ` </span><span class="s1">(</span><span class="s2">i.e. 0 times</span><span class="s1">)</span><span class="s2">, `t/interview`, `t/interview t/priority` etc.</span>
+
+<span class="s0">* </span><span class="s2">Parameters can be in any order.</span><span class="s1">&lt;br&gt;</span>
+  <span class="s2">e.g. if the command specifies `r/ROLE p/PHONE`, `p/PHONE r/ROLE` is also acceptable.</span>
+  <span class="s2">This applies to prefixed parameters of the same command.</span>
+
+<span class="s0">* </span><span class="s2">Extraneous parameters for commands that do not take in parameters </span><span class="s1">(</span><span class="s2">such as `help`, `list`, `exit` and `clear`</span><span class="s1">) </span><span class="s2">will be ignored.</span><span class="s1">&lt;br&gt;</span>
+  <span class="s2">e.g. if the command specifies `help 123`, it will be interpreted as `help`.</span>
+
+<span class="s0">* </span><span class="s2">If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines, as space characters surrounding line-breaks may be omitted when copied over to the application.</span>
+<span class="s1">&lt;/div&gt;</span>
+
+<span class="s0">### </span><span class="s2">Default behavior at a glance</span>
+
+<span class="s2">These defaults are useful when you are trying commands for the first time</span><span class="s1">:</span>
+
+<span class="s0">* </span><span class="s2">If no data file exists yet, Hired</span><span class="s1">! </span><span class="s2">starts with sample applications.</span>
+<span class="s0">* </span><span class="s2">`add` creates an application with default values unless you explicitly set them</span><span class="s1">:</span>
+    <span class="s0">* </span><span class="s2">status defaults to `APPLIED`</span>
+    <span class="s0">* </span><span class="s2">deadline defaults to `No deadline set` </span><span class="s1">(</span><span class="s2">shown as no deadline in UI</span><span class="s1">)</span>
+    <span class="s0">* </span><span class="s2">note defaults to empty</span>
+<span class="s0">* </span><span class="s2">Reminder highlighting is </span><span class="s1">**</span><span class="s2">disabled by default</span><span class="s1">** </span><span class="s2">until you run `reminder` at least once.</span>
+<span class="s0">* </span><span class="s2">`list`, `find`, and `findnote` change which applications are currently shown; all index-based commands </span><span class="s1">(</span><span class="s2">`edit`, `delete`, `status`, `deadline`, etc.</span><span class="s1">) </span><span class="s2">use the </span><span class="s1">**</span><span class="s2">currently displayed</span><span class="s1">** </span><span class="s2">list indexes.</span>
+
+<span class="s0">### </span><span class="s2">Viewing help </span><span class="s1">: </span><span class="s2">`help`</span>
+
+<span class="s2">Opens the help window, which contains the User Guide URL.</span>
+
+<span class="s1">![</span><span class="s2">help message</span><span class="s1">](</span><span class="s2">images/helpMessage.png</span><span class="s1">)</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`help`</span>
+
+<span class="s0">### </span><span class="s2">Adding an application</span><span class="s1">: </span><span class="s2">`add`</span>
+
+<span class="s2">Adds an application record to Hired</span><span class="s1">!</span><span class="s2">.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME </span><span class="s1">[</span><span class="s2">l/COMPANY_LOCATION</span><span class="s1">] [</span><span class="s2">t/TAG</span><span class="s1">]</span><span class="s2">... </span><span class="s1">[</span><span class="s2">note/NOTE</span><span class="s1">]</span><span class="s2">`</span>
+
+<span class="s1">**</span><span class="s2">Required prefixes</span><span class="s1">:** </span><span class="s2">`r/`, `p/`, `e/`, and `c/` must be provided for a valid `add` command.</span>
+
+<span class="s1">**</span><span class="s2">Optional prefixes</span><span class="s1">:** </span><span class="s2">`l/`, `t/`, and `note/` are optional. If provided, they may appear in any order after the required fields.</span>
+
+<span class="s0">&gt; </span><span class="s1">**</span><span class="s2">Note</span><span class="s1">:** </span><span class="s2">In Hired</span><span class="s1">!</span><span class="s2">,</span>
+<span class="s1">&gt; </span><span class="s0">* </span><span class="s2">`r/` is used for the internship role,</span>
+<span class="s1">&gt; </span><span class="s0">* </span><span class="s2">`p/` is used for the recruiter or company contact phone number,</span>
+<span class="s1">&gt; </span><span class="s0">* </span><span class="s2">`c/` is used for the company name, and</span>
+<span class="s1">&gt; </span><span class="s0">* </span><span class="s2">`l/` </span><span class="s1">(</span><span class="s2">optional</span><span class="s1">) </span><span class="s2">is used for the company location.</span>
+<span class="s1">&gt;</span>
+<span class="s1">&gt; </span><span class="s0">&gt; </span><span class="s2">Phone numbers are intentionally not restricted to a fixed length, as valid phone number lengths and formats vary across countries.</span>
+<span class="s1">&gt;</span>
+<span class="s1">&gt; </span><span class="s2">Applications are considered duplicates </span><span class="s1">(</span><span class="s2">and cannot be added</span><span class="s1">) </span><span class="s2">only when they have the same identity</span><span class="s1">:</span>
+<span class="s1">&gt; </span><span class="s0">1) </span><span class="s2">the same `role`,</span>
+<span class="s1">&gt; </span><span class="s0">2) </span><span class="s2">the same `company name`, and</span>
+<span class="s1">&gt; </span><span class="s0">3) </span><span class="s2">the same `company location`</span><span class="s1">:</span>
+     <span class="s1">&gt;    </span><span class="s2">* if both locations are empty </span><span class="s1">(</span><span class="s2">e.g. `l/` is omitted</span><span class="s1">)</span><span class="s2">, they are treated as the same;</span>
+     <span class="s1">&gt;    </span><span class="s2">* if one location is empty and the other is not, they are treated as different.</span>
+            <span class="s1">&gt; **</span><span class="s2">Tip</span><span class="s1">:** </span><span class="s2">An application can have any number of tags </span><span class="s1">(</span><span class="s2">including 0</span><span class="s1">)</span><span class="s2">.</span>
+            <span class="s1">&gt; **</span><span class="s2">Tip</span><span class="s1">:** </span><span class="s2">A note can be added when creating an application by using `note/`.</span>
+            <span class="s1">&gt; **</span><span class="s2">Default after successful add</span><span class="s1">:** </span><span class="s2">status is `APPLIED`, deadline is unset, and reminder color remains default until `reminder` is enabled.</span>
+<span class="s0">&gt; </span><span class="s2">For duplicate checking, the comparison ignores letter case and whitespace differences in `role`, `company name`, and `company location`.</span>
+<span class="s0">&gt; </span><span class="s2">For example, `Software Engineer` and `softwareengineer` are treated as the same role.</span>
+<span class="s0">&gt; </span><span class="s1">**</span><span class="s2">Tip</span><span class="s1">:** </span><span class="s2">An application can have any number of tags </span><span class="s1">(</span><span class="s2">including 0</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">&gt; </span><span class="s1">**</span><span class="s2">Tip</span><span class="s1">:** </span><span class="s2">A note can be added when creating an application by using `note/`.</span>
+<span class="s0">&gt; </span><span class="s1">**</span><span class="s2">Default after successful add</span><span class="s1">:** </span><span class="s2">status is `APPLIED`, deadline is unset, and reminder color remains default until `reminder` is enabled.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`add r/Software Engineer p/98765432 e/hr@google.com c/Google`</span>
+<span class="s0">* </span><span class="s2">`add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Singapore`</span>
+<span class="s0">* </span><span class="s2">`add r/Software Engineer p/98765432 e/hr@google.com c/Google t/interview t/priority`</span>
+<span class="s0">* </span><span class="s2">`add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Boon Lay t/interview`</span>
+<span class="s0">* </span><span class="s2">`add r/Data Analyst p/92345678 e/recruitment@meta.com c/Meta l/Singapore t/applied note/Met recruiter at career fair`</span>
+
+<span class="s0">### </span><span class="s2">Listing all applications </span><span class="s1">: </span><span class="s2">`list`</span>
+
+<span class="s2">Shows a list of all application records in Hired</span><span class="s1">!</span><span class="s2">.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`list`</span>
+
+<span class="s0">* </span><span class="s2">Resets any existing `find` / `findnote` filter and shows all applications.</span>
+
+<span class="s0">### </span><span class="s2">Editing an application </span><span class="s1">: </span><span class="s2">`edit`</span>
+
+<span class="s2">Edits the details of an existing application in Hired</span><span class="s1">!</span><span class="s2">.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`edit INDEX </span><span class="s1">[</span><span class="s2">r/ROLE</span><span class="s1">] [</span><span class="s2">p/PHONE</span><span class="s1">] [</span><span class="s2">e/EMAIL</span><span class="s1">] [</span><span class="s2">c/COMPANY_NAME</span><span class="s1">] [</span><span class="s2">l/COMPANY_LOCATION</span><span class="s1">] [</span><span class="s2">t/TAG</span><span class="s1">]</span><span class="s2">... </span><span class="s1">[</span><span class="s2">s/STATUS</span><span class="s1">] [</span><span class="s2">d/DEADLINE</span><span class="s1">] [</span><span class="s2">note/NOTE</span><span class="s1">]</span><span class="s2">`</span>
+
+<span class="s0">* </span><span class="s2">Edits the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+<span class="s0">* </span><span class="s2">At least one of the optional fields must be provided.</span>
+<span class="s0">* </span><span class="s2">Existing values will be overwritten by the input values.</span>
+<span class="s0">* </span><span class="s2">When editing tags, the existing tags of the application will be removed, i.e. tag editing is not cumulative.</span>
+<span class="s0">* </span><span class="s2">You can remove all tags by typing `t/` without specifying any tag after it.</span>
+<span class="s0">* </span><span class="s2">You can edit an application's note using `note/NOTE`.</span>
+<span class="s0">* </span><span class="s2">You can clear an existing note by typing `note/` with nothing after it.</span>
+<span class="s0">* </span><span class="s2">You can clear an existing deadline using `d/-`.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`edit 1 p/91234567 e/hr@google.com` edits the phone number and email of the 1st application.</span>
+<span class="s0">* </span><span class="s2">`edit 2 r/Backend Engineer c/Shopee` edits the role and company of the 2nd application.</span>
+<span class="s0">* </span><span class="s2">`edit 3 t/urgent t/interview` replaces the tags of the 3rd application with `urgent` and `interview`.</span>
+<span class="s0">* </span><span class="s2">`edit 4 t/` removes all tags from the 4th application.</span>
+<span class="s0">* </span><span class="s2">`edit 1 note/Follow up next Monday` updates the note of the 1st application.</span>
+<span class="s0">* </span><span class="s2">`edit 1 note/` clears the note of the 1st application.</span>
+
+<span class="s0">### </span><span class="s2">Locating applications by role</span><span class="s1">: </span><span class="s2">`find`</span>
+
+<span class="s2">Finds applications whose roles contain all given keywords.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`find KEYWORD </span><span class="s1">[</span><span class="s2">MORE_KEYWORDS</span><span class="s1">]</span><span class="s2">`</span>
+
+<span class="s0">* </span><span class="s2">The search is case-insensitive. e.g. `engineer` will match `Engineer`</span>
+<span class="s0">* </span><span class="s2">The order of the keywords matters. e.g. `soft eng` will match `Software Engineer`.</span>
+<span class="s0">* </span><span class="s2">Only the role is searched.</span>
+<span class="s0">* </span><span class="s2">Partial words will also be matched. e.g. `eng` will match `Engineer`</span>
+<span class="s0">* </span><span class="s2">Applications matching all keywords will be returned, if given more than 1 keyword </span><span class="s1">(</span><span class="s2">i.e. `AND` search</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">* </span><span class="s2">At least one keyword must be provided </span><span class="s1">(</span><span class="s2">e.g. `find` alone is invalid</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`find engineer` returns applications with roles containing `engineer`</span>
+<span class="s0">* </span><span class="s2">`find quant research` returns applications with roles containing `quant` and `research`</span>
+
+<span class="s0">### </span><span class="s2">Locating applications by note</span><span class="s1">: </span><span class="s2">`findnote`</span>
+
+<span class="s2">Finds applications whose notes contain any of the given keywords.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`findnote KEYWORD </span><span class="s1">[</span><span class="s2">MORE_KEYWORDS</span><span class="s1">]</span><span class="s2">`</span>
+
+<span class="s0">* </span><span class="s2">The search is case-insensitive. e.g. `follow` will match `Follow`</span>
+<span class="s0">* </span><span class="s2">The order of the keywords does not matter.</span>
+<span class="s0">* </span><span class="s2">Only the note field is searched.</span>
+<span class="s0">* </span><span class="s2">Partial words will also be matched. e.g. `rec` will match `recruit`</span>
+<span class="s0">* </span><span class="s2">Applications matching at least one keyword will be returned </span><span class="s1">(</span><span class="s2">i.e. `OR` search</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">* </span><span class="s2">At least one keyword must be provided </span><span class="s1">(</span><span class="s2">e.g. `findnote` alone is invalid</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`findnote recruiter` returns applications with notes containing `recruiter`</span>
+<span class="s0">* </span><span class="s2">`findnote follow Monday` returns applications with notes containing `follow` or `Monday`</span>
+
+<span class="s0">### </span><span class="s2">Changing an application's status</span><span class="s1">: </span><span class="s2">`status`</span>
+
+<span class="s0">* </span><span class="s2">Changes the status of an application.</span>
+<span class="s0">* </span><span class="s2">The accepted input keywords are </span><span class="s1">***</span><span class="s2">APPLIED, INTERVIEWING, OFFERED, REJECTED, or WITHDRAWN</span><span class="s1">***</span><span class="s2">, and they are not case-sensitive.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`status INDEX s/STATUS`</span>
+
+<span class="s0">* </span><span class="s2">Edits the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+<span class="s0">* * </span><span class="s2">The status is case-insensitive. e.g. `REJECTED` will turn out to be `rejected`</span>
+<span class="s0">* </span><span class="s2">Only status given above can be chosen.</span>
+<span class="s0">* </span><span class="s2">Only one application can be changed at a time.</span>
+<span class="s0">* </span><span class="s2">Status will appear as a tag in the UI.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`status 1 s/OFFERED` changes the status to `offered`</span>
+<span class="s0">* </span><span class="s2">`status 1 s/selected` will result in an error as `selected` is not a valid status.</span>
+
+<span class="s0">### </span><span class="s2">Setting the deadline for an application </span><span class="s1">: </span><span class="s2">`deadline`</span>
+
+<span class="s2">Sets or updates the deadline for the application identified by its index.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`deadline INDEX DATE_TIME`</span>
+
+<span class="s0">* </span><span class="s2">The `DATE_TIME` can be `yyyy-MM-dd`, `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">mm`.</span>
+<span class="s0">* </span><span class="s2">Our app do not accept `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">60` or any invalid date and time</span>
+<span class="s0">* </span><span class="s2">Use `-` to clear an existing deadline </span><span class="s1">(</span><span class="s2">e.g. `deadline 2 -`</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">This `deadline` refers to the </span><span class="s1">**</span><span class="s2">interview / application-process deadline</span><span class="s1">** </span><span class="s2">for that application.</span>
+<span class="s0">* </span><span class="s2">This deadline is used by `reminder` and `sort time`.</span>
+<span class="s0">* </span><span class="s2">This deadline is </span><span class="s1">**</span><span class="s2">not</span><span class="s1">** </span><span class="s2">the same as online assessment or interview time</span><span class="s1">:</span>
+    <span class="s0">* </span><span class="s2">If you set an event time via `assessment ... et/...` or `interview ... et/...`, that `et/` value belongs to the event only.</span>
+    <span class="s0">* </span><span class="s2">`reminder` compares only this `deadline` field, not the event `et/` time.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`deadline 1 2026-12-31`</span>
+<span class="s0">* </span><span class="s2">`deadline 1 2026-12-31 23</span><span class="s1">:</span><span class="s2">59`</span>
+
+<span class="s2">Tips</span><span class="s1">: </span><span class="s2">Note that we can change deadline and status by either using their own command, or using the general edit command.</span>
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`status 1 s/OFFERED` is equivalent to `edit 1 s/OFFERED`</span>
+<span class="s0">* </span><span class="s2">`deadline 2 2026-03-25` is equivalent to `edit 2 d/2026-03-25`</span>
+  <span class="s2">This is intended to give user more flexibility in entering command.</span>
+  <span class="s2">This is a feature not a bug.</span>
+
+<span class="s0">### </span><span class="s2">Deleting an application </span><span class="s1">: </span><span class="s2">`delete`</span>
+
+<span class="s2">Deletes the specified application record from Hired</span><span class="s1">!</span><span class="s2">.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`delete INDEX`</span>
+
+<span class="s0">* </span><span class="s2">Deletes the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+<span class="s0">* </span><span class="s2">This deletes the entire application record </span><span class="s1">(</span><span class="s2">not just one field</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`list` followed by `delete 2` deletes the 2nd application in the displayed list.</span>
+<span class="s0">* </span><span class="s2">`find engineer` followed by `delete 1` deletes the 1st application in the results of the `find` command.</span>
+
+<span class="s0">### </span><span class="s2">Identifying urgent applications </span><span class="s1">: </span><span class="s2">`reminder`</span>
+
+<span class="s2">Identifies and highlights applications according to how close their `deadline` is to the current local time.</span>
+<span class="s2">This feature is UI-only</span><span class="s1">: </span><span class="s2">it does </span><span class="s1">**</span><span class="s2">not</span><span class="s1">** </span><span class="s2">add or remove any tags.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`reminder`</span>
+
+<span class="s0">* </span><span class="s2">After executing `reminder`, the application list is re-sorted by `deadline` in ascending order </span><span class="s1">(</span><span class="s2">nearest first</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">* </span><span class="s2">Applications with no deadline </span><span class="s1">(</span><span class="s2">i.e. deadline is `-` / </span><span class="s1">&quot;</span><span class="s2">No deadline set</span><span class="s1">&quot;) </span><span class="s2">are placed at the bottom and are not highlighted.</span>
+<span class="s0">* </span><span class="s2">Highlighting is based on the comparison between each application's `deadline` and your current local time</span><span class="s1">:</span>
+    <span class="s0">* </span><span class="s1">**</span><span class="s2">Red</span><span class="s1">** </span><span class="s2">`role` text</span><span class="s1">: </span><span class="s2">the deadline is within the next </span><span class="s1">**</span><span class="s2">3 days</span><span class="s1">**</span><span class="s2">, including today.</span>
+    <span class="s0">* </span><span class="s1">![</span><span class="s2">reminder_red.png</span><span class="s1">](</span><span class="s2">reminder_red.png</span><span class="s1">)</span>
+    <span class="s0">* </span><span class="s1">**</span><span class="s2">Orange</span><span class="s1">** </span><span class="s2">`role` text</span><span class="s1">: </span><span class="s2">the deadline is already </span><span class="s1">**</span><span class="s2">in the past</span><span class="s1">** (</span><span class="s2">i.e. earlier than the current local time</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s1">![</span><span class="s2">reminder_orange.png</span><span class="s1">](</span><span class="s2">reminder_orange.png</span><span class="s1">)</span>
+    <span class="s0">* </span><span class="s2">Otherwise, `role` keeps the default color </span><span class="s1">(</span><span class="s2">white</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s1">![</span><span class="s2">reminder_default.png</span><span class="s1">](</span><span class="s2">reminder_default.png</span><span class="s1">)</span>
+<span class="s0">* </span><span class="s2">Once you have executed `reminder`, the highlighting preference is saved, so restarting the app will keep the red/orange coloring behaviour.</span>
+<span class="s0">* </span><span class="s2">Before you run `reminder` at least once, reminder highlighting is disabled and `role`/calendar colors stay at default.</span>
+<span class="s0">* </span><span class="s2">Re-running `reminder` repeatedly without any meaningful change </span><span class="s1">(</span><span class="s2">e.g., highlighting already enabled and deadline order unchanged</span><span class="s1">) </span><span class="s2">is treated as a single effective reminder state in undo/redo history.</span>
+    <span class="s0">* </span><span class="s2">Practical effect</span><span class="s1">: </span><span class="s2">if you entered `reminder` many times in a row, `undo` usually only needs to cross the first effective `reminder` state once to turn highlighting off.</span>
+<span class="s0">* </span><span class="s2">Deadline format affects how the comparison is done</span><span class="s1">:</span>
+    <span class="s0">* </span><span class="s2">If you enter `deadline` as `yyyy-MM-dd`, it is treated as a date and compared using the day window </span><span class="s1">(</span><span class="s2">end of day is handled implicitly for highlighting</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s2">If you enter `deadline` as `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">mm`, the comparison is accurate to </span><span class="s1">**</span><span class="s2">minutes</span><span class="s1">**</span><span class="s2">.</span>
+<span class="s0">* </span><span class="s2">Interaction with `deadline` and `edit`</span><span class="s1">:</span>
+    <span class="s0">* </span><span class="s2">If you change a deadline using `deadline INDEX DATE_TIME` or `edit INDEX d/DATE_TIME`, the UI will re-render and the `role` color will immediately reflect the updated deadline </span><span class="s1">(</span><span class="s2">red/orange based on current local time</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s2">The </span><span class="s1">**</span><span class="s2">list order</span><span class="s1">** </span><span class="s2">is re-sorted by deadline </span><span class="s1">**</span><span class="s2">only</span><span class="s1">** </span><span class="s2">when you run either</span><span class="s1">:</span>
+        <span class="s0">* </span><span class="s2">`reminder`, or</span>
+        <span class="s0">* </span><span class="s2">`sort time`.</span>
+
+<span class="s0">* </span><span class="s2">Updating color at an exact time point </span><span class="s1">(</span><span class="s2">datetime `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">mm`</span><span class="s1">):</span>
+    <span class="s0">* </span><span class="s1">**</span><span class="s2">Precondition</span><span class="s1">:** </span><span class="s2">You have already executed `reminder` at least once in this application </span><span class="s1">(</span><span class="s2">otherwise the highlighting is kept disabled and the `role`/calendar icon will stay at default colors until you run `reminder`</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s2">Suppose your current local time is `2026-04-02 15</span><span class="s1">:</span><span class="s2">48` and you set an application deadline to `2026-04-02 15</span><span class="s1">:</span><span class="s2">48` </span><span class="s1">(</span><span class="s2">using `deadline INDEX 2026-04-02 15</span><span class="s1">:</span><span class="s2">48` or `edit INDEX d/2026-04-02 15</span><span class="s1">:</span><span class="s2">48`</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s2">After setting the deadline</span><span class="s1">:</span>
+        <span class="s0">* </span><span class="s2">If the current time is still within the same minute </span><span class="s1">(</span><span class="s2">e.g. `15</span><span class="s1">:</span><span class="s2">48</span><span class="s1">:</span><span class="s2">00`</span><span class="s1">)</span><span class="s2">, the deadline is </span><span class="s1">**</span><span class="s2">not considered overdue yet</span><span class="s1">** </span><span class="s2">and the `role` stays </span><span class="s1">**</span><span class="s2">red</span><span class="s1">**</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s2">After the deadline minute has passed </span><span class="s1">(</span><span class="s2">e.g. `15</span><span class="s1">:</span><span class="s2">48</span><span class="s1">:</span><span class="s2">01` or any time after that</span><span class="s1">)</span><span class="s2">, the deadline becomes </span><span class="s1">**</span><span class="s2">overdue</span><span class="s1">** </span><span class="s2">per the rule above.</span>
+    <span class="s0">* </span><span class="s2">To make the UI apply the new color at that moment</span><span class="s1">:</span>
+        <span class="s0">* </span><span class="s2">Click the corresponding application list item </span><span class="s1">(</span><span class="s2">the big box / card area of that `INDEX`</span><span class="s1">) </span><span class="s2">so that the UI re-renders that card, </span><span class="s1">**</span><span class="s2">or</span><span class="s1">**</span>
+        <span class="s0">* </span><span class="s2">Enter `reminder`.</span>
+    <span class="s0">* </span><span class="s2">Note</span><span class="s1">: </span><span class="s2">this action refreshes </span><span class="s1">**</span><span class="s2">colors</span><span class="s1">** (</span><span class="s2">to reflect the newly overdue deadline</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s0">### </span><span class="s2">Sorting applications </span><span class="s1">: </span><span class="s2">`sort`</span>
+
+<span class="s2">Sorts the current list of applications based on a specified criterion.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`sort </span><span class="s1">[</span><span class="s2">CRITERION</span><span class="s1">]</span><span class="s2">`</span>
+
+<span class="s0">* </span><span class="s2">The `CRITERION` is required and must be either `time` or `alphabet`.</span>
+<span class="s0">* </span><span class="s2">`sort time`</span><span class="s1">: </span><span class="s2">Sorts applications by their deadline </span><span class="s1">(</span><span class="s2">nearest first</span><span class="s1">)</span><span class="s2">. Applications without deadlines are placed at the bottom.</span>
+<span class="s0">* </span><span class="s2">`sort alphabet`</span><span class="s1">: </span><span class="s2">Sorts applications alphabetically by their role name </span><span class="s1">(</span><span class="s2">A-Z</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`sort time`</span>
+<span class="s0">* </span><span class="s2">`sort alphabet`</span>
+
+<span class="s0">### </span><span class="s2">Undoing previous commands </span><span class="s1">: </span><span class="s2">`undo`</span>
+
+<span class="s2">Undoes the most recent command that modified the application list.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`undo`</span>
+
+<span class="s0">* </span><span class="s2">Keeps track of up to 10 steps of your command history.</span>
+<span class="s0">* </span><span class="s2">Commands that can be undone include add, delete, edit, clear, status, reminder, deadline, sort, resume, removeresume, assessment, interview, and removeevent.</span>
+<span class="s0">* </span><span class="s2">You cannot undo if there are no more states to revert to in the history.</span>
+<span class="s0">* </span><span class="s2">For `reminder`</span><span class="s1">: </span><span class="s2">undo/redo restores both list order and reminder highlighting state together.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`delete 1` followed by `undo` restores the deleted application.</span>
+
+<span class="s0">### </span><span class="s2">Redoing undone commands </span><span class="s1">: </span><span class="s2">`redo`</span>
+
+<span class="s2">Reverses the most recent `undo` command.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`redo`</span>
+
+<span class="s0">* </span><span class="s2">You must perform at least one `undo` command before you can use `redo`.</span>
+<span class="s0">* </span><span class="s2">If you attempt to redo when no undoable state exists, an error message </span><span class="s1">&quot;</span><span class="s2">No undoable state to redo. Please perform an undo first.</span><span class="s1">&quot; </span><span class="s2">will be shown.</span>
+<span class="s0">* </span><span class="s2">If you execute a data-modifying command </span><span class="s1">(</span><span class="s2">e.g.,`add`</span><span class="s1">) </span><span class="s2">after an undo, the `redo` </span><span class="s1">**</span><span class="s2">history</span><span class="s1">** </span><span class="s2">is cleared.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">clear followed by `undo` </span><span class="s1">(</span><span class="s2">restores data</span><span class="s1">)</span><span class="s2">, then `redo` </span><span class="s1">(</span><span class="s2">clears data again</span><span class="s1">)</span><span class="s2">.</span>
+
+<span class="s0">### </span><span class="s2">Attaching your resume </span><span class="s1">: </span><span class="s2">`resume`</span>
+
+<span class="s2">Attaches your resume to a specific application.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`resume INDEX rp/RESUME_PATH`</span>
+
+<span class="s0">* </span><span class="s2">Edits the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+<span class="s0">* </span><span class="s2">You must specify the path of you resume.</span>
+<span class="s0">* </span><span class="s2">The `RESUME_PATH` is the absolute address of your file in your computer.</span>
+<span class="s0">* </span><span class="s2">This feature will not save your resume in the storage, but just a reference to your own documentation.</span>
+<span class="s0">* </span><span class="s2">Make sure your file is ended with </span><span class="s1">&quot;</span><span class="s2">.pdf, .doc, or .docx</span><span class="s1">&quot;</span><span class="s2">, no other format will be accepted.</span>
+<span class="s0">* </span><span class="s2">Please don't change the path of the file, or it will result in unexpected errors.</span>
+<span class="s0">* </span><span class="s2">This action can be undone using `undo`.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s1">(</span><span class="s2">For Windows</span><span class="s1">) </span><span class="s2">`resume 1 rp/C</span><span class="s1">:</span><span class="s2">\Users\john\Documents\resume.pdf` will attach your resume to the first application.</span>
+<span class="s0">* </span><span class="s1">(</span><span class="s2">For Mac</span><span class="s1">) </span><span class="s2">`resume 1 rp/Users/john/Documents/resume.pdf` will attach your resume to the first application.</span>
+
+<span class="s0">### </span><span class="s2">Opening your resume </span><span class="s1">: </span><span class="s2">`openresume`</span>
+
+<span class="s2">Opens your resume of a specific application.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`openresume INDEX`</span>
+
+<span class="s0">* </span><span class="s2">Opens the resume of the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`openresume 2` will open your resume of the first application in the default way.</span>
+
+<span class="s0">### </span><span class="s2">Removing your resume </span><span class="s1">: </span><span class="s2">`removeresume`</span>
+
+<span class="s2">Removes your resume of a specific application.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`removeresume INDEX`</span>
+
+<span class="s0">* </span><span class="s2">Edits the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+<span class="s0">* </span><span class="s2">This feature will not delete your resume file in your computer, but just remove the reference.</span>
+<span class="s0">* </span><span class="s2">This action can be undone using `undo`.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`removeresume 3` will remove your resume of the third application.</span>
+
+<span class="s0">### </span><span class="s2">Setting an online assessment </span><span class="s1">: </span><span class="s2">`assessment`</span>
+
+<span class="s2">Attaches online assessment details to a specific application. Once set, an </span><span class="s1">**</span><span class="s2">Event</span><span class="s1">** </span><span class="s2">button will appear on the application card — clicking it opens a window showing the full event details.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`assessment INDEX el/LOCATION et/DATE_TIME ap/PLATFORM al/LINK`</span>
+
+<span class="s0">* </span><span class="s2">Sets the online assessment for the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+<span class="s0">* </span><span class="s2">All four prefixes are </span><span class="s1">**</span><span class="s2">required</span><span class="s1">**:</span>
+    <span class="s0">* </span><span class="s2">`el/` — location of the assessment </span><span class="s1">(</span><span class="s2">e.g. `home`, `office`</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s2">`et/` — date and time of the assessment in `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">mm` format.</span>
+    <span class="s0">* </span><span class="s2">`ap/` — platform used for the assessment </span><span class="s1">(</span><span class="s2">e.g. `HackerRank`, `Codility`</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s2">`al/` — link to the assessment </span><span class="s1">(</span><span class="s2">e.g. `</span><span class="s3">www.hackerrank.com</span><span class="s2">`</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">* </span><span class="s2">If the application already has an event </span><span class="s1">(</span><span class="s2">assessment or interview</span><span class="s1">)</span><span class="s2">, running `assessment` again will </span><span class="s1">**</span><span class="s2">overwrite</span><span class="s1">** </span><span class="s2">the existing one.</span>
+<span class="s0">* </span><span class="s2">To remove an existing event, use the </span><span class="s1">[</span><span class="s2">`removeevent`</span><span class="s1">](</span><span class="s2">#removing-an-event--removeevent</span><span class="s1">) </span><span class="s2">command.</span>
+
+<span class="s0">&gt; </span><span class="s1">**</span><span class="s2">Note</span><span class="s1">:** </span><span class="s2">The datetime must be in `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">mm` format exactly. Invalid dates or times </span><span class="s1">(</span><span class="s2">e.g. `2026-13-01 10</span><span class="s1">:</span><span class="s2">00` or `2026-03-24 10</span><span class="s1">:</span><span class="s2">60`</span><span class="s1">) </span><span class="s2">will not be accepted.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`assessment 1 el/home et/2026-03-24 10</span><span class="s1">:</span><span class="s2">00 ap/HackerRank al/</span><span class="s3">www.hackerrank.com</span><span class="s2">`</span>
+<span class="s0">* </span><span class="s2">`assessment 2 el/office et/2026-06-15 14</span><span class="s1">:</span><span class="s2">30 ap/Codility al/</span><span class="s3">www.codility.com</span><span class="s2">`</span>
+
+<span class="s0">### </span><span class="s2">Setting an interview </span><span class="s1">: </span><span class="s2">`interview`</span>
+
+<span class="s2">Attaches interview details to a specific application. Once set, an </span><span class="s1">**</span><span class="s2">Event</span><span class="s1">** </span><span class="s2">button will appear on the application card — clicking it opens a window showing the full interview details.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`interview INDEX el/LOCATION et/DATE_TIME </span><span class="s1">[</span><span class="s2">in/INTERVIEWER_NAME</span><span class="s1">] [</span><span class="s2">it/INTERVIEW_TYPE</span><span class="s1">]</span><span class="s2">`</span>
+
+<span class="s0">* </span><span class="s2">Sets the interview for the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+<span class="s0">* </span><span class="s2">Two prefixes are </span><span class="s1">**</span><span class="s2">required</span><span class="s1">**:</span>
+    <span class="s0">* </span><span class="s2">`el/` — location of the interview </span><span class="s1">(</span><span class="s2">e.g. `Google HQ`, `Zoom`</span><span class="s1">)</span><span class="s2">.</span>
+    <span class="s0">* </span><span class="s2">`et/` — date and time of the interview in `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">mm` format.</span>
+<span class="s0">* </span><span class="s2">Two prefixes are </span><span class="s1">**</span><span class="s2">optional</span><span class="s1">**:</span>
+    <span class="s0">* </span><span class="s2">`in/` — name of the interviewer </span><span class="s1">(</span><span class="s2">e.g. `John Doe`</span><span class="s1">)</span><span class="s2">. Omit if unknown.</span>
+    <span class="s0">* </span><span class="s2">`it/` — type of interview </span><span class="s1">(</span><span class="s2">e.g. `technical`, `behavioural`, `panel`</span><span class="s1">)</span><span class="s2">. Omit if unknown.</span>
+<span class="s0">* </span><span class="s2">If the application already has an event </span><span class="s1">(</span><span class="s2">assessment or interview</span><span class="s1">)</span><span class="s2">, running `interview` again will </span><span class="s1">**</span><span class="s2">overwrite</span><span class="s1">** </span><span class="s2">the existing one.</span>
+<span class="s0">* </span><span class="s2">To remove an existing event, use the </span><span class="s1">[</span><span class="s2">`removeevent`</span><span class="s1">](</span><span class="s2">#removing-an-event--removeevent</span><span class="s1">) </span><span class="s2">command.</span>
+<span class="s0">* </span><span class="s2">This action can be undone using `undo`.</span>
+
+<span class="s0">&gt; </span><span class="s1">**</span><span class="s2">Note</span><span class="s1">:** </span><span class="s2">The datetime must be in `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">mm` format exactly. Invalid dates or times </span><span class="s1">(</span><span class="s2">e.g. `2026-13-01 10</span><span class="s1">:</span><span class="s2">00` or `2026-03-24 10</span><span class="s1">:</span><span class="s2">60`</span><span class="s1">) </span><span class="s2">will not be accepted.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`interview 1 el/Google HQ et/2026-05-10 14</span><span class="s1">:</span><span class="s2">00 in/John Doe it/technical` — sets a technical interview with an interviewer.</span>
+<span class="s0">* </span><span class="s2">`interview 2 el/Zoom et/2026-06-01 10</span><span class="s1">:</span><span class="s2">00 it/behavioural` — sets a behavioural interview; interviewer name omitted.</span>
+<span class="s0">* </span><span class="s2">`interview 3 el/Office et/2026-07-15 09</span><span class="s1">:</span><span class="s2">30` — sets an interview with only the required fields.</span>
+
+<span class="s0">### </span><span class="s2">Removing an event </span><span class="s1">: </span><span class="s2">`removeevent`</span>
+
+<span class="s2">Removes the event </span><span class="s1">(</span><span class="s2">online assessment or interview</span><span class="s1">) </span><span class="s2">attached to a specific application.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`removeevent INDEX`</span>
+
+<span class="s0">* </span><span class="s2">Removes the event from the application at the specified `INDEX`.</span>
+<span class="s0">* </span><span class="s2">The index refers to the index number shown in the displayed application list.</span>
+<span class="s0">* </span><span class="s2">The index </span><span class="s1">**</span><span class="s2">must be a positive integer</span><span class="s1">** </span><span class="s2">`1, 2, 3, ...`</span>
+<span class="s0">* </span><span class="s2">If the application at the given index does not have an event, an error message will be shown and no changes will be made.</span>
+<span class="s0">* </span><span class="s2">After a successful removal, the </span><span class="s1">**</span><span class="s2">Event</span><span class="s1">** </span><span class="s2">button on the application card will be hidden.</span>
+<span class="s0">* </span><span class="s2">This action can be undone using `undo`.</span>
+
+<span class="s2">Examples</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">`removeevent 1` removes the event from the 1st application.</span>
+<span class="s0">* </span><span class="s2">`removeevent 3` removes the event from the 3rd application.</span>
+
+<span class="s0">### </span><span class="s2">Clearing all entries </span><span class="s1">: </span><span class="s2">`clear`</span>
+
+<span class="s2">Clears all application records from Hired</span><span class="s1">!</span><span class="s2">.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`clear`</span>
+
+<span class="s0">### </span><span class="s2">Exiting the program </span><span class="s1">: </span><span class="s2">`exit`</span>
+
+<span class="s2">Exits the program.</span>
+
+<span class="s2">Format</span><span class="s1">: </span><span class="s2">`exit`</span>
+
+<span class="s0">### </span><span class="s2">Saving the data</span>
+
+<span class="s2">Hired</span><span class="s1">! </span><span class="s2">data are saved automatically to the hard disk after any command that changes the data. There is no need to save manually.</span>
+
+<span class="s0">### </span><span class="s2">Editing the data file</span>
+
+<span class="s2">Hired</span><span class="s1">! </span><span class="s2">data are saved automatically as a JSON file at `</span><span class="s1">[</span><span class="s2">JAR file location</span><span class="s1">]</span><span class="s2">/data/applicationList.json`. Advanced users may update data directly by editing that file.</span>
+
+<span class="s1">&lt;div markdown=&quot;span&quot; class=&quot;alert alert-warning&quot;&gt;:exclamation: **Caution:**</span>
+<span class="s1">If your changes to the data file make its format invalid, Hired! may discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.&lt;br&gt;</span>
+<span class="s1">Furthermore, certain edits can cause Hired! to behave in unexpected ways (for example, if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.</span>
+<span class="s1">&lt;/div&gt;</span>
+
+<span class="s0">### </span><span class="s2">Archiving data files `</span><span class="s1">[</span><span class="s2">coming in v6.0</span><span class="s1">]</span><span class="s2">`</span>
+
+<span class="s1">_</span><span class="s2">Details coming soon ...</span><span class="s1">_</span>
+
+<span class="s0">--------------------------------------------------------------------------------------------------------------------</span>
+
+<span class="s0">## </span><span class="s2">FAQ</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">How do I transfer my data to another computer?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">Install Hired</span><span class="s1">! </span><span class="s2">on the other computer and overwrite the empty data file it creates with the data file from your previous Hired</span><span class="s1">! </span><span class="s2">home folder.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">Why does `find`/`findnote` say invalid format when I type only the command word?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">Both commands require at least one keyword. For example, use `find engineer` or `findnote recruiter`.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">Why does `delete 1` remove a whole application instead of one field?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">`delete` removes the entire application record at the displayed index. To change only one field, use `edit`, `status`, or `deadline`.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">Why are reminder colors not shown right after app startup?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">Reminder highlighting is disabled by default. Run `reminder` once to enable and persist highlighting behavior.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">Why did `openresume` fail even though I attached a resume before?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">Hired</span><span class="s1">! </span><span class="s2">stores only the file path reference, not a copy of the actual file. If the file was moved, renamed, deleted, or is no longer accessible, `openresume` may fail.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">Why do reminder colors not update automatically at the exact deadline time?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">Reminder color updates are not driven by a background timer. The UI updates those colors when the relevant application card or list is re-rendered, such as after running `reminder` again.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">Why does the same index refer to a different application after `find`, `findnote`, `sort`, or `list`?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">Index-based commands always use the </span><span class="s1">**</span><span class="s2">currently displayed list</span><span class="s1">**</span><span class="s2">. When the displayed list changes, the index of an application may also change.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">Does `resume` store my actual resume file inside the app?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">No. Hired</span><span class="s1">! </span><span class="s2">stores only a reference to the file path you provided.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">Can I use relative file paths for `resume`?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">Yes, as long as the file path points to an existing `.pdf`, `.doc`, or `.docx` file that your system can access.</span>
+
+<span class="s1">**</span><span class="s2">Q</span><span class="s1">**: </span><span class="s2">What is the difference between `deadline` and assessment time?</span><span class="s1">&lt;br&gt;</span>
+<span class="s1">**</span><span class="s2">A</span><span class="s1">**: </span><span class="s2">`deadline` refers to the application or interview-related deadline used by `reminder` and `sort time`. Assessment time is stored separately inside the online assessment event and does not replace the application's deadline field.</span>
+<span class="s0">--------------------------------------------------------------------------------------------------------------------</span>
+
+<span class="s0">## </span><span class="s2">Known issues</span>
+
+<span class="s0">* </span><span class="s1">**</span><span class="s2">When using multiple screens</span><span class="s1">**</span><span class="s2">, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.</span>
+<span class="s0">* </span><span class="s1">**</span><span class="s2">If you minimize the Help Window</span><span class="s1">** </span><span class="s2">and then run the `help` command </span><span class="s1">(</span><span class="s2">or use the `Help` menu, or the keyboard shortcut `F1`</span><span class="s1">) </span><span class="s2">again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.</span>
+<span class="s0">* </span><span class="s1">**</span><span class="s2">Displayed indexes are context-dependent</span><span class="s1">**: </span><span class="s2">index-based commands </span><span class="s1">(</span><span class="s2">`edit`, `delete`, `status`, `deadline`, etc.</span><span class="s1">) </span><span class="s2">act on the currently displayed list. After `find`, `findnote`, `sort`, or `list`, the same index may refer to a different application.</span>
+<span class="s0">* </span><span class="s1">**</span><span class="s2">Reminder color updates are not timer-driven</span><span class="s1">**: </span><span class="s2">when real time crosses a deadline minute, colors update on UI refresh actions </span><span class="s1">(</span><span class="s2">e.g., selecting a card, re-running `reminder`, or other list re-render triggers</span><span class="s1">)</span><span class="s2">, not by a background timer.</span>
+<span class="s0">* </span><span class="s1">**</span><span class="s2">Date-only deadlines are day-based</span><span class="s1">**: </span><span class="s2">`yyyy-MM-dd` deadlines are compared at the date level, while `yyyy-MM-dd HH</span><span class="s1">:</span><span class="s2">mm` uses minute-level comparison.</span>
+
+<span class="s0">--------------------------------------------------------------------------------------------------------------------</span>
+<span class="s0">## </span><span class="s2">What you can do with Hired</span><span class="s1">!</span>
+
+<span class="s2">With Hired</span><span class="s1">!</span><span class="s2">, you can</span><span class="s1">:</span>
+<span class="s0">* </span><span class="s2">add and manage internship applications from multiple companies</span>
+<span class="s0">* </span><span class="s2">record contact details and notes for each application</span>
+<span class="s0">* </span><span class="s2">track application progress using statuses such as `APPLIED` and `INTERVIEWING`</span>
+<span class="s0">* </span><span class="s2">set deadlines and quickly identify urgent applications</span>
+<span class="s0">* </span><span class="s2">attach a resume file reference to each application</span>
+<span class="s0">* </span><span class="s2">record online assessment details and open them from the application card</span>
+<span class="s0">* </span><span class="s2">undo and redo recent changes during active usage</span>
+
+<span class="s0">## </span><span class="s2">Command summary</span>
+
+<span class="s1">Action </span><span class="s0">| </span><span class="s1">Format, Examples</span>
+<span class="s0">--------|------------------</span>
+<span class="s1">**Add** </span><span class="s0">| </span><span class="s1">`add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG]... [note/NOTE]` &lt;br&gt; e.g. `add r/Data Analyst p/92345678 e/recruitment@meta.com c/Meta l/Singapore t/applied note/Met recruiter at career fair`</span>
+<span class="s1">**Clear** </span><span class="s0">| </span><span class="s1">`clear`</span>
+<span class="s1">**Delete** </span><span class="s0">| </span><span class="s1">`delete INDEX`&lt;br&gt; e.g. `delete 3`</span>
+<span class="s1">**Edit** </span><span class="s0">| </span><span class="s1">`edit INDEX [r/ROLE] [p/PHONE] [e/EMAIL] [c/COMPANY_NAME] [l/COMPANY_LOCATION] [t/TAG]... [s/STATUS] [d/DEADLINE] [note/NOTE]`&lt;br&gt; e.g. `edit 1 s/OFFERED d/2026-12-31 23:59 note/Follow up next Monday`</span>
+<span class="s1">**Find** </span><span class="s0">| </span><span class="s1">`find KEYWORD [MORE_KEYWORDS]`&lt;br&gt; e.g. `find engineer backend`</span>
+<span class="s1">**Find Note** </span><span class="s0">| </span><span class="s1">`findnote KEYWORD [MORE_KEYWORDS]`&lt;br&gt; e.g. `findnote recruiter follow`</span>
+<span class="s1">**List** </span><span class="s0">| </span><span class="s1">`list`</span>
+<span class="s1">**Status** </span><span class="s0">| </span><span class="s1">`status INDEX s/STATUS` &lt;br&gt; e.g. `status 2 s/offered`</span>
+<span class="s1">**Deadline** </span><span class="s0">| </span><span class="s1">`deadline INDEX DATE_TIME` &lt;br&gt; e.g. `deadline 1 2026-12-31 23:59`</span>
+<span class="s1">**Reminder** </span><span class="s0">| </span><span class="s1">`reminder` &lt;br&gt; Re-sorts by deadline (nearest first) and highlights the `role` color based on current local time: red within 3 days (incl. today), orange if overdue, default is white.</span>
+<span class="s1">**Sort** </span><span class="s0">| </span><span class="s1">`sort [CRITERION]` &lt;br&gt; CRITERION: `time` or `alphabet` &lt;br&gt; e.g. `sort time`, `sort alphabet`</span>
+<span class="s1">**Undo** </span><span class="s0">| </span><span class="s1">`undo` &lt;br&gt; Reverts the most recent data-modifying command (up to 10 steps).</span>
+<span class="s1">**Redo** </span><span class="s0">| </span><span class="s1">`redo` &lt;br&gt; Reapplies the most recently undone command.</span>
+<span class="s1">**Resume** </span><span class="s0">| </span><span class="s1">`resume INDEX rp/RESUME_PATH` &lt;br&gt; Attaches a resume to a specific application.</span>
+<span class="s1">**Open Resume** </span><span class="s0">| </span><span class="s1">`openresume INDEX` &lt;br&gt; Opens a resume of a specific application.</span>
+<span class="s1">**Remove Resume** </span><span class="s0">| </span><span class="s1">`removeresume INDEX` &lt;br&gt; Removes a resume of a specific application.</span>
+<span class="s1">**Assessment** </span><span class="s0">| </span><span class="s1">`assessment INDEX el/LOCATION et/DATE_TIME ap/PLATFORM al/LINK` &lt;br&gt; e.g. `assessment 1 el/home et/2026-03-24 10:00 ap/HackerRank al/www.hackerrank.com`</span>
+<span class="s1">**Interview** </span><span class="s0">| </span><span class="s1">`interview INDEX el/LOCATION et/DATE_TIME [in/INTERVIEWER_NAME] [it/INTERVIEW_TYPE]` &lt;br&gt; e.g. `interview 1 el/Google HQ et/2026-05-10 14:00 in/John Doe it/technical`</span>
+<span class="s1">**Remove Event** </span><span class="s0">| </span><span class="s1">`removeevent INDEX` &lt;br&gt; e.g. `removeevent 1`</span>
+<span class="s1">**Exit** </span><span class="s0">| </span><span class="s1">`exit`</span>
+<span class="s1">**Help** </span><span class="s0">| </span><span class="s1">`help`</span>
+
+
+<span class="s0">## </span><span class="s2">Future Improvement</span>
+
+<span class="s0">1. </span><span class="s2">Add richer filter commands </span><span class="s1">(</span><span class="s2">e.g., by status, company, deadline range, and reminder state</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">2. </span><span class="s2">Support export/import profiles for easier migration and backup workflows.</span>
+<span class="s0">3. </span><span class="s2">Add optional automatic reminder refresh strategy </span><span class="s1">(</span><span class="s2">without requiring manual UI refresh actions</span><span class="s1">)</span><span class="s2">.</span>
+<span class="s0">4. </span><span class="s2">Provide clearer in-app error hints with concrete correction examples for invalid command input.</span>
+</pre>
+</body>
+</html>
