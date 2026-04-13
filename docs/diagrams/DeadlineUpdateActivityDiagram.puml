@@ -7,16 +7,16 @@ start
 :User enters deadline command;
 :Parse index and deadline;
 
-if (valid command?) then (yes)
+if () then ([valid command])
   :Find target application;
-  if (index in range?) then (yes)
+  if () then ([index in range])
     :Update deadline;
     :Commit application state;
     :Show success message;
-  else (no)
+  else ([index out of range])
     :Show invalid index error;
   endif
-else (no)
+else ([invalid command])
   :Show format error;
 endif
 
