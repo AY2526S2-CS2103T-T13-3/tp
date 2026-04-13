@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPLICATION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_APPLICATION;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -132,6 +134,34 @@ public class ResumeCommandTest {
 
         assertFalse(firstCommand.equals(1));
         assertFalse(firstCommand.equals(null));
+        assertFalse(firstCommand.equals(secondCommand));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Resume resume = new Resume("valid_resume.pdf");
+        ResumeCommand command = new ResumeCommand(INDEX_FIRST_APPLICATION, resume);
+
+        String expected = ResumeCommand.class.getCanonicalName()
+                + "{index=" + INDEX_FIRST_APPLICATION + ", resume=" + resume + "}";
+
+        assertEquals(expected, command.toString());
+    }
+
+    @Test
+    public void equals_sameIndexDifferentResume_false() {
+        ResumeCommand firstCommand = new ResumeCommand(INDEX_FIRST_APPLICATION, new Resume("resume1.pdf"));
+        ResumeCommand secondCommand = new ResumeCommand(INDEX_FIRST_APPLICATION, new Resume("resume2.pdf"));
+
+        assertFalse(firstCommand.equals(secondCommand));
+    }
+
+    @Test
+    public void equals_differentIndexSameResume_false() {
+        Resume resume = new Resume("resume.pdf");
+        ResumeCommand firstCommand = new ResumeCommand(INDEX_FIRST_APPLICATION, resume);
+        ResumeCommand secondCommand = new ResumeCommand(INDEX_SECOND_APPLICATION, resume);
+
         assertFalse(firstCommand.equals(secondCommand));
     }
 
