@@ -8,12 +8,12 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPLICATION;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.application.Application;
 import seedu.address.model.application.Deadline;
-import seedu.address.logic.Messages;
 
 public class DeadlineCommandTest {
 

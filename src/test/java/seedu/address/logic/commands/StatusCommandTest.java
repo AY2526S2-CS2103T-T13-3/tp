@@ -78,7 +78,8 @@ class StatusCommandTest {
                         .withStatus(status)
                         .build();
 
-                String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, Messages.format(updatedApplication));
+                String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS,
+                        Messages.format(updatedApplication));
 
                 Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
                 expectedModel.setApplication(applicationToUpdate, updatedApplication);
