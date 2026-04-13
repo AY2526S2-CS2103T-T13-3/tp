@@ -305,7 +305,7 @@ Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG].
 > * `l/` (optional) is used for the company location.
 >
 > **Email format:** `e/` must be a valid email address in the form `name@example.com`.
-> 
+>
 >  Phone numbers are intentionally not restricted to a fixed length, as valid phone number lengths and formats vary across countries.
 >
 > Applications are considered duplicates (and cannot be added) only when they have the same identity:
@@ -506,7 +506,7 @@ These rules apply when the deadline includes a **time** (minute precision).
 * **No background timer:** The UI does **not** auto-flip colors at the exact second. When real time crosses into “overdue”, refresh colors by either:
     * clicking that application’s **card** (the big row for that `INDEX`), **or**
     * running **`reminder`** again.
-* **What this refreshes:** Colors only (to show overdue vs urgent). 
+* **What this refreshes:** Colors only (to show overdue vs urgent).
 
 #### Reminder-specific `undo` / `redo` behaviour
 
@@ -567,8 +567,8 @@ Format: `sort CRITERION`
     **Example A — `sort alphabet`**
 
     1. **Before** `sort alphabet` (top → bottom):
-       1. `Software Engineer` — Google  
-       2. `Software Engineer` — Meta  
+       1. `Software Engineer` — Google
+       2. `Software Engineer` — Meta
        3. `Data Analyst` — …
     2. **After** `sort alphabet`:
     * `Data Analyst` moves to the top (alphabetically before “Software Engineer”).
