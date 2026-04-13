@@ -1,0 +1,29 @@
+@startuml
+participant LogicManager
+participant AddressBookParser
+participant ResumeCommandParser
+participant ResumeCommand
+participant Model
+
+LogicManager -> AddressBookParser : parseCommand("resume ...")
+AddressBookParser -> ResumeCommandParser : parse(args)
+
+ResumeCommandParser -> ResumeCommandParser : tokenize(args, rp/)
+ResumeCommandParser -> ResumeCommandParser : parseIndex()
+ResumeCommandParser -> ResumeCommandParser : ParserUtil.parseResume(...)
+ResumeCommandParser -> ResumeCommand : new ResumeCommand(index, resume)
+
+LogicManager -> ResumeCommand : execute(model)
+
+ResumeCommand -> Model : getFilteredApplicationList()
+Model --> ResumeCommand : lastShownList
+
+ResumeCommand -> ResumeCommand : validate file path\nFiles.exists(Path.of(resume.value))
+
+ResumeCommand -> ResumeCommand : create updatedApplication
+
+ResumeCommand -> Model : setApplication(old, updated)
+ResumeCommand -> Model : commitAddressBook()
+
+ResumeCommand --> LogicManager : CommandResult
+@enduml

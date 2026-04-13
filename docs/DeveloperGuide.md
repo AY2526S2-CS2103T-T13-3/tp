@@ -357,6 +357,28 @@ How the `edit` command works (high-level):
 1. `EditCommand` updates the target via `Model#setApplication(...)` and commits via `Model#commitAddressBook()`.
 1. A `CommandResult` is returned to the UI through `LogicManager`.
 
+## Status Feature
+
+The sequence diagram below shows the main interactions for `status`.
+
+![Status Feature Sequence](images/StatusSequence.png)
+
+The class diagram below shows the main structure for `status`.
+
+![Status Feature Class](images/StatusClass.png)
+
+How the `status` command works (high-level):
+
+1. `LogicManager` receives the user input and forwards it to `AddressBookParser`.
+2. `AddressBookParser` creates a `StatusCommandParser` to parse the arguments.
+3. `StatusCommandParser` extracts the index and validates the provided status.
+4. A `StatusCommand` object is created with the parsed values.
+5. `StatusCommand` retrieves the target application from Model `getFilteredApplicationList()`.
+6. A new `Application` object is constructed with the updated status.
+7. The updated application replaces the original via Model `setApplication(...)`.
+8. The change is persisted using Model `commitAddressBook()`.
+9. A `CommandResult` is returned to the `UI`.
+
 ## Deadline Feature
 
 The sequence diagram below shows the command flow for `deadline`.
@@ -378,6 +400,29 @@ How the `deadline` command works (high-level):
 1. `DeadlineCommandParser` parses index and deadline string into a `DeadlineCommand`.
 1. `DeadlineCommand` replaces only the deadline-related part of the target `Application`.
 1. `Model#setApplication(...)` and `Model#commitAddressBook()` persist the state change.
+
+## Resume Feature
+
+The sequence diagram below shows the main interactions for `resume`.
+
+![Resume Feature Sequence](images/ResumeSequence.png)
+
+The class diagram below shows the main structure for `status`.
+
+![Resume Feature Class](images/ResumeClass.png)
+
+How the `resume` command works (high-level):
+
+1. `LogicManager` receives the user input and forwards it to `AddressBookParser`.
+2. `AddressBookParser` creates a `ResumeCommandParser` to parse the arguments.
+3. `ResumeCommandParser` extracts the index and parses the resume path into a `Resume` object.
+4. A `ResumeCommand` object is created with the parsed index and resume.
+5. `ResumeCommand` retrieves the target application from Model `getFilteredApplicationList()`.
+6. The command validates that the specified resume file path exists and is a valid path.
+7. A new `Application` object is constructed with the updated resume.
+8. The updated application replaces the original via Model `setApplication(...)`.
+9. The updated state is persisted using Model `commitAddressBook()`.
+10. A `CommandResult` is returned to the `UI`.
 
 ### Why this level of detail
 

@@ -1,0 +1,28 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package Logic {
+    class StatusCommandParser
+    abstract class Command
+    class StatusCommand
+    interface Model
+}
+
+package Model {
+    class Application
+    class Status
+}
+
+StatusCommandParser ..> StatusCommand : <<create>>
+StatusCommand -|> Command
+
+StatusCommand ..> Model : <<call>>
+StatusCommand ..> Application : updates
+Application *-- Status : has
+
+note right of StatusCommand
+Uses Model#getFilteredApplicationList()
+Uses Model#setApplication(...)
+Uses Model#commitAddressBook()
+end note
+@enduml

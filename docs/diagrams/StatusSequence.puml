@@ -1,0 +1,28 @@
+@startuml
+participant LogicManager
+participant AddressBookParser
+participant StatusCommandParser
+participant StatusCommand
+participant Model
+
+LogicManager -> AddressBookParser : parseCommand("status ...")
+AddressBookParser -> StatusCommandParser : parse(args)
+
+StatusCommandParser -> StatusCommandParser : tokenize(args)
+StatusCommandParser -> StatusCommandParser : parseIndex()
+StatusCommandParser -> StatusCommandParser : parseStatus()
+
+StatusCommandParser -> StatusCommand : new StatusCommand(index, status)
+
+LogicManager -> StatusCommand : execute(model)
+
+StatusCommand -> Model : getFilteredApplicationList()
+Model --> StatusCommand : lastShownList
+
+StatusCommand -> StatusCommand : create updatedApplication
+
+StatusCommand -> Model : setApplication(old, updated)
+StatusCommand -> Model : commitAddressBook()
+
+StatusCommand --> LogicManager : CommandResult
+@enduml

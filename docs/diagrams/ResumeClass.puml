@@ -1,0 +1,27 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package Logic {
+    class ResumeCommandParser
+    abstract class Command
+    class ResumeCommand
+    interface Model
+}
+
+package Model {
+    class Application
+    class Resume
+}
+
+class ParserUtil
+
+ResumeCommandParser ..> ResumeCommand : <<create>>
+ResumeCommand -|> Command
+
+ResumeCommandParser ..> ParserUtil : <<call>>
+ParserUtil ..> Resume : parseResume(...)
+
+ResumeCommand ..> Model : <<call>>
+ResumeCommand ..> Application : updates
+Application *-- Resume : has
+@enduml
