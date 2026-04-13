@@ -708,63 +708,91 @@ testers are expected to do more *exploratory* testing.
 
 </div>
 
-### Handling missing or corrupted data files
-
-1. Missing data file
-
-    1. Ensure the application has been launched at least once, then close it.
-    2. Navigate to the folder containing the data file and delete the data file.
-    3. Launch the application again.
-
-   Expected: The application should start normally and create a new data file populated with sample data or an empty dataset.
-
-2. Corrupted data file
-
-    1. Ensure the application has been launched at least once, then close it.
-    2. Open the data file in a text editor.
-    3. Modify the file so that it is no longer valid JSON, for example by deleting a closing brace.
-    4. Save the file and launch the application again.
-
-   Expected: The application should detect that the file is corrupted, warn the user that the data file is not in the correct format, and start with sample data or an empty dataset instead of crashing.
-
 ### Launch and shutdown
 
 1. Initial launch
+    1. Download the `.jar` and place it in an empty folder.
+    2. Run `java -jar hired.jar`.
+    3. Verify the main window is shown and sample applications are loaded.
 
-    1. Download the jar file and copy into an empty folder
+2. Window preference persistence
+    1. Resize and move the window, then close the app.
+    2. Launch again.
+    3. Verify the previous window size and position are restored.
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+3. Graceful exit
+    1. Run `exit`.
+    2. Verify the application closes without errors.
 
-1. Saving window preferences
+### Core command flows
 
-    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+1. Add, list, edit, delete
+    1. Run:
+       * `add r/Software Engineer p/98765432 e/hr@example.com c/Google`
+       * `list`
+       * `edit 1 d/2026-12-31 note/Follow up next week`
+       * `delete 1`
+    2. Verify each command shows success feedback and list updates accordingly.
 
-    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+2. Invalid index handling
+    1. Run `list` then try `edit 0 r/Test`, `delete 999`, `deadline 999 2026-12-31`.
+    2. Verify index-related error messages are shown and data remains unchanged.
 
-1. _{ more test cases …​ }_
+3. Find and findnote
+    1. Add at least two applications with different roles/notes.
+    2. Run `find engineer` and `findnote follow`.
+    3. Verify only matching applications are shown.
 
-### Deleting a person
+4. Status, deadline, reminder, sort
+    1. Run:
+       * `status 1 s/OFFERED`
+       * `deadline 1 2026-12-31 23:59`
+       * `sort time`
+       * `reminder`
+    2. Verify:
+       * status changes and is reflected in UI,
+       * deadline is updated,
+       * sort ordering changes as expected,
+       * reminder enables urgency highlighting behavior.
 
-1. Deleting a person while all persons are being shown
+5. Undo and redo
+    1. Execute two state-changing commands (e.g., `add`, `edit`).
+    2. Run `undo` twice, then `redo` once.
+    3. Verify list/data state transitions are correct.
+    4. Run `undo` repeatedly at earliest state and verify proper error is shown.
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+### Resume and event features
 
-    1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+1. Resume attach/open/remove
+    1. Prerequisite: one valid local file path to `.pdf`, `.doc`, or `.docx`.
+    2. Run:
+       * `resume 1 rp/<ABSOLUTE_PATH>`
+       * `openresume 1`
+       * `removeresume 1`
+    3. Verify attach/remove feedback is correct and `openresume` opens via OS default handler.
 
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
+2. Assessment add/remove
+    1. Run:
+       * `assessment 1 el/home et/2026-03-24 10:00 ap/HackerRank al/www.hackerrank.com`
+       * `removeevent 1`
+    2. Verify event is added/removed correctly and related UI updates accordingly.
+    3. Negative case: run `removeevent 1` again and verify error is shown.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Auto-save on state-changing commands
+    1. Run `add ...` (any valid add).
+    2. Close the app and relaunch.
+    3. Verify the added data persists.
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+2. Missing data file recovery
+    1. Launch once and close the app.
+    2. Delete `data/applicationList.json`.
+    3. Relaunch the app.
+    4. Verify app starts normally and recreates data file (with seed/empty data according to current behavior).
 
-1. _{ more test cases …​ }_
+3. Corrupted data file handling
+    1. Launch once and close the app.
+    2. Edit `data/applicationList.json` into invalid JSON (e.g., remove a closing brace).
+    3. Relaunch the app.
+    4. Verify app does not crash and reports file format issue appropriately.
