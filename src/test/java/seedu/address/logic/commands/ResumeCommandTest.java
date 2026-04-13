@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -65,7 +66,7 @@ public class ResumeCommandTest {
         Application expected = createApplication(resumePath.toString());
 
         assertEquals(
-                String.format(ResumeCommand.MESSAGE_SUCCESS, expected),
+                String.format(ResumeCommand.MESSAGE_SUCCESS, Messages.format(expected)),
                 result.getFeedbackToUser()
         );
         assertEquals(expected, model.applicationSet);

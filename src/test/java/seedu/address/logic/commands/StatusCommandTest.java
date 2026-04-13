@@ -40,7 +40,7 @@ class StatusCommandTest {
                 .withStatus(newStatus)
                 .build();
 
-        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
+        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, Messages.format(updatedApplication));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setApplication(applicationToUpdate, updatedApplication);
@@ -78,7 +78,7 @@ class StatusCommandTest {
                         .withStatus(status)
                         .build();
 
-                String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
+                String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, Messages.format(updatedApplication));
 
                 Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
                 expectedModel.setApplication(applicationToUpdate, updatedApplication);
@@ -156,7 +156,7 @@ class StatusCommandTest {
                 .withStatus(Status.OFFERED)
                 .build();
 
-        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
+        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, Messages.format(updatedApplication));
 
         Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
         expectedModel.setApplication(applicationToUpdate, updatedApplication);
@@ -177,7 +177,7 @@ class StatusCommandTest {
                 .withStatus(Status.REJECTED)
                 .build();
 
-        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, updatedApplication);
+        String expectedMessage = String.format(StatusCommand.MESSAGE_SUCCESS, Messages.format(updatedApplication));
 
         Model expectedModel = new ModelManager(testModel.getAddressBook(), new UserPrefs());
         expectedModel.setApplication(applicationToUpdate, updatedApplication);

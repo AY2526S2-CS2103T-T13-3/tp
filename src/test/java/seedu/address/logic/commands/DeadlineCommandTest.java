@@ -13,6 +13,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.application.Application;
 import seedu.address.model.application.Deadline;
+import seedu.address.logic.Messages;
 
 public class DeadlineCommandTest {
 
@@ -31,7 +32,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand = new DeadlineCommand(INDEX_FIRST_APPLICATION, newDeadline);
 
-        String expectedMessage = "Deadline updated for: " + editedApp.getCompany();
+        String expectedMessage = String.format(DeadlineCommand.MESSAGE_SUCCESS, Messages.format(editedApp));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setApplication(firstApp, editedApp);

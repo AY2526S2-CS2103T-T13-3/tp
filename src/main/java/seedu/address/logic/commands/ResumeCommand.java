@@ -92,7 +92,7 @@ public class ResumeCommand extends Command {
         model.commitAddressBook();
 
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, editedApplication)
+                String.format(MESSAGE_SUCCESS, Messages.format(editedApplication))
         );
     }
 

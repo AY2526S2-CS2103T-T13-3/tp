@@ -724,6 +724,11 @@ testers are expected to do more *exploratory* testing.
     1. Run `exit`.
     2. Verify the application closes without errors.
 
+4. Close from window controls
+    1. Launch the app and close it via the window close button (`X`).
+    2. Relaunch the app.
+    3. Verify the app starts normally and previous window preferences are still applied.
+
 ### Core command flows
 
 1. Add, list, edit, delete
@@ -796,3 +801,8 @@ testers are expected to do more *exploratory* testing.
     2. Edit `data/applicationList.json` into invalid JSON (e.g., remove a closing brace).
     3. Relaunch the app.
     4. Verify app does not crash and reports file format issue appropriately.
+
+4. Save failure due to insufficient write permissions (optional, OS-dependent)
+    1. Make the `data` folder or `applicationList.json` non-writable for the current user.
+    2. Launch the app and run any state-changing command (e.g., `edit`, `status`).
+    3. Verify an error is shown indicating data cannot be saved due to file permission issues.
