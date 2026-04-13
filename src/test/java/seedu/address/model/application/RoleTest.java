@@ -22,20 +22,30 @@ public class RoleTest {
     @Test
     public void isValidRole() {
         // null role
-        assertThrows(NullPointerException.class, () -> seedu.address.model.application.Role.isValidRole(null));
+        assertThrows(NullPointerException.class, () -> Role.isValidRole(null));
 
         // invalid role
-        assertFalse(seedu.address.model.application.Role.isValidRole("")); // empty string
-        assertFalse(seedu.address.model.application.Role.isValidRole(" ")); // spaces only
-        assertFalse(seedu.address.model.application.Role.isValidRole("^")); // only non-alphanumeric characters
-        assertFalse(seedu.address.model.application.Role.isValidRole("peter*")); // contains non-alphanumeric characters
+        assertFalse(Role.isValidRole("")); // empty string
+        assertFalse(Role.isValidRole(" ")); // spaces only
+        assertFalse(Role.isValidRole("^")); // only unsupported special characters
+        assertFalse(Role.isValidRole("peter*")); // contains unsupported special characters
+        assertFalse(Role.isValidRole(" Developer")); // starts with whitespace
 
         // valid role
-        assertTrue(seedu.address.model.application.Role.isValidRole("peter jack")); // alphabets only
-        assertTrue(seedu.address.model.application.Role.isValidRole("12345")); // numbers only
-        assertTrue(seedu.address.model.application.Role.isValidRole("peter the 2nd")); // alphanumeric characters
-        assertTrue(seedu.address.model.application.Role.isValidRole("Capital Tan")); // with capital letters
-        assertTrue(seedu.address.model.application.Role.isValidRole("David Roger Jackson Ray Jr 2nd")); // long roles
+        assertTrue(Role.isValidRole("peter jack")); // alphabets only
+        assertTrue(Role.isValidRole("12345")); // numbers only
+        assertTrue(Role.isValidRole("peter the 2nd")); // alphanumeric characters
+        assertTrue(Role.isValidRole("Capital Tan")); // with capital letters
+        assertTrue(Role.isValidRole("David Roger Jackson Ray Jr 2nd")); // long roles
+
+        // valid role with common symbols
+        assertTrue(Role.isValidRole("Front-End Engineer")); // hyphen
+        assertTrue(Role.isValidRole("C++ Developer")); // plus
+        assertTrue(Role.isValidRole("QA/Test Engineer")); // slash
+        assertTrue(Role.isValidRole("R&D Intern")); // ampersand
+        assertTrue(Role.isValidRole("SWE Intern (Backend)")); // parentheses
+        assertTrue(Role.isValidRole("L1 Support Engineer")); // mixed letters and numbers
+        assertTrue(Role.isValidRole("C# Developer")); // hash
     }
 
     @Test

@@ -61,7 +61,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
-    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "James&"; // '&' not allowed in roles
+    public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "James*"; // '*' not allowed in roles
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_HREMAIL_DESC = " " + PREFIX_HREMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY_NAME;
