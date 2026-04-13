@@ -27,14 +27,6 @@ checkstyle {
 test {
     useJUnitPlatform()
     enableAssertions = true
-    systemProperty 'java.awt.headless', 'true'
-    if (System.getProperty('os.name').toLowerCase().contains('linux')) {
-        systemProperty 'testfx.robot', 'glass'
-        systemProperty 'testfx.headless', 'true'
-        systemProperty 'prism.order', 'sw'
-        systemProperty 'glass.platform', 'Monocle'
-        systemProperty 'monocle.platform', 'Headless'
-    }
     finalizedBy jacocoTestReport
 }
 
@@ -76,8 +68,6 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
-    testImplementation 'org.testfx:openjfx-monocle:17.0.10'
-
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 

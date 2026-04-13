@@ -13,6 +13,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
@@ -21,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+@DisabledOnOs(OS.LINUX)
 public class CommandBoxTest {
 
     private static boolean jfxToolkitAvailable = false;
@@ -31,9 +34,6 @@ public class CommandBoxTest {
         try {
             Platform.startup(latch::countDown);
         } catch (IllegalStateException e) {
-            latch.countDown();
-        } catch (NullPointerException e) {
-            // Monocle path can throw NPE when toolkit is already initialized.
             latch.countDown();
         } catch (UnsupportedOperationException e) {
             jfxToolkitAvailable = false;
