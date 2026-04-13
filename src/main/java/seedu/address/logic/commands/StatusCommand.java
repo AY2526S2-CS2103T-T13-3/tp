@@ -73,7 +73,8 @@ public class StatusCommand extends Command {
                 status,
                 applicationToEdit.getDeadline(),
                 applicationToEdit.getApplicationEvent(),
-                applicationToEdit.getNote());
+                applicationToEdit.getNote(),
+                applicationToEdit.getResume());
 
         model.setApplication(applicationToEdit, updatedApplication);
         model.commitAddressBook();
