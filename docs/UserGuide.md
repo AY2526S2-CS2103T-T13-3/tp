@@ -807,6 +807,12 @@ _Details coming soon ..._
 * **Limited Near-Duplicate Detection for Companies**: When adding new applications, the system currently prevents exact duplicates (ignoring case and extra spaces in between). However, it does not detect near-duplicates with slight variations in the company name.<br/>
 For example: Adding an application for "GSK" and another for "GSK plc" (with the same role and company location) will be treated as two completely separate entries without any warning.<br/>
 Workaround: For now, users are advised to be consistent with their naming conventions (e.g., choosing to either always include or always exclude suffixes like "Pte Ltd" or "LLC"). Enhancing this with fuzzy matching is planned for a future release to better help users avoid accidental double-entries.
+* **Inconsistent Parameter Support Between add and edit**:
+  Currently, the add command is designed to be lightweight, focusing only on the foundational details of an application (Role, Phone, Email, Company, Note, and Tags). Therefore, it does not accept the Status (s/) or Deadline (d/) prefixes during the initial creation.
+
+Impact: Applications are strictly initialized with a default status of APPLIED and no deadline.
+
+Workaround: As mentioned in our Command Tips, Hired! provides flexible ways to update these fields post-creation. You can immediately append a status or deadline using their dedicated commands (e.g., status 1 s/OFFERED) or by utilizing the general edit command (e.g., edit 1 s/OFFERED d/2026-04-10).
 
 --------------------------------------------------------------------------------------------------------------------
 ## What you can do with Hired!

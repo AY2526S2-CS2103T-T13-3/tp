@@ -18,7 +18,7 @@ import seedu.address.model.application.Deadline;
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the deadline for an application.\n"
-            + "Example: " + COMMAND_WORD + " 1 2026-12-31 23:59"
+            + "Example: " + COMMAND_WORD + " 1 2026-12-31 23:59\n"
             + "Parameters: INDEX (must be a positive integer) DATE_TIME\n";
 
     private final Index index;
