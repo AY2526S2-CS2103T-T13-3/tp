@@ -6,7 +6,7 @@ title: User Guide
 # Hired!
 A **desktop app for managing internship applications**, optimized for use via a Command Line Interface (CLI) while still providing the benefits of a Graphical User Interface (GUI).
 
-## Who Hired! is for
+## Who Hired!
 
 Hired! is designed for students and jobseekers who are applying to multiple internship roles at the same time and prefer working with keyboard-friendly tools.
 
@@ -89,7 +89,7 @@ This guide focuses on the commands and behaviours that matter most during normal
    In case you are curious about how to deal with `cd`, here is [a simple tutorial](https://www.ibm.com/docs/en/aix/7.1.0?topic=directories-changing-another-directory-cd-command).<br>
    A GUI similar to the one below should appear in a few seconds. Note that the app contains some sample application records.<br>
    Moreover, it is normal to see some warning messages printed on your terminal.<br>
-   ![Ui](images/Ui_current.png)
+   <img src="images/Ui.png" width="700">
 
 5. Type the command in the command box and press Enter to execute it. For example, typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try to have a taste of **Hired!**:
@@ -107,7 +107,7 @@ This guide focuses on the commands and behaviours that matter most during normal
 
 After launching Hired!, you will mainly interact with these parts of the app:
 
-![Ui](images/Ui_current.png)
+<img src="images/Ui.png" width="500">
 
 ### Command box
 This is where you type commands such as `add`, `find`, `deadline`, or `status`.
@@ -538,6 +538,21 @@ This subsection explains how **`reminder`** interacts with **`undo`** and **`red
 | 3 | `reminder` `reminder` `reminder` … | If the sorted order **does not** change, these may create **no** new undo step. |
 | 4 | `undo` | Undoes the **last command that actually wrote to undo history** — often step 2’s `add`, so the new row disappears; **highlighting can stay on** because those `reminder`s did not add a separate step to undo. |
 | 5 | `redo` | Re-applies what step 4 undid (e.g. restores the `add`). |
+
+**Walkthrough 3 — mixed “effective” and “no-op” `reminder` runs:**
+
+| Step | What you type | What happens (simplified) |
+|------|----------------|---------------------------|
+| 1 | `reminder` | Assume highlighting is already on and this run changes order → **effective** (creates a reminder undo step). |
+| 2 | `reminder` | Nothing meaningful changes (same order, highlighting already on) → **no-op** for undo history. |
+| 3 | `deadline 2 2026-12-01 10:00` | Data changes; creates its own undo step. |
+| 4 | `reminder` | Sorted order now changes because of step 3 → **effective** (creates another reminder undo step). |
+| 5 | `reminder` | Again no meaningful change → **no-op** for undo history. |
+| 6 | `undo` | Reverts step 4 (the latest **effective** reminder checkpoint), not step 5 (which had no new checkpoint). |
+| 7 | `undo` | Reverts step 3 (`deadline`). |
+| 8 | `undo` | Reverts step 1 (the earlier **effective** reminder checkpoint). |
+
+In short: if you interleave many `reminder` calls, `undo` only lands on the ones that actually created checkpoints (first-time enable or order changed).
 
 #### When `reminder` commits (undoable)
 
