@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPLICATION;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_APPLICATION;
 
 import java.nio.file.Path;
 import java.util.Comparator;
