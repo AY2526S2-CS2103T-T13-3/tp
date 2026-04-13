@@ -679,13 +679,13 @@ Related interactions with similar flow:
 2. If a command involves multiple steps, the operation must be atomic. Either both changes are made correctly, or no changes are saved at all.
 3. A tech-savvy user should be able to open the data file in a standard text editor and understand the relationships between companies and contacts.
 4. The system must be able to read and migrate data files produced by earlier versions of the same product within the same major version.
-5. The system should prevent the entry of _logically inconsistent_ data, such as an internship "Deadline" that predates the "Application Date."
+5. The application should prevent logically inconsistent or invalid data from being stored (e.g. unsupported status values or deadlines in an invalid format).
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Role**: The position/title applied for.
-* **Status**: The current progress state of an application (e.g. SAVED, APPLIED, OA, INTERVIEW, OFFER, REJECTED, WITHDRAWN).
+* **Status**: The current stage of an internship application (e.g. APPLIED, INTERVIEWING, OFFERED, REJECTED, WITHDRAWN).
 * **Company**: The organisation that offers the opportunity.
 * **Record**: The complete collection of information stored in the system about users submitting internship applications to enterprises.
 * **Industry Categorization**: The industry labels marked by users for enterprises (such as Internet, finance, manufacturing, etc.)
