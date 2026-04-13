@@ -15,7 +15,7 @@ title: Developer Guide
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
-
+ 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Design**
@@ -57,7 +57,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.)
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -80,7 +80,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Application` object residing in the `Model`.
 
 ### Logic component
 
@@ -104,10 +104,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -125,8 +125,8 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Application` objects (which are contained in a `UniqueApplicationList` object).
+* stores the currently 'selected' `Application` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -145,7 +145,7 @@ The `Storage` component,
 ### Common classes
 
 Classes used by multiple components are in the `seedu.address.commons` package.
-
+ 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Implementation**
@@ -244,11 +244,11 @@ The following sequence diagram shows how a `reminder` operation goes through the
 How the `reminder` command works:
 
 1. When the user enters a `reminder` command, `LogicManager` passes it to `AddressBookParser`.
-1. `AddressBookParser` creates a `ReminderCommand` object.
-1. `ReminderCommand` enables UI highlighting via `ReminderHighlightState`.
-1. `ReminderCommand` reads and updates `UserPrefs` to persist the reminder highlight toggle.
-1. `ReminderCommand` sorts the application list by deadline.
-1. `ReminderCommand` commits the updated application book state through `Model#commitAddressBook()`.
+2. `AddressBookParser` creates a `ReminderCommand` object.
+3. `ReminderCommand` enables UI highlighting via `ReminderHighlightState`.
+4. `ReminderCommand` reads and updates `UserPrefs` to persist the reminder highlight toggle.
+5. `ReminderCommand` sorts the application list by deadline.
+6. `ReminderCommand` commits the updated application book state through `Model#commitAddressBook()`.
 
 
 ## Sort Feature
@@ -260,12 +260,12 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `sort` command works:
 
 1. When the user enters a `sort` command, `LogicManager` passes it to `AddressBookParser`.
-1. `AddressBookParser` creates a `SortCommandParser` to parse command arguments.
-1. `SortCommandParser` validates and parses the sort criteria.
-1. A `SortCommand` object is created and executed.
-1. `SortCommand` selects a comparator based on the parsed criteria.
-1. `SortCommand` updates the sorted application list (`Model#updateSortedApplicationList(...)`).
-1. The updated application book state is committed through `Model#commitAddressBook()`.
+2. `AddressBookParser` creates a `SortCommandParser` to parse command arguments.
+3. `SortCommandParser` validates and parses the sort criteria.
+4. A `SortCommand` object is created and executed.
+5. `SortCommand` selects a comparator based on the parsed criteria.
+6. `SortCommand` updates the sorted application list (`Model#updateSortedApplicationList(...)`).
+7. The updated application book state is committed through `Model#commitAddressBook()`.
 
 ## Find Note Feature
 
@@ -282,14 +282,14 @@ The class diagram below shows the parsing-related structure for the `findnote` c
 How the `findnote` command works:
 
 1. When the user enters a `findnote` command, `LogicManager` passes it to `AddressBookParser`.
-1. `AddressBookParser` creates a `FindNoteCommandParser` to parse the command arguments.
-1. `FindNoteCommandParser` trims the input and checks that at least one keyword is provided.
-1. `FindNoteCommandParser` splits the input into individual keywords.
-1. A `NoteContainsKeywordsPredicate` is created using the parsed keywords.
-1. A `FindNoteCommand` object is created using the predicate and executed.
-1. `FindNoteCommand` calls `Model#updateFilteredApplicationList(predicate)`.
-1. The filtered application list is updated to show only applications whose notes contain any of the specified keywords.
-1. A `CommandResult` is returned through `LogicManager`.
+2. `AddressBookParser` creates a `FindNoteCommandParser` to parse the command arguments.
+3. `FindNoteCommandParser` trims the input and checks that at least one keyword is provided.
+4. `FindNoteCommandParser` splits the input into individual keywords.
+5. A `NoteContainsKeywordsPredicate` is created using the parsed keywords.
+6. A `FindNoteCommand` object is created using the predicate and executed.
+7. `FindNoteCommand` calls `Model#updateFilteredApplicationList(predicate)`.
+8. The filtered application list is updated to show only applications whose notes contain any of the specified keywords.
+9. A `CommandResult` is returned through `LogicManager`.
 
 #### Design considerations:
 
@@ -323,12 +323,12 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `add` command works:
 
 1. When the user enters an `add` command, `LogicManager` passes it to `AddressBookParser`.
-1. `AddressBookParser` creates an `AddCommandParser` to parse command arguments.
-1. `AddCommandParser` validates and parses fields (e.g., role, phone, email, company, and optional fields).
-1. An `AddCommand` object is created and executed.
-1. `AddCommand` checks whether the target application already exists (`Model#hasApplication`).
-1. If not duplicated, the new application is added (`Model#addApplication`).
-1. The updated application book state is committed through `Model#commitAddressBook()`.
+2. `AddressBookParser` creates an `AddCommandParser` to parse command arguments.
+3. `AddCommandParser` validates and parses fields (e.g., role, phone, email, company, and optional fields).
+4. An `AddCommand` object is created and executed.
+5. `AddCommand` checks whether the target application already exists (`Model#hasApplication`).
+6. If not duplicated, the new application is added (`Model#addApplication`).
+7. The updated application book state is committed through `Model#commitAddressBook()`.
 
 
 ## Delete Feature
@@ -352,10 +352,10 @@ core `Model` entities.
 How the `edit` command works (high-level):
 
 1. `LogicManager` forwards user input to `AddressBookParser`.
-1. `AddressBookParser` creates `EditCommandParser`, which parses index + provided fields.
-1. `EditCommand` validates index and duplicate constraints, then builds an updated `Application`.
-1. `EditCommand` updates the target via `Model#setApplication(...)` and commits via `Model#commitAddressBook()`.
-1. A `CommandResult` is returned to the UI through `LogicManager`.
+2. `AddressBookParser` creates `EditCommandParser`, which parses index + provided fields.
+3. `EditCommand` validates index and duplicate constraints, then builds an updated `Application`.
+4. `EditCommand` updates the target via `Model#setApplication(...)` and commits via `Model#commitAddressBook()`.
+5. A `CommandResult` is returned to the UI through `LogicManager`.
 
 ## Deadline Feature
 
@@ -375,9 +375,9 @@ The object diagram shows the before/after object state during an edit that chang
 How the `deadline` command works (high-level):
 
 1. `LogicManager` routes input to `AddressBookParser`, then `DeadlineCommandParser`.
-1. `DeadlineCommandParser` parses index and deadline string into a `DeadlineCommand`.
-1. `DeadlineCommand` replaces only the deadline-related part of the target `Application`.
-1. `Model#setApplication(...)` and `Model#commitAddressBook()` persist the state change.
+2. `DeadlineCommandParser` parses index and deadline string into a `DeadlineCommand`.
+3. `DeadlineCommand` replaces only the deadline-related part of the target `Application`.
+4. `Model#setApplication(...)` and `Model#commitAddressBook()` persist the state change.
 
 ### Why this level of detail
 
@@ -388,7 +388,181 @@ giving developers a roadmap:
 * **What matters architecturally**: component interactions, mutation points, and commit boundaries.
 * **What is omitted on purpose**: repetitive parser internals and trivial data plumbing already clear from code.
 
+## ApplicationEvent System
 
+The ApplicationEvent system allows applications to have associated events like online assessments and interviews. This section details the design and implementation of this flexible event system.
+
+### Architecture Overview
+
+The ApplicationEvent system uses inheritance and polymorphism to support different types of events while maintaining a consistent interface:
+
+```
+ApplicationEvent (abstract base class)
+├── OnlineAssessment (concrete implementation)
+└── Interview (concrete implementation)
+```
+
+Each `Application` can have at most one `ApplicationEvent` attached, stored as an optional field. The system supports:
+- **OnlineAssessment**: Events with platform and link information
+- **Interview**: Events with interviewer name and interview type information
+- **Extensibility**: New event types can be added by extending `ApplicationEvent`
+
+### Class Structure
+
+**ApplicationEvent (Abstract Base Class)**
+- Contains common fields: `location`, `localDateTime`
+- Provides abstract methods: `equals()`, `hashCode()`, `toString()`
+- Validates datetime format using `isValidDateTime()`
+- Uses `DATETIME_FORMATTER` for consistent formatting
+
+**OnlineAssessment (Concrete Implementation)**
+- Extends `ApplicationEvent` with `platform` and `link` fields
+- Represents online coding assessments, technical tests
+- Example: HackerRank assessment with assessment portal link
+
+**Interview (Concrete Implementation)**
+- Extends `ApplicationEvent` with optional `interviewerName` and `interviewType` fields
+- Represents interviews with optional additional details
+- Supports interviews with unknown interviewer/type (empty string defaults)
+
+### Command Integration
+
+#### Assessment Command Flow
+
+![Assessment Command Sequence](images/AssessmentCommandSequence.png)
+
+1. User enters `assessment INDEX el/LOCATION et/DATETIME ap/PLATFORM al/LINK`
+2. `AssessmentCommandParser` validates and parses all required fields
+3. `AssessmentCommand` creates an `OnlineAssessment` object
+4. Command replaces any existing event on the target application
+5. Updated application is saved via `Model#setApplication()` and committed
+
+#### Interview Command Flow
+
+![Interview Command Sequence](images/InterviewCommandSequence.png)
+
+1. User enters `interview INDEX el/LOCATION et/DATETIME [in/INTERVIEWER] [it/TYPE]`
+2. `InterviewCommandParser` validates required fields, handles optional fields
+3. `InterviewCommand` creates an `Interview` object with optional parameters
+4. Command replaces any existing event on the target application
+5. Updated application is saved and committed to model
+
+#### Event Removal
+
+The `removeevent` command works uniformly across all event types:
+1. Validates the target application has an event
+2. Sets the application's event field to `null`
+3. Commits the change through the model
+
+### Storage and Persistence
+
+The ApplicationEvent system integrates with the JSON storage layer through `JsonAdaptedApplication`:
+
+#### Serialization Strategy
+- **Flat Storage**: Event fields are stored directly in the application JSON
+- **Type Detection**: Event type is determined by which fields are present
+- **OnlineAssessment**: Stored when `assessmentPlatform` and `assessmentLink` are non-null
+- **Interview**: Stored when assessment fields are null but event location/time exist
+
+#### Storage Fields
+```json
+{
+  "eventLocation": "Google HQ",
+  "eventTime": "2026-05-10 14:00",
+  "assessmentPlatform": null,
+  "assessmentLink": null,
+  "interviewerName": "John Doe",
+  "interviewType": "technical"
+}
+```
+
+#### Deserialization Logic
+```
+if (assessmentPlatform != null && assessmentLink != null) {
+    // Reconstruct OnlineAssessment
+    modelEvent = new OnlineAssessment(eventLocation, modelDateTime, assessmentPlatform, assessmentLink);
+} else if (eventLocation != null && eventTime != null) {
+    // Reconstruct Interview
+    modelEvent = new Interview(eventLocation, modelDateTime, interviewerName, interviewType);
+}
+```
+
+### UI Integration
+
+The UI system displays events through the `EventDetailsWindow`:
+
+#### Dynamic UI Rendering
+- **Event Button**: Appears on application cards when an event exists
+- **Event Window**: Opens when user clicks the event button
+- **Dynamic Fields**: Shows different fields based on event type:
+    - OnlineAssessment: Platform, Link
+    - Interview: Interviewer Name, Interview Type
+
+#### Implementation Details
+- `EventDetailsViewModel` handles event type branching
+- `EventDetailsWindow` uses `setRowVisible()` to show/hide relevant fields
+- FXML layout accommodates both event types with conditional visibility
+
+### Design Considerations
+
+#### Event Storage Strategy
+
+**Current Choice**: Single event per application with inheritance hierarchy
+- **Pros**: Simple model, clear ownership, easy UI integration
+- **Cons**: Limited to one event per application
+
+**Alternative Considered**: Multiple events per application
+- **Pros**: More flexible, supports complex scheduling
+- **Cons**: Increased complexity, unclear UI representation
+
+#### Persistence Approach
+
+**Current Choice**: Flat storage in JSON with type inference
+- **Pros**: Simple serialization, backward compatible
+- **Cons**: Implicit type detection, field coupling
+
+**Alternative Considered**: Tagged union with explicit type field
+- **Pros**: Explicit type information, easier debugging
+- **Cons**: More verbose JSON, migration complexity
+
+#### Optional Field Handling
+
+**Current Choice**: Empty strings for missing optional fields
+- **Pros**: Consistent with existing codebase patterns
+- **Cons**: String manipulation required for checks
+
+### Extension Guidelines
+
+To add a new event type (e.g., `GroupInterview`):
+
+1. **Create the class** extending `ApplicationEvent`
+2. **Add storage fields** to `JsonAdaptedApplication`
+3. **Update serialization logic** in the constructor
+4. **Update deserialization logic** in `toModelType()`
+5. **Create command and parser** following existing patterns
+6. **Update UI components** to handle the new type
+7. **Add comprehensive tests** for the new functionality
+
+### Testing Strategy
+
+The ApplicationEvent system includes comprehensive tests at multiple levels:
+
+**Unit Tests**:
+- `ApplicationEventTest`: Base class validation
+- `OnlineAssessmentTest`: OnlineAssessment-specific behavior
+- `InterviewTest`: Interview-specific behavior and optional fields
+
+**Integration Tests**:
+- `AssessmentCommandTest`: Command execution and validation
+- `InterviewCommandTest`: Command execution with optional parameters
+- `JsonAdaptedApplicationTest`: Serialization round-trip testing
+
+**Storage Tests**:
+- Persistence across application restarts
+- Type inference during deserialization
+- Backward compatibility with existing data
+
+ 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -406,8 +580,8 @@ giving developers a roadmap:
 ### Product scope
 
 **Current version scope (implemented):**
-* Manage internship applications as records with role, company/contact details, status, deadline, note, tags, resume link, and optional online assessment event.
-* Support fast CLI-based workflows for add/edit/delete/find/findnote/list/sort/status/deadline/reminder.
+* Manage internship applications as records with role, company/contact details, status, deadline, note, tags, resume link, and optional event (online assessment or interview).
+* Support fast CLI-based workflows for add/edit/delete/find/findnote/list/sort/status/deadline/reminder/assessment/interview/removeevent.
 * Support recovery and safety operations (`undo`/`redo`, auto-save to local JSON).
 
 **Near-future scope (planned):**
@@ -450,11 +624,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | student applying for internships | undo/redo recent data-changing operations | recover safely from mistakes |
 | `* * *` | student applying for internships | attach/open/remove a resume path per application | jump to supporting documents quickly |
 | `* *` | student applying for internships | record online assessment details and remove them later | prepare and manage OA schedules in one place |
+| `* *` | student applying for internships | record interview details with optional interviewer and type info | manage interview schedules with available context |
 | `* *` | student applying for internships | search by company name or role | quickly find a specific application |
 | `* *` | student applying for internships | categorize companies by industry | organize applications more clearly |
 | `* *` | student applying for internships | tag companies by interest level | prioritize which opportunities to focus on |
-| `* *` | student applying for internships | record interview dates and format | prepare appropriately for interviews |
-| `* *` | student applying for internships | take notes on interview questions | reflect and improve for future interviews |
+| `* *` | student applying for internships | remove events (assessments/interviews) when no longer needed | keep application records clean and current |
+| `*` | student applying for internships | take notes on interview questions | reflect and improve for future interviews |
 | `* *` | student applying for internships | filter applications by status | focus on active applications only |
 | `*` | student applying for internships | set reminders for deadlines or follow-ups | avoid missing important next steps |
 | `*` | long-term user | archive old application records | keep the application list organized |
@@ -683,7 +858,7 @@ Related interactions with similar flow:
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Mainstream OS**: Windows, Linux, Unix, macOS
 * **Role**: The position/title applied for.
 * **Status**: The current stage of an internship application (e.g. APPLIED, INTERVIEWING, OFFERED, REJECTED, WITHDRAWN).
 * **Company**: The organisation that offers the opportunity.
@@ -692,7 +867,10 @@ Related interactions with similar flow:
 * **Archive**: Move the internship application records that have completed the process (such as those that have been rejected, hired, and have completed onboarding) from the active list to the archive area.
 * **Reminder**: Time reminders for the deadline of internship applications, interview times, and follow-up nodes.
 * **Deadline**: The time by which a submission is due for an opportunity record.
-* **MSS**: Main Success Scenario. Scenario)The primary, happy-path flow of a use case, describing what happens when everything goes as expected with no errors or exceptions
+* **ApplicationEvent**: An optional event associated with an application, such as an online assessment or interview.
+* **OnlineAssessment**: A type of ApplicationEvent representing online coding tests or assessments with platform and link information.
+* **Interview**: A type of ApplicationEvent representing interview appointments with optional interviewer name and type details.
+* **MSS**: Main Success Scenario. The primary, happy-path flow of a use case, describing what happens when everything goes as expected with no errors or exceptions
 * **JSON Data File**: A JSON format text file used for local storage of all internship data.
 * **Executable JAR**: Package it as a single executable file and double-click to run it.
 * **Data Integrity**: Data is automatically saved without loss, logically legal and free of contradictions.
@@ -733,16 +911,16 @@ testers are expected to do more *exploratory* testing.
 
     1. Download the jar file and copy into an empty folder
 
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
     1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-    1. Re-launch the app by double-clicking the jar file.<br>
+    2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+3. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -750,16 +928,16 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-    1. Test case: `delete 1`<br>
+    2. Test case: `delete 1`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    3. Test case: `delete 0`<br>
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+2. _{ more test cases …​ }_
 
 ### Saving data
 
@@ -767,4 +945,4 @@ testers are expected to do more *exploratory* testing.
 
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+2. _{ more test cases …​ }_
