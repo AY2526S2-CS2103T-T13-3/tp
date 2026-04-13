@@ -162,7 +162,7 @@ The undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `Ad
 * `VersionedAddressBook#undo()` — Restores the previous application book state from its history.
 * `VersionedAddressBook#redo()` — Restores a previously undone application book state from its history.
 
-These operations are exposed in the `Model` interface as `commitAddressBook()`, `undoAddressBook()`, and `redoAddressBook()`.
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()`, and `Model#redoAddressBook()`.
 
 In the current implementation, undo/redo also restores the reminder-highlight toggle state in `UserPrefs`. `ModelManager` maintains a parallel `reminderHighlightStateList` (with its own pointer) and updates it together with `VersionedAddressBook`, so `undo` / `redo` keeps both data state and reminder-highlight preference consistent.
 
@@ -176,7 +176,7 @@ Step 2. The user executes `delete 5` command to delete the 5th application in th
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add ...` to add a new application. The `add` command also calls `Model#commitAddressBook()`, causing another modified application book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add r/Software Engineer p/98765432 e/hr@google.com c/Google l/Singapore t/interview note/Met recruiter at career fair` to add a new application. The `add` command also calls `Model#commitAddressBook()`, causing another modified application book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -211,7 +211,7 @@ The `redo` command does the opposite — it calls `Model#redoAddressBook()`,
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then executes `list`. Commands that only change the current view (e.g. `list`, `find`, `findnote`) do not call `Model#commitAddressBook()`, so `addressBookStateList` remains unchanged. For `reminder`, only an **effective** run (first-time highlight enable, or sorted order actually changes) calls `Model#commitAddressBook()` and creates a new checkpoint; a no-op `reminder` does not.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
