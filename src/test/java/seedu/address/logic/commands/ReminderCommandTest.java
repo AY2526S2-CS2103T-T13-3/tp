@@ -76,14 +76,17 @@ public class ReminderCommandTest {
     }
 
     @Test
-    public void execute_twiceWithoutFurtherChanges_singleUndoDisablesReminderHighlight() {
+    public void execute_twiceThenTwoUndos_disablesReminderHighlight() {
         ReminderCommand reminderCommand = new ReminderCommand();
         reminderCommand.execute(model);
         reminderCommand.execute(model);
 
         assertTrue(model.canUndoAddressBook());
         model.undoAddressBook();
+        assertTrue(model.getUserPrefs().isReminderHighlightEnabled());
 
+        assertTrue(model.canUndoAddressBook());
+        model.undoAddressBook();
         assertFalse(model.getUserPrefs().isReminderHighlightEnabled());
     }
 }
