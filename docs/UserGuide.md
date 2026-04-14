@@ -519,62 +519,21 @@ These rules apply when the deadline includes a **time** (minute precision).
 
 This subsection explains how **`reminder`** interacts with **`undo`** and **`redo`** (list order and highlight state). For general command formats and rules, see [Undoing previous commands : `undo`](#undoing-previous-commands--undo) and [Redoing undone commands : `redo`](#redoing-undone-commands--redo) below.
 
-`undo` / `redo` can restore **both** list order and the reminder highlight toggle. Repeated `reminder` with nothing meaningful changing may count as **one** step in history — one `undo` can turn highlighting off in that situation.
+`undo` / `redo` can restore **both** list order and the reminder highlight toggle.
 
-**Walkthrough 1 — `reminder` is the first time you turn highlighting on (it was off before):**
+**Rule (simple): every successful `reminder` creates one undo step.**
 
-| Step | What you type | What happens (simplified) |
-|------|----------------|---------------------------|
-| 1 | `add` … | New application(s); each `add` is usually its own undo step. |
-| 2 | `add` … | (Same as above.) |
-| 3 | `reminder` **(1st time)** | Highlighting turns **on**, list sorts by deadline — **this** creates the undo checkpoint for “reminder is on + this order”. |
-| 4 | `reminder` `reminder` `reminder` … | If nothing about deadlines/order **meaningfully** changes, these often **do not** add extra undo steps on top of step 3. |
-| 5 | `undo` | Goes back across that **one** reminder-related checkpoint → highlighting turns **off**, list order goes back to **before** step 3 (other earlier steps like `add` may still be there depending on your full history). |
-| 6 | `redo` | Re-applies what you undid in step 5 → highlighting **on** again and list sorted like after step 3. |
+So if you run `reminder` three times, you need three `undo` commands to go back across all three reminder steps (unless other commands are in between).
 
-*Walkthrough 1 is easiest to read if you picture “`add` → `add` → first `reminder` → more `reminder`s” with nothing else in between; `undo` always moves back **one history step at a time**, so if you did other commands after that, the first `undo` might hit those first.*
+**Quick example**
 
-**Walkthrough 2 — highlighting is already on (`reminder` is *not* the first time; e.g. you enabled it earlier or restarted with saved prefs):**
+1. Run `reminder`
+2. Run `reminder` again
+3. Run `undo` (reverts the 2nd `reminder`)
+4. Run `undo` (reverts the 1st `reminder`)
+5. Run `redo` (re-applies the 1st `reminder`)
 
-| Step | What you type | What happens (simplified) |
-|------|----------------|---------------------------|
-| 1 | (Highlighting already **on**.) | — |
-| 2 | `add` … | New application; creates an undo step. |
-| 3 | `reminder` `reminder` `reminder` … | If the sorted order **does not** change, these may create **no** new undo step. |
-| 4 | `undo` | Undoes the **last command that actually wrote to undo history** — often step 2’s `add`, so the new row disappears; **highlighting can stay on** because those `reminder`s did not add a separate step to undo. |
-| 5 | `redo` | Re-applies what step 4 undid (e.g. restores the `add`). |
-
-**Walkthrough 3 — mixed “effective” and “no-op” `reminder` runs:**
-
-| Step | What you type | What happens (simplified) |
-|------|----------------|---------------------------|
-| 1 | `reminder` | Assume highlighting is already on and this run changes order → **effective** (creates a reminder undo step). |
-| 2 | `reminder` | Nothing meaningful changes (same order, highlighting already on) → **no-op** for undo history. |
-| 3 | `deadline 2 2026-12-01 10:00` | Data changes; creates its own undo step. |
-| 4 | `reminder` | Sorted order now changes because of step 3 → **effective** (creates another reminder undo step). |
-| 5 | `reminder` | Again no meaningful change → **no-op** for undo history. |
-| 6 | `undo` | Reverts step 4 (the latest **effective** reminder checkpoint), not step 5 (which had no new checkpoint). |
-| 7 | `undo` | Reverts step 3 (`deadline`). |
-| 8 | `undo` | Reverts step 1 (the earlier **effective** reminder checkpoint). |
-| 9 | `add ...` *(new row stays at bottom)* **or** `delete LAST_INDEX` *(removes last row)* | Data changes; creates an undo step. |
-| 10 | `undo` | Undoes step 9 and opens a redo opportunity. |
-| 11 | `reminder` | Here it is a **no-op** because step 9 only added/removed the last row without changing relative order among surviving rows (and highlighting is already on), so this `reminder` creates **no** new checkpoint and does **not** clear redo. |
-| 12 | `redo` | **Succeeds** and reapplies step 9. |
-
-In short: if you interleave many `reminder` calls, `undo` only lands on the ones that actually created checkpoints (first-time enable or order changed).
-
-#### When `reminder` commits (undoable)
-
-A new undo step is saved **only if** at least one of these is true (same as the app logic: first-time highlight **or** order changed):
-
-1. **Highlighting was off** before this `reminder` (you are turning it **on** for the first time).
-2. **The sorted order changes** — after `reminder` sorts by deadline, the **relative top-to-bottom order of the same surviving applications** is different from immediately before this command.
-   * This means an actual reordering among existing rows.
-   * **Count-only changes** do **not** by themselves count as “sorted order changes” (e.g. earlier `add`/`delete` where the added/removed item is simply the last row before and after `reminder`).
-
-Otherwise (highlighting **already on** **and** order **unchanged**), this `reminder` does **not** add another undo step.
-
-**Color** changes alone (e.g. red ↔ orange ↔ white as real time passes) do **not** count — they are recomputed in the UI and do **not** add an undo step by themselves.
+**Color changes alone** (e.g. red ↔ orange ↔ white as time passes) do **not** create history by themselves. A history step is created when you execute `reminder` successfully.
 
 *(Overall, undo remembers only about the **last 10** steps.)*
 
@@ -633,7 +592,7 @@ Reverses the most recent `undo` command.
 Format: `redo`
 
 * You must perform at least one `undo` command before you can use `redo`.
-* **`redo` only works while no new data has been saved after that `undo`.** Any command that **modifies stored application data** and writes to undo history (e.g. `edit`, `add`, `delete`, `reminder` when it commits, `sort`, …) run **after** an `undo` will **clear** the redo branch — then `redo` fails until you `undo` again. This is **by design** (same as moving forward on a branch, then making a new edit).
+* **`redo` only works while no new data has been saved after that `undo`.** Any command that **modifies stored application data** and writes to undo history (e.g. `edit`, `add`, `delete`, `reminder`, `sort`, …) run **after** an `undo` will **clear** the redo branch — then `redo` fails until you `undo` again. This is **by design** (same as moving forward on a branch, then making a new edit).
 * Commands that **only** change the displayed list or view (e.g. `list`, `find`, `findnote`) do **not** clear redo; they may appear between `undo` and `redo`.
 * If you attempt to redo when no redoable state exists, an error message "No undoable state to redo. Please perform an undo first." will be shown.
 * **Concrete sequence (expected failure):** `edit 1 t/tag` → `undo` → `edit 1 t/tagag` → `redo` — the last `redo` **does not** re-apply the first edit; the second `edit` replaced the redo opportunity.
@@ -884,13 +843,7 @@ Action | Format, Examples
 3. Add optional automatic reminder refresh strategy (without requiring manual UI refresh actions).
 4. Provide clearer in-app error hints with concrete correction examples for invalid command input.
 5. **Extend `find`:** Match **company location** and other fields (e.g. tags) with the same keyword style as today.
-6. **Richer `reminder` feedback messages:** Show different success text depending on what actually changed.
-
-   | Situation | Example message |
-   |-----------|-----------------|
-   | First `reminder` in the session, **or** the sorted order **changes** | `Sorted by deadline and refreshed reminder highlighting!` |
-   | Order **unchanged**, but reminder-relevant state **changes** (e.g. role colour crosses a rule as time passes; white → red within 3 days, red → overdue orange; or the **deadline value** changed since last refresh) | `Reminder status updated.` |
-   | **No change** to order or highlight state (nothing new to apply) | `Already up to date.` or `No changes to highlighting or sort order.` |
+6. **Richer `reminder` feedback details:** Keep the current success message, and optionally add extra context such as how many applications were re-ordered or how many currently fall into urgent/overdue ranges.
 7. **Smarter Duplicate Detection for Applications:**
    Currently, the duplicate detection mechanism only normalizes case and whitespace. As a result, it enforces strict equality and misses likely near-duplicates, such as entering "Shopee" versus "Shopee Pte Ltd", or "Google" versus "Google LLC".<br/>
    We plan to upgrade the isSameApplication logic to incorporate fuzzy matching or similarity thresholds. The system could normalize common company suffixes (e.g., "Pte Ltd", "LLC", "Inc.") before comparison. <br/>

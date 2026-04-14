@@ -211,7 +211,7 @@ The `redo` command does the opposite — it calls `Model#redoAddressBook()`,
 
 </div>
 
-Step 5. The user then executes `list`. Commands that only change the current view (e.g. `list`, `find`, `findnote`) do not call `Model#commitAddressBook()`, so `addressBookStateList` remains unchanged. For `reminder`, only an **effective** run (first-time highlight enable, or sorted order actually changes) calls `Model#commitAddressBook()` and creates a new checkpoint; a no-op `reminder` does not.
+Step 5. The user then executes `list`. Commands that only change the current view (e.g. `list`, `find`, `findnote`) do not call `Model#commitAddressBook()`, so `addressBookStateList` remains unchanged. The `reminder` command always calls `Model#commitAddressBook()` after a successful run, so each `reminder` creates one new undo/redo checkpoint.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
@@ -246,7 +246,7 @@ How the `reminder` command works:
 3. `ReminderCommand` enables UI highlighting via `ReminderHighlightState`.
 4. `ReminderCommand` reads and updates `UserPrefs` to persist the reminder highlight toggle.
 5. `ReminderCommand` sorts the application list by deadline.
-6. `ReminderCommand` calls `Model#commitAddressBook()` **only when the run is effective** (e.g. first-time highlight enable, or sorted order actually changes). A no-op `reminder` does not create a new undo/redo checkpoint.
+6. `ReminderCommand` calls `Model#commitAddressBook()` after updating preferences and sort order. Every successful `reminder` creates one undo/redo checkpoint.
 
 
 ## Sort Feature
@@ -775,7 +775,7 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
 2. System validates date/time format and calendar validity.
 3. System saves the updated application.
 4. Student requests the deadline urgency view (sorted by deadline with urgency highlighting).
-5. System sorts applications by deadline and enables urgency highlighting when applicable; a new undo/redo checkpoint is created only when this update materially changes ordering or highlight state.
+5. System sorts applications by deadline and enables urgency highlighting. Each successful `reminder` creates one undo/redo checkpoint.
 6. System displays updated ordering and visual urgency cues.
 
    Use case ends.
@@ -799,20 +799,19 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
 * At least one command has successfully created an undo checkpoint in history (see step 1). Read-only commands (e.g. `list`, `find`, `findnote`, `help`) do not count.
 
 **MSS**
-1. Student executes a command that commits application-book state (e.g. `add`, `delete`, `edit`, `clear`, `status`, `deadline`, `sort`, `resume`, `removeresume`, `assessment`, `interview`, `removeevent`, or `reminder` when it performs an effective change — see extensions).
+1. Student executes a command that commits application-book state (e.g. `add`, `delete`, `edit`, `clear`, `status`, `deadline`, `sort`, `resume`, `removeresume`, `assessment`, `interview`, `removeevent`, `reminder`).
 2. Student executes `undo`.
-3. System restores the previous state (including list order and reminder-highlight preference when applicable).
+3. System restores the previous state, including list order and reminder-highlight preference.
 4. Student executes `redo`.
 5. System reapplies the undone state.
 
    Use case ends.
 
+**Redo-specific behaviour**
+* `redo` only moves one step forward in history; it reapplies the state immediately after the most recent `undo`.
+* Any command that **commits** application-book state after `undo` but before `redo` clears the redo branch (see *4b*). Read-only commands (e.g. `list`, `find`, `findnote`) do **not** commit and do **not** by themselves invalidate `redo`.
+
 **Extensions**
-* 1a. Student runs `reminder` while highlighting is already enabled and the deadline sort order does not change.
-    * 1a1. System does not add a new undo checkpoint for that run.
-
-      Use case continues from step 1 only after another committing command, or use case ends if the student proceeds to `undo` without any checkpoint (see *2a).
-
 * 2a. No undoable state exists.
     * 2a1. System shows an error (e.g. no operations that can be undone).
 
