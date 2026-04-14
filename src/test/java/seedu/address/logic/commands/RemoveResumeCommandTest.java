@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPLICATION;
 
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -79,6 +80,16 @@ public class RemoveResumeCommandTest {
         assertFalse(firstCommand.equals(1));
         assertFalse(firstCommand.equals(null));
         assertFalse(firstCommand.equals(secondCommand));
+    }
+
+    @Test
+    public void toStringMethod() {
+        RemoveResumeCommand command = new RemoveResumeCommand(INDEX_FIRST_APPLICATION);
+
+        String expected = RemoveResumeCommand.class.getCanonicalName()
+                + "{index=" + INDEX_FIRST_APPLICATION + "}";
+
+        assertEquals(expected, command.toString());
     }
 
     private static Application createApplication(String resumePath) {

@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPLICATION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_APPLICATION;
 
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -84,6 +87,24 @@ public class OpenResumeCommandTest {
 
         assertFalse(firstCommand.equals(1));
         assertFalse(firstCommand.equals(null));
+        assertFalse(firstCommand.equals(secondCommand));
+    }
+
+    @Test
+    public void toStringMethod() {
+        OpenResumeCommand command = new OpenResumeCommand(INDEX_FIRST_APPLICATION);
+
+        String expected = OpenResumeCommand.class.getCanonicalName()
+                + "{index=" + INDEX_FIRST_APPLICATION + "}";
+
+        assertEquals(expected, command.toString());
+    }
+
+    @Test
+    public void equals_differentIndex_false() {
+        OpenResumeCommand firstCommand = new OpenResumeCommand(INDEX_FIRST_APPLICATION);
+        OpenResumeCommand secondCommand = new OpenResumeCommand(INDEX_SECOND_APPLICATION);
+
         assertFalse(firstCommand.equals(secondCommand));
     }
 
