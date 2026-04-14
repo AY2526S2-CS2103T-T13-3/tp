@@ -55,7 +55,7 @@ public class AssessmentCommand extends Command {
         Application editedApp = new Application(
                 appToEdit.getRole(), appToEdit.getPhone(), appToEdit.getHrEmail(),
                 appToEdit.getCompany(), appToEdit.getTags(), appToEdit.getStatus(), appToEdit.getDeadline(),
-                applicationEvent, appToEdit.getNote());
+                applicationEvent, appToEdit.getNote(), appToEdit.getResume());
 
         model.setApplication(appToEdit, editedApp);
         model.commitAddressBook();

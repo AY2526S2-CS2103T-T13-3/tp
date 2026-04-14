@@ -32,6 +32,7 @@ import seedu.address.model.application.Deadline;
 import seedu.address.model.application.HrEmail;
 import seedu.address.model.application.Note;
 import seedu.address.model.application.Phone;
+import seedu.address.model.application.Resume;
 import seedu.address.model.application.Role;
 import seedu.address.model.application.Status;
 import seedu.address.model.tag.Tag;
@@ -124,12 +125,13 @@ public class EditCommand extends Command {
         Status updatedStatus = editApplicationDescriptor.getStatus().orElse(applicationToEdit.getStatus());
         Deadline updatedDeadline = editApplicationDescriptor.getDeadline().orElse(applicationToEdit.getDeadline());
         Note updatedNote = editApplicationDescriptor.getNote().orElse(applicationToEdit.getNote());
+        Resume resume = applicationToEdit.getResume();
 
         ApplicationEvent updatedApplicationEvent = editApplicationDescriptor.getApplicationEvent()
                 .orElse(applicationToEdit.getApplicationEvent());
 
         return new Application(updatedRole, updatedPhone, updatedHrEmail, updatedCompany,
-                updatedTags, updatedStatus, updatedDeadline, updatedApplicationEvent, updatedNote);
+                updatedTags, updatedStatus, updatedDeadline, updatedApplicationEvent, updatedNote, resume);
     }
 
     @Override

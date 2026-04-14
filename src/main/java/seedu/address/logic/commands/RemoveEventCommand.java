@@ -7,7 +7,6 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.application.Application;
@@ -26,7 +25,7 @@ public class RemoveEventCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Removed event from application: %1$s";
+    public static final String MESSAGE_SUCCESS = "Removed event from application at index %1$d: %2$s";
     public static final String MESSAGE_NO_EVENT =
             "The application at the specified index does not have an event to remove.";
 
@@ -73,7 +72,9 @@ public class RemoveEventCommand extends Command {
         model.setApplication(applicationToEdit, updatedApplication);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(updatedApplication)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                index.getOneBased(),
+                updatedApplication.getRole() + " at " + updatedApplication.getCompany()));
     }
 
     @Override

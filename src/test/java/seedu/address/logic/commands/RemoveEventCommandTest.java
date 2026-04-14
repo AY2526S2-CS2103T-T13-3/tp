@@ -19,7 +19,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -60,7 +59,9 @@ public class RemoveEventCommandTest {
 
         // The updated application should have a null event
         Application expected = createApplicationWithEvent(null);
-        assertEquals(String.format(RemoveEventCommand.MESSAGE_SUCCESS, Messages.format(expected)),
+        assertEquals(String.format(RemoveEventCommand.MESSAGE_SUCCESS,
+                        Index.fromOneBased(1).getOneBased(),
+                        expected.getRole() + " at " + expected.getCompany()),
                 result.getFeedbackToUser());
         assertEquals(expected, model.applicationSet);
         assertTrue(model.commitCalled);

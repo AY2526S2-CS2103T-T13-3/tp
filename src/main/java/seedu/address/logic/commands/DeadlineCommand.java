@@ -18,9 +18,8 @@ import seedu.address.model.application.Deadline;
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the deadline for an application.\n"
-            + "Example: " + COMMAND_WORD + " 1 2026-12-31 23:59\n"
+            + "Example: " + COMMAND_WORD + " 1 2026-12-31 23:59"
             + "Parameters: INDEX (must be a positive integer) DATE_TIME\n";
-    public static final String MESSAGE_SUCCESS = "Deadline updated for: %1$s";
 
     private final Index index;
     private final Deadline deadline;
@@ -49,11 +48,11 @@ public class DeadlineCommand extends Command {
         Application editedApp = new Application(
                 appToEdit.getRole(), appToEdit.getPhone(), appToEdit.getHrEmail(),
                 appToEdit.getCompany(), appToEdit.getTags(), appToEdit.getStatus(), deadline,
-                appToEdit.getApplicationEvent(), appToEdit.getNote());
+                appToEdit.getApplicationEvent(), appToEdit.getNote(), appToEdit.getResume());
 
         model.setApplication(appToEdit, editedApp);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedApp)));
+        return new CommandResult("Deadline updated for: " + editedApp.getCompany());
     }
 
     @Override

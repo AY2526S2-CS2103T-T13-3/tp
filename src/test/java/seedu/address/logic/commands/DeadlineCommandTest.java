@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_APPLICATION;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,11 +27,11 @@ public class DeadlineCommandTest {
         Application editedApp = new Application(
                 firstApp.getRole(), firstApp.getPhone(), firstApp.getHrEmail(),
                 firstApp.getCompany(), firstApp.getTags(), firstApp.getStatus(),
-                newDeadline, firstApp.getApplicationEvent(), firstApp.getNote());
+                newDeadline, firstApp.getApplicationEvent(), firstApp.getNote(), firstApp.getResume());
 
         DeadlineCommand deadlineCommand = new DeadlineCommand(INDEX_FIRST_APPLICATION, newDeadline);
 
-        String expectedMessage = String.format(DeadlineCommand.MESSAGE_SUCCESS, Messages.format(editedApp));
+        String expectedMessage = "Deadline updated for: " + editedApp.getCompany();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setApplication(firstApp, editedApp);
