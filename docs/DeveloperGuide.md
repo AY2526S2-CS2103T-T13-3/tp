@@ -796,27 +796,37 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
 
 **Precondition**
 * System is running.
-* At least one state-changing command has been executed.
+* At least one command has successfully created an undo checkpoint in history (see step 1). Read-only commands (e.g. `list`, `find`, `findnote`, `help`) do not count.
 
 **MSS**
-1. Student executes a state-changing command (e.g., add/edit/delete/deadline/status/sort/reminder).
+1. Student executes a command that commits application-book state (e.g. `add`, `delete`, `edit`, `clear`, `status`, `deadline`, `sort`, `resume`, `removeresume`, `assessment`, `interview`, `removeevent`, or `reminder` when it performs an effective change — see extensions).
 2. Student executes `undo`.
-3. System restores the previous state.
+3. System restores the previous state (including list order and reminder-highlight preference when applicable).
 4. Student executes `redo`.
 5. System reapplies the undone state.
 
    Use case ends.
 
 **Extensions**
+* 1a. Student runs `reminder` while highlighting is already enabled and the deadline sort order does not change.
+    * 1a1. System does not add a new undo checkpoint for that run.
+
+      Use case continues from step 1 only after another committing command, or use case ends if the student proceeds to `undo` without any checkpoint (see *2a).
+
 * 2a. No undoable state exists.
-    * 2a1. System shows an error.
+    * 2a1. System shows an error (e.g. no operations that can be undone).
 
       Use case ends.
 
-* 4a. No redoable state exists.
-    * 4a1. System shows an error.
+* 4a. No redoable state exists (e.g. no prior `undo`, or redo history was cleared).
+    * 4a1. System shows an error (e.g. user must `undo` first).
 
       Use case ends.
+
+* 4b. After step 3, student executes another state-changing command before `redo`.
+    * 4b1. Redo history for the earlier undone change is discarded; a later `redo` only applies if it matches the new history.
+
+      Use case ends or continues with the new state.
 
 ### **UC05: Delete an application**
 
