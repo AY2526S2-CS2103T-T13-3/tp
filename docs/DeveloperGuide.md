@@ -1045,3 +1045,29 @@ testers are expected to do more *exploratory* testing.
     1. Make the `data` folder or `applicationList.json` non-writable for the current user.
     2. Launch the app and run any state-changing command (e.g., `edit`, `status`).
     3. Verify an error is shown indicating data cannot be saved due to file permission issues.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+**Team size: 5** (this appendix lists **10**).
+
+1. **Richer filter commands to narrow the displayed list.** Beyond substring `find` on role and company name, users cannot quickly isolate slices such as “only interviewing” or “deadlines this month.” We plan **optional CLI filters** (or flags on a narrow command) keyed on **status**, **company name** (as a dedicated filter axis when composing multi-criteria queries), **deadline date range**, and **reminder-related display state** (e.g. whether urgency highlighting is active), producing a filtered list that still drives the same index-based commands as today.
+
+2. **First-class export and import of saved data.** Workflow today assumes a single local JSON file edited only by the app. We plan **explicit export** (write a validated snapshot or portable archive) and **import** (read a snapshot with version checks, optional merge versus replace, and duplicate handling), so backups and laptop migration do not require manual file surgery.
+
+3. **Automatic refresh of reminder-related urgency display.** After highlighting is enabled, colour transitions depend on time passing; users may need to select a card or run `reminder` again to refresh. We plan a **lightweight automatic recompute** (e.g. periodic UI refresh or event on minute rollover), bounded so performance stays acceptable, to reduce stale colours without new user commands.
+
+4. **Command errors that name what went wrong and how to fix it.** Parse and validation failures sometimes reuse terse wording. We plan to extend messages with **one-line correction hints**—e.g. missing prefix → show the minimal valid pattern for that command; bad datetime → repeat the accepted format `yyyy-MM-dd` / `yyyy-MM-dd HH:mm`—so the feedback channel stays the result box but the text is self-correcting.
+
+5. **Broaden `find` keyword matching to location and tags.** `find` currently considers **role** and **company name** only. We plan to apply the **same substring / OR-keyword matching rules** to **company location** and **tags**, so inputs like `find Clementi` or `find urgent` match those fields without introducing a second search syntax.
+
+6. **Outcome-specific success strings for `reminder`.** One generic success line hides whether sort order, highlight toggle, or only colour rules changed. We plan distinct messages aligned with behaviour, for example: (a) *Sorted by deadline and refreshed reminder highlighting!* when order changes or highlighting is first enabled; (b) *Reminder status updated.* when only urgency colouring or interpreted deadlines move; (c) *Already up to date.* when nothing material changes—mirroring the matrix already sketched in the User Guide.
+
+7. **Duplicate detection that recognises near-identical companies.** Identity equality today ignores case and extra spaces only, so *Google* and *Google LLC* remain distinct. We plan **normalisation of common corporate suffixes** before comparison and/or a **blocking soft-warning** step when a new application is almost identical to an existing (role, company, location) triple, requiring explicit confirmation to proceed.
+
+8. **Keep a history of assessment and interview rounds instead of a single slot.** Storing only the latest event loses earlier OA or interview details. We plan a **per-application ordered list** of events (type, schedule, venue, links, notes), with operations to **add a round**, **edit one entry**, or **delete one entry**, replacing the current overwrite semantics while keeping `removeevent`-style removal per entry.
+
+9. **Reduce prefix and format memorisation across commands.** Similar concepts use different tokens (e.g. company location `l/` versus event location `el/`; some commands use dense positional segments). We plan **documented aliases and a migration path** toward fewer mnemonics—e.g. accept one additional accepted prefix for the same semantic field during a deprecation window—so frequent users can predict argument shapes with less rote learning.
+
+10. **Non-destructive tag edits on `edit`.** Tag changes today replace the entire set, which risks dropping tags when the user only wanted to add or remove one label. We plan **optional incremental syntax** (separate add/remove pathways alongside the existing full replacement mode) so a single tag can be appended or removed without reconstructing the full list from memory.

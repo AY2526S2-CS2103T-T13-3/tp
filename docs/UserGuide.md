@@ -369,14 +369,14 @@ Examples:
 
 ### Locating applications: `find`
 
-Finds applications whose **role** or **company name** contains any of the given keywords.
+Finds applications whose **role** or **company name** contains ***any*** of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g. `engineer` will match `Engineer`
 * The order of the keywords does not matter. e.g. both `find software engineer` and `find engineer software` can match `Software Engineer`.
 * Only the **role** and **company name** fields are searched (not phone, email, note, tags, or company location).
-* Partial words will also be matched. e.g. `eng` will match `Engineer`
+* Partial words will also be matched. e.g. `ja` will match `Jane Street` and `Java developer`.
 * Applications matching at least one keyword will be returned, if given more than 1 keyword (i.e. `OR` search).
 * At least one keyword must be provided (e.g. `find` alone is invalid).
 
