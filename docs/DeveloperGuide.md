@@ -623,13 +623,16 @@ The ApplicationEvent system includes comprehensive tests at multiple levels:
 ### Product scope
 
 **Current version scope (implemented):**
-* Manage internship applications as records with role, company/contact details, status, deadline, note, tags, resume link, and optional event (online assessment or interview).
+* Manage internship applications as records with role, company/contact details, status, deadline, note, tags, resume link, and optional event (online assessment or interview). Each application stores **at most one** such event at a time; adding a new assessment or interview replaces the previous event on that record.
 * Support fast CLI-based workflows for add/edit/delete/find/findnote/list/sort/status/deadline/reminder/assessment/interview/removeevent.
 * Support recovery and safety operations (`undo`/`redo`, auto-save to local JSON).
 
 **Near-future scope (planned):**
 * Archive completed applications into a separate view.
 * Richer filtering and reporting/export workflows.
+* Support **multiple interview/assessment rounds** per application (history or list of events) instead of a single replaceable slot.
+* **More consistent CLI prefixes** across commands where related concepts currently use different prefixes (e.g. company location vs event location), to reduce memorisation for keyboard-first users.
+* **Incremental tag changes** (add or remove one tag without retyping the full tag set).
 
 ### Target user profile
 
@@ -735,7 +738,7 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
 **MSS**
 
 1. Student requests to edit an application.
-2. Student provides a list index and one or more fields to change.
+2. Student selects an application from the displayed list and provides new values for one or more fields.
 3. System verifies the application exists.
 4. System validates all provided field values.
 5. System updates the application.
@@ -745,7 +748,7 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
    Use case ends.
 
 **Extensions**
-* 3a. Application ID/index does not exist.
+* 3a. The chosen application is not in the current displayed list.
     * 3a1. System shows an error.
 
       Use case ends.
@@ -771,8 +774,8 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
 1. Student sets/updates a deadline for an application.
 2. System validates date/time format and calendar validity.
 3. System saves the updated application.
-4. Student runs `reminder`.
-5. System sorts applications by deadline and enables urgency highlighting; a new undo/redo checkpoint is created only if this `reminder` run is effective.
+4. Student requests the deadline urgency view (sorted by deadline with urgency highlighting).
+5. System sorts applications by deadline and enables urgency highlighting when applicable; a new undo/redo checkpoint is created only when this update materially changes ordering or highlight state.
 6. System displays updated ordering and visual urgency cues.
 
    Use case ends.
@@ -784,8 +787,8 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
 
       Use case resumes at step 2.
 
-* 1a. Index does not exist in current displayed list.
-    * 1a1. System shows index error.
+* 1a. The chosen application is not in the current displayed list.
+    * 1a1. System shows an error indicating the selection is invalid.
 
       Use case ends.
 
@@ -838,7 +841,7 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
 
       Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The chosen application is not in the current displayed list.
 
     * 3a1. Hired! shows an error message.
 
@@ -851,10 +854,10 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
 * At least one application exists.
 
 **MSS**
-1. Student runs `assessment INDEX el/... et/... ap/... al/...`.
+1. Student attaches online assessment details to a chosen application (location, date and time, platform, and link).
 2. System validates all required fields.
-3. System saves assessment details on the target application (overwriting existing event if present).
-4. Student runs `removeevent INDEX`.
+3. System saves assessment details on the target application (replacing any existing assessment or interview event on that record).
+4. Student requests removal of the event from that application.
 5. System removes the event from the target application.
 
    Use case ends.
@@ -871,8 +874,8 @@ Simple one-step interactions (e.g., `list`, `help`, `exit`) are covered by User 
       Use case ends.
 
 Related interactions with similar flow:
-* `status`, `deadline`, and `removeresume` follow the same index-validate-update-commit pattern as UC02.
-* `openresume` follows index-validate-open-resource flow and is intentionally omitted as a simpler variant.
+* Updating status, deadlines, or resume attachments on a chosen record follows the same validate-then-save pattern as editing an application.
+* Opening an attached resume follows a validate-then-open flow and is intentionally omitted as a simpler variant.
 
 ### Non-Functional Requirements
 
@@ -962,12 +965,18 @@ testers are expected to do more *exploratory* testing.
     1. Run `list` then try `edit 0 r/Test`, `delete 999`, `deadline 999 2026-12-31`.
     2. Verify index-related error messages are shown and data remains unchanged.
 
-3. Find and findnote
+3. Delete application
+    1. **Full list:** Run `list`, run `delete` on a chosen row, verify success feedback and that the row is removed.
+    2. **Filtered list:** Run `find`, then `delete 1`; run `list` and confirm the intended global record was removed (indexes are relative to the displayed list).
+    3. **Invalid selection:** With a non-empty list, run `delete 0` and `delete` with an index past the list size; verify errors and that no row was removed.
+    4. **Undo:** After a successful `delete`, run `undo` and verify the application is restored.
+
+4. Find and findnote
     1. Add at least two applications with different roles, company names, and notes.
     2. Run `find engineer` (role substring), `find Google` (company name substring on sample data), and `findnote follow`.
     3. Verify only matching applications are shown.
 
-4. Status, deadline, reminder, sort
+5. Status, deadline, reminder, sort
     1. Run:
        * `status 1 s/OFFERED`
        * `deadline 1 2026-12-31 23:59`
@@ -979,7 +988,7 @@ testers are expected to do more *exploratory* testing.
        * sort ordering changes as expected,
        * reminder enables urgency highlighting behavior.
 
-5. Undo and redo
+6. Undo and redo
     1. Execute two state-changing commands (e.g., `add`, `edit`).
     2. Run `undo` twice, then `redo` once.
     3. Verify list/data state transitions are correct.

@@ -11,13 +11,13 @@ public class Role {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Role should not be blank and may contain letters, numbers, spaces, and"
-                    + " common symbols such as /, +, -, &, #, and parentheses.";
+                    + " common symbols such as /, +, -, &, #, ., and parentheses.";
 
     /*
      * The first character of the role must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} &/+#()\\-]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} &/+#().\\-]*";
 
     public final String roleName;
 

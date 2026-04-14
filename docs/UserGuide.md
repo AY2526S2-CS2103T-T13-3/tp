@@ -321,6 +321,8 @@ Format: `add r/ROLE p/PHONE e/EMAIL c/COMPANY_NAME [l/COMPANY_LOCATION] [t/TAG].
 > **Tip:** For duplicate checking, the comparison ignores letter case and whitespace differences in `role`, `company name`, and `company location`
 > in case user unintentionally creates redundant records.<br/>
 > For example, `Software   Engineer` `Google` and `softwareengineer` `google`are treated as the same role.
+>
+> **Role characters:** Job titles may include common symbols such as `+`, `-`, `/`, `#`, `&`, `.`, and parentheses, in addition to letters, digits, and spaces (e.g. `C++ Developer`, `Front-End Engineer`, `Sr. Engineer`). The first character must be a letter or digit.
 
 Examples:
 * `add r/Software Engineer p/98765432 e/hr@google.com c/Google`
@@ -708,6 +710,8 @@ Format: `assessment INDEX el/LOCATION et/DATE_TIME ap/PLATFORM al/LINK`
 * If the application already has an event (assessment or interview), running `assessment` again will **overwrite** the existing one.
 * To remove an existing event, use the [`removeevent`](#removing-an-event--removeevent) command.
 
+> **Current limitation — one event per application:** Hired! stores **only the most recently attached** assessment or interview on each application (not a full history of every round). Support for **multiple rounds** per application is a [planned improvement](#future-improvement).
+
 > **Note:** The datetime must be in `yyyy-MM-dd HH:mm` format exactly. Invalid dates or times (e.g. `2026-13-01 10:00` or `2026-03-24 10:60`) will not be accepted.
 
 Examples:
@@ -732,6 +736,7 @@ Format: `interview INDEX el/LOCATION et/DATE_TIME [in/INTERVIEWER_NAME] [it/INTE
 * If the application already has an event (assessment or interview), running `interview` again will **overwrite** the existing one.
 * To remove an existing event, use the [`removeevent`](#removing-an-event--removeevent) command.
 * This action can be undone using `undo`.
+* The same **single-event** rule as for [`assessment`](#setting-an-online-assessment--assessment) applies: only one event is kept per application until multi-round support is added (see [Future Improvement](#future-improvement)).
 
 > **Note:** The datetime must be in `yyyy-MM-dd HH:mm` format exactly. Invalid dates or times (e.g. `2026-13-01 10:00` or `2026-03-24 10:60`) will not be accepted.
 
@@ -889,3 +894,6 @@ Action | Format, Examples
    We plan to upgrade the isSameApplication logic to incorporate fuzzy matching or similarity thresholds. The system could normalize common company suffixes (e.g., "Pte Ltd", "LLC", "Inc.") before comparison. <br/>
    Alternatively, it could introduce a "soft warning" system where the app alerts the user about a highly similar existing entry and asks for explicit confirmation before proceeding with the addition. <br/>
    This will greatly improve usability and help users maintain a cleaner application tracker. <br/>
+8. **Multiple interview/assessment rounds:** Store a **history or list** of events per application instead of only the latest assessment or interview, to match multi-stage hiring pipelines.
+9. **More consistent command prefixes:** Reduce mixed conventions (e.g. company location vs event location, or prefixed vs non-prefixed arguments) so keyboard-first users can predict command shapes more easily.
+10. **Incremental tag editing:** Allow adding or removing a **single** tag without replacing the entire tag set on each edit.

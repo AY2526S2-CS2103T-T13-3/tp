@@ -46,6 +46,7 @@ public class RoleTest {
         assertTrue(Role.isValidRole("SWE Intern (Backend)")); // parentheses
         assertTrue(Role.isValidRole("L1 Support Engineer")); // mixed letters and numbers
         assertTrue(Role.isValidRole("C# Developer")); // hash
+        assertTrue(Role.isValidRole("Sr. Engineer")); // period in abbreviation
     }
 
     @Test

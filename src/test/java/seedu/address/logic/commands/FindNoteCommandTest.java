@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_APPLICATIONS_LISTED_OVERVIEW;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalApplications.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -70,7 +69,7 @@ public class FindNoteCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_oneMatchingKeyword_returnsMatches() {
+    public void execute_one_extraKeyword() {
         model.addApplication(new ApplicationBuilder().withRole("Intern C").withNote("Follow up with HR").build());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 

@@ -86,7 +86,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_oneMatchingKeyword_returnsMatches() {
+    public void execute_one_extraKeyword() {
         RoleContainsKeywordsPredicate predicate = preparePredicate("Engineer zzznotfound");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredApplicationList(predicate);
